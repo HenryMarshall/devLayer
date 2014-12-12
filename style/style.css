@@ -1,0 +1,49 @@
+.config {
+  background-color: green;
+  height: 40px; }
+
+.key {
+  height: 60px;
+  background-color: orange;
+  display: inline-block;
+  position: relative;
+  margin-right: 0.25%; }
+  .key:last-of-type {
+    margin-right: 0; }
+  .key span {
+    margin: 4px 8px; }
+  .key .lower, .key .upper, .key .devLayer {
+    position: absolute; }
+  .key .lower {
+    bottom: 0;
+    right: 0; }
+  .key .upper {
+    top: 0;
+    right: 0; }
+  .key .devLayer {
+    top: 0;
+    left: 0;
+    color: green; }
+
+.x1 {
+  width: 5.91667%; }
+
+.x125 {
+  width: 7.58333%; }
+
+.x15 {
+  width: 9.25%; }
+
+.x175 {
+  width: 10.91667%; }
+
+.x2 {
+  width: 12.58333%; }
+
+.x225 {
+  width: 14.25%; }
+
+.x625 {
+  width: 40.91667%; }
+
+/*# sourceMappingURL=style.css.map */

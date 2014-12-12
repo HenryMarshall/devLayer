@@ -1,0 +1,60 @@
+$key-margin: .25%
+
+@mixin key-width($width)
+  // Why is the .5% necessary?
+  width: (100% / 15) * $width - $key-margin - .5%
+
+.config
+  background-color: green
+  height: 40px
+
+.key
+  height: 60px
+  background-color: orange
+  display: inline-block
+  position: relative
+
+  margin-right: $key-margin
+
+  &:last-of-type
+    margin-right: 0
+
+  span
+    margin: 4px 8px
+
+  .lower, .upper, .devLayer
+    position: absolute
+
+  .lower
+    bottom: 0
+    right: 0
+
+  .upper
+    top: 0
+    right: 0
+
+  .devLayer
+    top: 0
+    left: 0
+    color: green
+
+.x1
+  @include key-width(1)
+
+.x125
+  @include key-width(1.25)
+
+.x15
+  @include key-width(1.5)
+
+.x175
+  @include key-width(1.75)
+
+.x2
+  @include key-width(2)
+
+.x225
+  @include key-width(2.25)
+
+.x625
+  @include key-width(6.25)
