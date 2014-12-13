@@ -1,12 +1,15 @@
 $key-margin: .25%
 
 @mixin key-width($width)
-  // Why is the .5% necessary?
-  width: (100% / 15) * $width - $key-margin - .5%
+  // Why is the magic number necessary?
+  width: (100% / 15) * $width - $key-margin - 1%
 
 .config
   background-color: green
   height: 40px
+
+.selected
+  font-weight: bold
 
 .key
   height: 60px
@@ -38,23 +41,24 @@ $key-margin: .25%
     left: 0
     color: green
 
-.x1
-  @include key-width(1)
 
-.x125
-  @include key-width(1.25)
+  &.x1
+    @include key-width(1)
 
-.x15
-  @include key-width(1.5)
+  &.x125
+    @include key-width(1.25)
 
-.x175
-  @include key-width(1.75)
+  &.x15
+    @include key-width(1.5)
 
-.x2
-  @include key-width(2)
+  &.x175
+    @include key-width(1.75)
 
-.x225
-  @include key-width(2.25)
+  &.x2
+    @include key-width(2)
 
-.x625
-  @include key-width(6.25)
+  &.x225
+    @include key-width(2.25)
+
+  &.x625
+    @include key-width(6.25)

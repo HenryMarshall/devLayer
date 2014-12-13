@@ -2,3 +2,6 @@ npm-debug.log
 
 *.sublime-project
 *.sublime-workspace
+
+corpus.js
+copy.md

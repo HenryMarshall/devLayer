@@ -2,6 +2,9 @@
   background-color: green;
   height: 40px; }
 
+.selected {
+  font-weight: bold; }
+
 .key {
   height: 60px;
   background-color: orange;
@@ -24,26 +27,19 @@
     top: 0;
     left: 0;
     color: green; }
-
-.x1 {
-  width: 5.91667%; }
-
-.x125 {
-  width: 7.58333%; }
-
-.x15 {
-  width: 9.25%; }
-
-.x175 {
-  width: 10.91667%; }
-
-.x2 {
-  width: 12.58333%; }
-
-.x225 {
-  width: 14.25%; }
-
-.x625 {
-  width: 40.91667%; }
+  .key.x1 {
+    width: 5.41667%; }
+  .key.x125 {
+    width: 7.08333%; }
+  .key.x15 {
+    width: 8.75%; }
+  .key.x175 {
+    width: 10.41667%; }
+  .key.x2 {
+    width: 12.08333%; }
+  .key.x225 {
+    width: 13.75%; }
+  .key.x625 {
+    width: 40.41667%; }
 
 /*# sourceMappingURL=style.css.map */
