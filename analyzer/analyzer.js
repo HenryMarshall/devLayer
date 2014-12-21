@@ -778,6 +778,35 @@ var analyzer = {
     layerPriority: ["altGr", "noMod", "altGrShift", "shift"]
   },
   keymap: {},
+  previousStroke: {
+    finger: undefined,
+    hand: undefined,
+    x: undefined,
+    y: undefined,
+    shift: false,
+    altGr: false
+  },
+  results: {
+    finger: {
+      leftPinkie: new finger(0,0,0),
+      leftRing: new finger(0,0,0),
+      leftMiddle: new finger(0,0,0),
+      leftIndex: new finger(0,0,0),
+      leftThumb: new finger(0,0,0),
+      rightPinkie: new finger(0,0,0),
+      rightRing: new finger(0,0,0),
+      rightMiddle: new finger(0,0,0),
+      rightIndex: new finger(0,0,0),
+      rightThumb: new finger(0,0,0)
+    },
+    row: {
+      numberRow: 0,
+      topRow: 0,
+      homeRow: 0,
+      bottomRow: 0,
+      spaceRow: 0
+    }
+  },
 
   initialize: function() {
     var layouts = this.config.layouts;
@@ -837,6 +866,7 @@ var analyzer = {
         // If corpusCharacter can legally be entered on the given layout
         if (this.keymap[layout].hasOwnProperty(corpusCharacter)) {
           var keyMapKey = this.keymap[layout][corpusCharacter];
+          this.registerKeypress(keyMapKey);
         }
         else {
           console.log("Invalid character: ", corpusCharacter);
@@ -847,9 +877,39 @@ var analyzer = {
     console.log("this.results: ", this.results);
   },
 
+  registerKeypress: function(keyMapKey) {
+    var previousFinger = this.previousStroke.finger,
+        currentFinger = keyMapKey.finger;
+
+    this.results.finger[keyMapKey.finger].strokes++;
+
+    if (keyMapKey.finger === this.previousStroke.finger) {
+      this.results.finger[keyMapKey.finger].consecutive++;
+      // Increment finger travel distance to new key.
+    }
+    else {
+      // Increment finger travel distance for the previous stroke's finger to
+      // account for a return to the homerow.
+
+      // Increment finger travel distance for new finger.
+    }
+
+    // Set previousStroke to reflect new stroke
+    for (var attr in this.previousStroke) {
+      this.previousStroke[attr] = keyMapKey[attr];
+    }
+  }
+
 // End analyzer namespace
 };
 
+
+// TODO: put finger constructor in namespace
+function finger(strokes, distance, consecutive) {
+  this.strokes = strokes,
+  this.distance = distance,
+  this.consecutive = consecutive
+}
 
 analyzer.initialize();
 analyzer.analyzeCorpus();
