@@ -1,305 +1,361 @@
-var layouts = {
-  "qwerty": {
-    "10": {
+{
+  "qwerty": [
+    {
+        "keycode": "10",
         "noMod": "1",
-        "shift": "exclam",
-        "altGr": "1",
-        "altGrShift": "exclam"
+        "shift": "!",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "11": {
+    {
+        "keycode": "11",
         "noMod": "2",
-        "shift": "at",
-        "altGr": "2",
-        "altGrShift": "at"
+        "shift": "@",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "12": {
+    {
+        "keycode": "12",
         "noMod": "3",
-        "shift": "numbersign",
-        "altGr": "3",
-        "altGrShift": "numbersign"
+        "shift": "#",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "13": {
+    {
+        "keycode": "13",
         "noMod": "4",
-        "shift": "dollar",
-        "altGr": "4",
-        "altGrShift": "dollar"
+        "shift": "$",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "14": {
+    {
+        "keycode": "14",
         "noMod": "5",
-        "shift": "percent",
-        "altGr": "5",
-        "altGrShift": "percent"
+        "shift": "%",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "15": {
+    {
+        "keycode": "15",
         "noMod": "6",
-        "shift": "asciicircum",
-        "altGr": "6",
-        "altGrShift": "asciicircum"
+        "shift": "^",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "16": {
+    {
+        "keycode": "16",
         "noMod": "7",
-        "shift": "ampersand",
-        "altGr": "7",
-        "altGrShift": "ampersand"
+        "shift": "&",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "17": {
+    {
+        "keycode": "17",
         "noMod": "8",
-        "shift": "asterisk",
-        "altGr": "8",
-        "altGrShift": "asterisk"
+        "shift": "*",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "18": {
+    {
+        "keycode": "18",
         "noMod": "9",
-        "shift": "parenleft",
-        "altGr": "9",
-        "altGrShift": "parenleft"
+        "shift": "(",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "19": {
+    {
+        "keycode": "19",
         "noMod": "0",
-        "shift": "parenright",
-        "altGr": "0",
-        "altGrShift": "parenrigh"
-      ,
-    "20": {
-        "noMod": "minus",
-        "shift": "underscore",
-        "altGr": "minus",
-        "altGrShift": "underscore"
+        "shift": ")",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "21": {
-        "noMod": "equal",
-        "shift": "plus",
-        "altGr": "equal",
-        "altGrShift": "plus"
+    {
+        "keycode": "20",
+        "noMod": "-",
+        "shift": "_",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "22": {
-        "noMod": "BackSpace",
-        "shift": "BackSpace",
-        "altGr": "BackSpace",
-        "altGrShift": "BackSpace"
+    {
+        "keycode": "21",
+        "noMod": "=",
+        "shift": "+",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "23": {
-        "noMod": "Tab",
-        "shift": "ISO_Left_Tab",
-        "altGr": "Tab",
-        "altGrShift": "ISO_Left_Tab"
+    {
+        "keycode": "22",
+        "noMod": "\b",
+        "shift": "",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "24": {
+    {
+        "keycode": "23",
+        "noMod": "\t",
+        "shift": "",
+        "altGr": "",
+        "altGrShift": ""
+    },
+    {
+        "keycode": "24",
         "noMod": "q",
         "shift": "Q",
-        "altGr": "q",
-        "altGrShift": "Q"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "25": {
+    {
+        "keycode": "25",
         "noMod": "w",
         "shift": "W",
-        "altGr": "w",
-        "altGrShift": "W"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "26": {
+    {
+        "keycode": "26",
         "noMod": "e",
         "shift": "E",
-        "altGr": "e",
-        "altGrShift": "E"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "27": {
+    {
+        "keycode": "27",
         "noMod": "r",
         "shift": "R",
-        "altGr": "r",
-        "altGrShift": "R"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "28": {
+    {
+        "keycode": "28",
         "noMod": "t",
         "shift": "T",
-        "altGr": "t",
-        "altGrShift": "T"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "29": {
+    {
+        "keycode": "29",
         "noMod": "y",
         "shift": "Y",
-        "altGr": "y",
-        "altGrShift": "Y"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "30": {
+    {
+        "keycode": "30",
         "noMod": "u",
         "shift": "U",
-        "altGr": "u",
-        "altGrShift": "U"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "31": {
+    {
+        "keycode": "31",
         "noMod": "i",
         "shift": "I",
-        "altGr": "i",
-        "altGrShift": "I"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "32": {
+    {
+        "keycode": "32",
         "noMod": "o",
         "shift": "O",
-        "altGr": "o",
-        "altGrShift": "O"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "33": {
+    {
+        "keycode": "33",
         "noMod": "p",
         "shift": "P",
-        "altGr": "p",
-        "altGrShift": "P"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "34": {
-        "noMod": "bracketleft",
-        "shift": "braceleft",
-        "altGr": "bracketleft",
-        "altGrShift": "braceleft"
+    {
+        "keycode": "34",
+        "noMod": "[",
+        "shift": "{",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "35": {
-        "noMod": "bracketright",
-        "shift": "braceright",
-        "altGr": "bracketright",
-        "altGrShift": "braceright"
+    {
+        "keycode": "35",
+        "noMod": "]",
+        "shift": "}",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "36": {
-        "noMod": "Return",
-        "shift": "NoSymbol",
-        "altGr": "Return",
-        "altGrShift": "NoSymbol"
+    {
+        "keycode": "36",
+        "noMod": "\n",
+        "shift": "",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "38": {
+    {
+        "keycode": "38",
         "noMod": "a",
         "shift": "A",
-        "altGr": "a",
-        "altGrShift": "A"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "39": {
+    {
+        "keycode": "39",
         "noMod": "s",
         "shift": "S",
-        "altGr": "s",
-        "altGrShift": "S"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "40": {
+    {
+        "keycode": "40",
         "noMod": "d",
         "shift": "D",
-        "altGr": "d",
-        "altGrShift": "D"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "41": {
+    {
+        "keycode": "41",
         "noMod": "f",
         "shift": "F",
-        "altGr": "f",
-        "altGrShift": "F"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "42": {
+    {
+        "keycode": "42",
         "noMod": "g",
         "shift": "G",
-        "altGr": "g",
-        "altGrShift": "G"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "43": {
+    {
+        "keycode": "43",
         "noMod": "h",
         "shift": "H",
-        "altGr": "h",
-        "altGrShift": "H"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "44": {
+    {
+        "keycode": "44",
         "noMod": "j",
         "shift": "J",
-        "altGr": "j",
-        "altGrShift": "J"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "45": {
+    {
+        "keycode": "45",
         "noMod": "k",
         "shift": "K",
-        "altGr": "k",
-        "altGrShift": "K"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "46": {
+    {
+        "keycode": "46",
         "noMod": "l",
         "shift": "L",
-        "altGr": "l",
-        "altGrShift": "L"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "47": {
-        "noMod": "semicolon",
-        "shift": "colon",
-        "altGr": "semicolon",
-        "altGrShift": "colon"
+    {
+        "keycode": "47",
+        "noMod": ";",
+        "shift": ":",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "48": {
-        "noMod": "apostrophe",
-        "shift": "quotedbl",
-        "altGr": "apostrophe",
-        "altGrShift": "quotedbl"
+    {
+        "keycode": "48",
+        "noMod": "'",
+        "shift": "\"",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "49": {
-        "noMod": "grave",
-        "shift": "asciitilde",
-        "altGr": "grave",
-        "altGrShift": "asciitilde"
+    {
+        "keycode": "49",
+        "noMod": "`",
+        "shift": "~",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "51": {
-        "noMod": "backslash",
-        "shift": "bar",
-        "altGr": "backslash",
-        "altGrShift": "bar"
+    {
+        "keycode": "51",
+        "noMod": "\\",
+        "shift": "|",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "52": {
+    {
+        "keycode": "52",
         "noMod": "z",
         "shift": "Z",
-        "altGr": "z",
-        "altGrShift": "Z"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "53": {
+    {
+        "keycode": "53",
         "noMod": "x",
         "shift": "X",
-        "altGr": "x",
-        "altGrShift": "X"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "54": {
+    {
+        "keycode": "54",
         "noMod": "c",
         "shift": "C",
-        "altGr": "c",
-        "altGrShift": "C"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "55": {
+    {
+        "keycode": "55",
         "noMod": "v",
         "shift": "V",
-        "altGr": "v",
-        "altGrShift": "V"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "56": {
+    {
+        "keycode": "56",
         "noMod": "b",
         "shift": "B",
-        "altGr": "b",
-        "altGrShift": "B"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "57": {
+    {
+        "keycode": "57",
         "noMod": "n",
         "shift": "N",
-        "altGr": "n",
-        "altGrShift": "N"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "58": {
+    {
+        "keycode": "58",
         "noMod": "m",
         "shift": "M",
-        "altGr": "m",
-        "altGrShift": "M"
+        "altGr": "",
+        "altGrShift": ""
     },
-    "59": {
-        "noMod": "comma",
-        "shift": "less",
-        "altGr": "comma",
-        "altGrShift": "less"
+    {
+        "keycode": "59",
+        "noMod": ",",
+        "shift": "<",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "60": {
-        "noMod": "period",
-        "shift": "greater",
-        "altGr": "period",
-        "altGrShift": "greater"
+    {
+        "keycode": "60",
+        "noMod": ".",
+        "shift": ">",
+        "altGr": "",
+        "altGrShift": ""
     },
-    "61": {
-        "noMod": "slash",
-        "shift": "question",
-        "altGr": "slash",
-        "altGrShift": "question"
+    {
+        "keycode": "61",
+        "noMod": "/",
+        "shift": "?",
+        "altGr": "",
+        "altGrShift": ""
     },
-
-  }
+    {
+        "keycode": "65",
+        "noMod": " ",
+        "shift": "",
+        "altGr": "",
+        "altGrShift": ""
+    }
+  ]
 }
