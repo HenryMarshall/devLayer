@@ -1,7 +1,7 @@
 var analyzer = {
   config: {
     corpus: "for (var i = foo.length - 1; i >= 0; i--) {\nif (foo[i] === \"foo\") {\nbar++;\n}\n}",
-    homeRow: {
+    homerow: {
       "leftPinkie": 38,
       "leftRing": 39,
       "leftMiddle": 40,
@@ -781,8 +781,7 @@ var analyzer = {
   previousStroke: {
     finger: undefined,
     hand: undefined,
-    x: undefined,
-    y: undefined,
+    keycode: undefined,
     shift: false,
     altGr: false
   },
@@ -823,7 +822,7 @@ var analyzer = {
   defineKeymapForLayout: function(layout) {
     var layoutKeymap = {};
 
-    // Used keypress it the one with the lowest layerPriority and keycode
+    // Used keypress is the one with the lowest layerPriority and keycode
     for (var ii = 0; ii < this.config.layerPriority.length; ii++) {
       var layer = this.config.layerPriority[ii];
 
@@ -866,7 +865,7 @@ var analyzer = {
         // If corpusCharacter can legally be entered on the given layout
         if (this.keymap[layout].hasOwnProperty(corpusCharacter)) {
           var keyMapKey = this.keymap[layout][corpusCharacter];
-          this.registerKeypress(keyMapKey);
+          this.registerStroke(keyMapKey);
         }
         else {
           console.log("Invalid character: ", corpusCharacter);
@@ -877,28 +876,59 @@ var analyzer = {
     console.log("this.results: ", this.results);
   },
 
-  registerKeypress: function(keyMapKey) {
+  registerStroke: function(keyMapKey) {
     var previousFinger = this.previousStroke.finger,
-        currentFinger = keyMapKey.finger;
+        previousFingerResults = this.results.finger[previousFinger],
+        currentFinger = keyMapKey.finger,
+        currentFingerResults = this.results.finger[currentFinger];
 
     this.results.finger[keyMapKey.finger].strokes++;
 
-    if (keyMapKey.finger === this.previousStroke.finger) {
-      this.results.finger[keyMapKey.finger].consecutive++;
+    if (currentFinger === previousFinger) {
+      currentFingerResults.consecutive++;
+      
       // Increment finger travel distance to new key.
+      this.moveFingerBetween(this.previousStroke.keycode, keyMapKey.keycode);
     }
     else {
       // Increment finger travel distance for the previous stroke's finger to
       // account for a return to the homerow.
+      this.moveFingerBetween(this.previousStroke.keycode);
 
       // Increment finger travel distance for new finger.
+      this.moveFingerBetween(keyMapKey.keycode)
     }
 
     // Set previousStroke to reflect new stroke
     for (var attr in this.previousStroke) {
       this.previousStroke[attr] = keyMapKey[attr];
     }
-  }
+  },
+
+  moveFingerBetween: function(keycode1, keycode2) {
+    // The first time this is called previousStroke.keycode is undefined.
+    if (keycode1 !== undefined) {
+
+      var key1 = this.config.keyboard[keycode1],
+          finger = key1.finger;
+
+      // If keycode2 is undefined return finger to homerow
+      if (keycode2 === undefined) {
+        keycode2 = this.config.homerow[finger];
+      }
+
+      var key2 = this.config.keyboard[keycode2];
+
+      var x1 = key1.x,
+          y1 = key1.y,
+          x2 = key2.x,
+          y2 = key2.y;
+
+      var distance = Math.sqrt(Math.pow((x1-x2), 2) + Math.pow((y1-y2), 2));
+
+      this.results.finger[finger].distance += distance;
+    }
+  },
 
 // End analyzer namespace
 };
