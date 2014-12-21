@@ -1,6 +1,6 @@
 *DevLayer*
 
-DevLayer is a .xmodmap keyboard layout generator that puts frequently used programming keys closer to the homerow. Because it places these keys on the AltGr layer it is compatible with any layout that does *not* utilize this key (e.g., QWERTY, Dvorak, Colemak, Workman). 
+DevLayer is a [xmodmap keyboard layout](https://wiki.archlinux.org/index.php/xmodmap) generator that puts frequently used programming keys closer to the homerow. Because it places these keys on the AltGr layer it is compatible with any layout that does *not* utilize this key (e.g., QWERTY, Dvorak, Colemak, Workman). 
 
 If you *do* rely on the AltGr key to type foreign characters, DevLayer is *not* for you. It replaces these keys with various programming keys.
 
