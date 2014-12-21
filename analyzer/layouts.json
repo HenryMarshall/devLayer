@@ -1,0 +1,305 @@
+var layouts = {
+  "qwerty": {
+    "10": {
+        "noMod": "1",
+        "shift": "exclam",
+        "altGr": "1",
+        "altGrShift": "exclam"
+    },
+    "11": {
+        "noMod": "2",
+        "shift": "at",
+        "altGr": "2",
+        "altGrShift": "at"
+    },
+    "12": {
+        "noMod": "3",
+        "shift": "numbersign",
+        "altGr": "3",
+        "altGrShift": "numbersign"
+    },
+    "13": {
+        "noMod": "4",
+        "shift": "dollar",
+        "altGr": "4",
+        "altGrShift": "dollar"
+    },
+    "14": {
+        "noMod": "5",
+        "shift": "percent",
+        "altGr": "5",
+        "altGrShift": "percent"
+    },
+    "15": {
+        "noMod": "6",
+        "shift": "asciicircum",
+        "altGr": "6",
+        "altGrShift": "asciicircum"
+    },
+    "16": {
+        "noMod": "7",
+        "shift": "ampersand",
+        "altGr": "7",
+        "altGrShift": "ampersand"
+    },
+    "17": {
+        "noMod": "8",
+        "shift": "asterisk",
+        "altGr": "8",
+        "altGrShift": "asterisk"
+    },
+    "18": {
+        "noMod": "9",
+        "shift": "parenleft",
+        "altGr": "9",
+        "altGrShift": "parenleft"
+    },
+    "19": {
+        "noMod": "0",
+        "shift": "parenright",
+        "altGr": "0",
+        "altGrShift": "parenrigh"
+      ,
+    "20": {
+        "noMod": "minus",
+        "shift": "underscore",
+        "altGr": "minus",
+        "altGrShift": "underscore"
+    },
+    "21": {
+        "noMod": "equal",
+        "shift": "plus",
+        "altGr": "equal",
+        "altGrShift": "plus"
+    },
+    "22": {
+        "noMod": "BackSpace",
+        "shift": "BackSpace",
+        "altGr": "BackSpace",
+        "altGrShift": "BackSpace"
+    },
+    "23": {
+        "noMod": "Tab",
+        "shift": "ISO_Left_Tab",
+        "altGr": "Tab",
+        "altGrShift": "ISO_Left_Tab"
+    },
+    "24": {
+        "noMod": "q",
+        "shift": "Q",
+        "altGr": "q",
+        "altGrShift": "Q"
+    },
+    "25": {
+        "noMod": "w",
+        "shift": "W",
+        "altGr": "w",
+        "altGrShift": "W"
+    },
+    "26": {
+        "noMod": "e",
+        "shift": "E",
+        "altGr": "e",
+        "altGrShift": "E"
+    },
+    "27": {
+        "noMod": "r",
+        "shift": "R",
+        "altGr": "r",
+        "altGrShift": "R"
+    },
+    "28": {
+        "noMod": "t",
+        "shift": "T",
+        "altGr": "t",
+        "altGrShift": "T"
+    },
+    "29": {
+        "noMod": "y",
+        "shift": "Y",
+        "altGr": "y",
+        "altGrShift": "Y"
+    },
+    "30": {
+        "noMod": "u",
+        "shift": "U",
+        "altGr": "u",
+        "altGrShift": "U"
+    },
+    "31": {
+        "noMod": "i",
+        "shift": "I",
+        "altGr": "i",
+        "altGrShift": "I"
+    },
+    "32": {
+        "noMod": "o",
+        "shift": "O",
+        "altGr": "o",
+        "altGrShift": "O"
+    },
+    "33": {
+        "noMod": "p",
+        "shift": "P",
+        "altGr": "p",
+        "altGrShift": "P"
+    },
+    "34": {
+        "noMod": "bracketleft",
+        "shift": "braceleft",
+        "altGr": "bracketleft",
+        "altGrShift": "braceleft"
+    },
+    "35": {
+        "noMod": "bracketright",
+        "shift": "braceright",
+        "altGr": "bracketright",
+        "altGrShift": "braceright"
+    },
+    "36": {
+        "noMod": "Return",
+        "shift": "NoSymbol",
+        "altGr": "Return",
+        "altGrShift": "NoSymbol"
+    },
+    "38": {
+        "noMod": "a",
+        "shift": "A",
+        "altGr": "a",
+        "altGrShift": "A"
+    },
+    "39": {
+        "noMod": "s",
+        "shift": "S",
+        "altGr": "s",
+        "altGrShift": "S"
+    },
+    "40": {
+        "noMod": "d",
+        "shift": "D",
+        "altGr": "d",
+        "altGrShift": "D"
+    },
+    "41": {
+        "noMod": "f",
+        "shift": "F",
+        "altGr": "f",
+        "altGrShift": "F"
+    },
+    "42": {
+        "noMod": "g",
+        "shift": "G",
+        "altGr": "g",
+        "altGrShift": "G"
+    },
+    "43": {
+        "noMod": "h",
+        "shift": "H",
+        "altGr": "h",
+        "altGrShift": "H"
+    },
+    "44": {
+        "noMod": "j",
+        "shift": "J",
+        "altGr": "j",
+        "altGrShift": "J"
+    },
+    "45": {
+        "noMod": "k",
+        "shift": "K",
+        "altGr": "k",
+        "altGrShift": "K"
+    },
+    "46": {
+        "noMod": "l",
+        "shift": "L",
+        "altGr": "l",
+        "altGrShift": "L"
+    },
+    "47": {
+        "noMod": "semicolon",
+        "shift": "colon",
+        "altGr": "semicolon",
+        "altGrShift": "colon"
+    },
+    "48": {
+        "noMod": "apostrophe",
+        "shift": "quotedbl",
+        "altGr": "apostrophe",
+        "altGrShift": "quotedbl"
+    },
+    "49": {
+        "noMod": "grave",
+        "shift": "asciitilde",
+        "altGr": "grave",
+        "altGrShift": "asciitilde"
+    },
+    "51": {
+        "noMod": "backslash",
+        "shift": "bar",
+        "altGr": "backslash",
+        "altGrShift": "bar"
+    },
+    "52": {
+        "noMod": "z",
+        "shift": "Z",
+        "altGr": "z",
+        "altGrShift": "Z"
+    },
+    "53": {
+        "noMod": "x",
+        "shift": "X",
+        "altGr": "x",
+        "altGrShift": "X"
+    },
+    "54": {
+        "noMod": "c",
+        "shift": "C",
+        "altGr": "c",
+        "altGrShift": "C"
+    },
+    "55": {
+        "noMod": "v",
+        "shift": "V",
+        "altGr": "v",
+        "altGrShift": "V"
+    },
+    "56": {
+        "noMod": "b",
+        "shift": "B",
+        "altGr": "b",
+        "altGrShift": "B"
+    },
+    "57": {
+        "noMod": "n",
+        "shift": "N",
+        "altGr": "n",
+        "altGrShift": "N"
+    },
+    "58": {
+        "noMod": "m",
+        "shift": "M",
+        "altGr": "m",
+        "altGrShift": "M"
+    },
+    "59": {
+        "noMod": "comma",
+        "shift": "less",
+        "altGr": "comma",
+        "altGrShift": "less"
+    },
+    "60": {
+        "noMod": "period",
+        "shift": "greater",
+        "altGr": "period",
+        "altGrShift": "greater"
+    },
+    "61": {
+        "noMod": "slash",
+        "shift": "question",
+        "altGr": "slash",
+        "altGrShift": "question"
+    },
+
+  }
+}
