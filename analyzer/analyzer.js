@@ -909,38 +909,40 @@ var analyzer = {
 
   modifierKeys: function(keyMapKey) {
 
-
     if (keyMapKey.altGr && !this.previousStroke.altGr) {
       var rightThumbResults = this.results.finger.rightThumb;
       rightThumbResults.strokes++
     }
 
+    var previousHand = this.previousStroke.hand,
+        previousFinger = this.previousStroke.finger,
+        currentHand = keyMapKey.hand,
+        currentFinger = keyMapKey.finger;
+
     // As per best practices, this assumes that should a typist write "FJ" they
     // change from the right to the left shift. This is important to the 
     // moveFingerBetween calculation, but may be unrealistic.
     if (keyMapKey.shift) {
-      var sameHand = this.previousStroke.hand === keyMapKey.hand
-
       if (this.previousStroke.shift) {
-        if (this.previousStroke.hand !== keyMapKey.hand) {
+        if (previousHand !== currentHand) {
           // Unshift previous stroke
-          this.shiftStroke(this.previousStroke.hand, false);
+          this.shiftStroke(previousHand, currentFinger, false);
           // Shift current stroke
-          this.shiftStroke(keyMapKey.hand, true);
+          this.shiftStroke(currentHand, previousFinger, true);
         }
       }
       else {
         // Shift current stroke
-        this.shiftStroke(keyMapKey.hand, true);
+        this.shiftStroke(currentHand, previousFinger, true);
       }
     }
     else if (this.previousStroke.shift) {
       // Unshift previous stroke
-      this.shiftStroke(this.previousStroke.hand, false)
+      this.shiftStroke(previousHand, currentFinger, false)
     }
   },
 
-  shiftStroke: function(oppositeHand, incrementStrokes) {
+  shiftStroke: function(oppositeHand, sequentialFinger, incrementStrokes) {
     var leftShiftKeycode = 50,
         rightShiftKeycode = 62,
         shiftFinger;
@@ -954,6 +956,11 @@ var analyzer = {
     else {
       shiftFinger = "leftPinkie";
       this.moveFingerBetween(leftShiftKeycode);
+    }
+
+    // Conside the consecutive uses of the leftPinkie in the string "aL"
+    if (sequentialFinger === shiftFinger) {
+      this.results.finger[shiftFinger].consecutive++
     }
 
     if (incrementStrokes) {
