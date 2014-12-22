@@ -777,7 +777,6 @@ var analyzer = {
     },
     layerPriority: ["altGr", "noMod", "altGrShift", "shift"]
   },
-  keymap: {},
   previousStroke: {
     finger: undefined,
     hand: undefined,
@@ -785,23 +784,8 @@ var analyzer = {
     shift: false,
     altGr: false
   },
-  // FIXME: Results must be separtely tallied for each layout.
-  results: {
-    finger: {
-      leftPinkie: new finger(0,0,0),
-      leftRing: new finger(0,0,0),
-      leftMiddle: new finger(0,0,0),
-      leftIndex: new finger(0,0,0),
-      leftThumb: new finger(0,0,0),
-      rightPinkie: new finger(0,0,0),
-      rightRing: new finger(0,0,0),
-      rightMiddle: new finger(0,0,0),
-      rightIndex: new finger(0,0,0),
-      rightThumb: new finger(0,0,0)
-    },
-    // Rows are indexed from the top (number, tab, caps, shift, ctrl)
-    row: [0,0,0,0,0]
-  },
+  keymap: {},
+  results: new score(),
 
   initialize: function() {
     var layouts = this.config.layouts;
@@ -873,7 +857,7 @@ var analyzer = {
   },
 
   registerStroke: function(currentKey) {
-    var previousKeycode = this.previousStoke.keycode,
+    var previousKeycode = this.previousStroke.keycode,
         currentKeycode = currentKey.keycode,
         currentFingerResults = this.results.finger[currentKey.finger];
 
@@ -918,7 +902,7 @@ var analyzer = {
         previousFinger = this.previousStroke.finger,
         currentHand = currentKey.hand,
         currentFinger = currentKey.finger;
-        
+
     if (currentKey.shift) {
       if (this.previousStroke.shift) {
         if (previousHand !== currentHand) {
@@ -1002,6 +986,23 @@ function finger(strokes, distance, consecutive) {
   this.strokes = strokes,
   this.distance = distance,
   this.consecutive = consecutive
+}
+
+function score() {
+  this.finger = {
+    leftPinkie: new finger(0,0,0),
+    leftRing: new finger(0,0,0),
+    leftMiddle: new finger(0,0,0),
+    leftIndex: new finger(0,0,0),
+    leftThumb: new finger(0,0,0),
+    rightPinkie: new finger(0,0,0),
+    rightRing: new finger(0,0,0),
+    rightMiddle: new finger(0,0,0),
+    rightIndex: new finger(0,0,0),
+    rightThumb: new finger(0,0,0)
+  },
+  // Rows are indexed from the top (number, tab, caps, shift, ctrl)
+  this.row = [0,0,0,0,0]
 }
 
 analyzer.initialize();
