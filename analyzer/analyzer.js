@@ -798,6 +798,7 @@ var analyzer = {
       rightIndex: new finger(0,0,0),
       rightThumb: new finger(0,0,0)
     },
+    // Rows are indexed from the top (number, tab, caps, shift, ctrl)
     row: [0,0,0,0,0]
   },
 
@@ -960,7 +961,6 @@ var analyzer = {
 
     if (incrementStrokes) {
       this.results.finger[shiftFinger].strokes++;
-      // Row 3 is shift-row (indexed from number row).
       this.results.row[3]++;
     }
   },
