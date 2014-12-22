@@ -784,8 +784,9 @@ var analyzer = {
     shift: false,
     altGr: false
   },
+  resultsBuffer: undefined,
+  results: {},
   keymap: {},
-  results: new score(),
 
   initialize: function() {
     var layouts = this.config.layouts;
@@ -838,31 +839,63 @@ var analyzer = {
   analyzeCorpus: function() {
     var corpusCharacters = this.config.corpus.split('');
 
-    for (var ii = 0; ii < corpusCharacters.length; ii++) {
-      var corpusCharacter = corpusCharacters[ii];
+    for (var layout in this.keymap) {
+      this.results[layout] = new score();
 
-      for (var layout in this.keymap) {
+      for (var ii = 0; ii < corpusCharacters.length; ii++) {
+        var corpusCharacter = corpusCharacters[ii];
+
         // If corpusCharacter can legally be entered on the given layout
         if (this.keymap[layout].hasOwnProperty(corpusCharacter)) {
+          this.resultsBuffer = new score();
+
           var currentKey = this.keymap[layout][corpusCharacter];
           this.registerStroke(currentKey);
+
+          // Recursively increment results by buffer
+          this.results[layout] = this.incrementResults(this.results[layout]);
         }
         else {
           console.log("Invalid character: ", corpusCharacter);
         }
-      };
+      }
+    }
+    console.log("this.results.qwerty: ", this.results.qwerty);
+  },
+
+  incrementResults: function(obj1, obj2) {
+    if (obj2 === undefined) {
+      obj2 = this.resultsBuffer;
     }
 
-    console.log("this.results: ", this.results);
+    var resultObj = {};
+
+    for (var key in obj1) {
+      if (obj2.hasOwnProperty(key)) {
+        // Sum values if number
+        if (typeof obj1[key] === "number" && typeof obj2[key] === "number") {
+          resultObj[key] = obj1[key] + obj2[key];
+        }
+        // Otherwise recursively call function
+        else {
+          resultObj[key] = this.incrementResults(obj1[key], obj2[key]);
+        }
+      }
+      else {
+        console.log("Objects lacked symmetry. Unable to merge.");
+      }
+    }
+
+    return resultObj;
   },
 
   registerStroke: function(currentKey) {
     var previousKeycode = this.previousStroke.keycode,
         currentKeycode = currentKey.keycode,
-        currentFingerResults = this.results.finger[currentKey.finger];
+        currentFingerResults = this.resultsBuffer.finger[currentKey.finger];
 
     currentFingerResults.strokes++;
-    this.results.row[currentKey.y]++;
+    this.resultsBuffer.row[currentKey.y]++;
 
     if (currentKey.finger === this.previousStroke.finger) {
       currentFingerResults.consecutive++;
@@ -890,8 +923,8 @@ var analyzer = {
   modifierKeys: function(currentKey) {
 
     if (currentKey.altGr && !this.previousStroke.altGr) {
-      this.results.finger.rightThumb++;
-      this.results.row[4]++;
+      this.resultsBuffer.finger.rightThumb++;
+      this.resultsBuffer.row[4]++;
     }
 
     // As per best practices, this assumes that should a typist write "FJ" they
@@ -943,12 +976,12 @@ var analyzer = {
 
     // Consider the consecutive uses of the leftPinkie in the string "aL"
     if (sequentialFinger === shiftFinger) {
-      this.results.finger[shiftFinger].consecutive++;
+      this.resultsBuffer.finger[shiftFinger].consecutive++;
     }
 
     if (incrementStrokes) {
-      this.results.finger[shiftFinger].strokes++;
-      this.results.row[3]++;
+      this.resultsBuffer.finger[shiftFinger].strokes++;
+      this.resultsBuffer.row[3]++;
     }
   },
 
@@ -973,7 +1006,7 @@ var analyzer = {
 
       var distance = Math.sqrt(Math.pow((x1-x2), 2) + Math.pow((y1-y2), 2));
 
-      this.results.finger[finger].distance += distance;
+      this.resultsBuffer.finger[finger].distance += distance;
     }
   },
 
@@ -1001,8 +1034,15 @@ function score() {
     rightIndex: new finger(0,0,0),
     rightThumb: new finger(0,0,0)
   },
-  // Rows are indexed from the top (number, tab, caps, shift, ctrl)
-  this.row = [0,0,0,0,0]
+  // Rows are indexed from the top (number, tab, caps, shift, ctrl). This is an
+  // object instead of an array to make recursive summing easier to implement.
+  this.row = {
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0
+  }
 }
 
 analyzer.initialize();
