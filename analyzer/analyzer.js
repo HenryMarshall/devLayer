@@ -785,6 +785,7 @@ var analyzer = {
     shift: false,
     altGr: false
   },
+  // FIXME: Results must be separtely tallied for each layout.
   results: {
     finger: {
       leftPinkie: new finger(0,0,0),
@@ -859,8 +860,8 @@ var analyzer = {
       for (var layout in this.keymap) {
         // If corpusCharacter can legally be entered on the given layout
         if (this.keymap[layout].hasOwnProperty(corpusCharacter)) {
-          var keyMapKey = this.keymap[layout][corpusCharacter];
-          this.registerStroke(keyMapKey);
+          var currentKey = this.keymap[layout][corpusCharacter];
+          this.registerStroke(currentKey);
         }
         else {
           console.log("Invalid character: ", corpusCharacter);
@@ -871,54 +872,54 @@ var analyzer = {
     console.log("this.results: ", this.results);
   },
 
-  registerStroke: function(keyMapKey) {
-    var previousFinger = this.previousStroke.finger,
-        previousFingerResults = this.results.finger[previousFinger],
-        currentFinger = keyMapKey.finger,
-        currentFingerResults = this.results.finger[currentFinger];
+  registerStroke: function(currentKey) {
+    var previousKeycode = this.previousStoke.keycode,
+        currentKeycode = currentKey.keycode,
+        currentFingerResults = this.results.finger[currentKey.finger];
 
     currentFingerResults.strokes++;
-    this.results.row[keyMapKey.y]++;
+    this.results.row[currentKey.y]++;
 
-    if (currentFinger === previousFinger) {
+    if (currentKey.finger === this.previousStroke.finger) {
       currentFingerResults.consecutive++;
       
       // Increment finger travel distance to new key.
-      this.moveFingerBetween(this.previousStroke.keycode, keyMapKey.keycode);
+      this.moveFingerBetween(previousKeycode, currentKeycode);
     }
     else {
       // Increment finger travel distance for the previous stroke's finger to
       // account for a return to the homerow.
-      this.moveFingerBetween(this.previousStroke.keycode);
+      this.moveFingerBetween(previousKeycode);
 
       // Increment finger travel distance for new finger.
-      this.moveFingerBetween(keyMapKey.keycode)
+      this.moveFingerBetween(currentKeycode)
     }
 
-    this.modifierKeys(keyMapKey);
+    this.modifierKeys(currentKey);
 
     // Set previousStroke to reflect new stroke
     for (var attr in this.previousStroke) {
-      this.previousStroke[attr] = keyMapKey[attr];
+      this.previousStroke[attr] = currentKey[attr];
     }
   },
 
-  modifierKeys: function(keyMapKey) {
+  modifierKeys: function(currentKey) {
 
-    if (keyMapKey.altGr && !this.previousStroke.altGr) {
+    if (currentKey.altGr && !this.previousStroke.altGr) {
       this.results.finger.rightThumb++;
       this.results.row[4]++;
     }
 
-    var previousHand = this.previousStroke.hand,
-        previousFinger = this.previousStroke.finger,
-        currentHand = keyMapKey.hand,
-        currentFinger = keyMapKey.finger;
-
     // As per best practices, this assumes that should a typist write "FJ" they
     // change from the right to the left shift. This is important to the 
     // moveFingerBetween calculation, but may be unrealistic.
-    if (keyMapKey.shift) {
+
+    var previousHand = this.previousStroke.hand,
+        previousFinger = this.previousStroke.finger,
+        currentHand = currentKey.hand,
+        currentFinger = currentKey.finger;
+        
+    if (currentKey.shift) {
       if (this.previousStroke.shift) {
         if (previousHand !== currentHand) {
           // Unshift previous stroke
@@ -939,22 +940,24 @@ var analyzer = {
   },
 
   shiftStroke: function(oppositeHand, sequentialFinger, incrementStrokes) {
-    var leftShiftKeycode = 50,
-        rightShiftKeycode = 62,
-        shiftFinger;
+    var shiftFinger,
+        shiftKeycode;
 
     // oppositeHand strikes the character key and thus the opposite strikes the 
     // shift to complete the chord.
     if (oppositeHand === "left") {
+      // 62 and 50 are xmodmap keycodes for the right/left shifts respectively.
+      shiftKeycode = 62;
       shiftFinger = "rightPinkie";
-      this.moveFingerBetween(rightShiftKeycode);
     }
     else {
+      shiftKeycode = 50;
       shiftFinger = "leftPinkie";
-      this.moveFingerBetween(leftShiftKeycode);
     }
 
-    // Conside the consecutive uses of the leftPinkie in the string "aL"
+    this.moveFingerBetween(shiftKeycode);
+
+    // Consider the consecutive uses of the leftPinkie in the string "aL"
     if (sequentialFinger === shiftFinger) {
       this.results.finger[shiftFinger].consecutive++;
     }
