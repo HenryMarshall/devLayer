@@ -798,13 +798,7 @@ var analyzer = {
       rightIndex: new finger(0,0,0),
       rightThumb: new finger(0,0,0)
     },
-    row: {
-      numberRow: 0,
-      topRow: 0,
-      homeRow: 0,
-      bottomRow: 0,
-      spaceRow: 0
-    }
+    row: [0,0,0,0,0]
   },
 
   initialize: function() {
@@ -883,6 +877,7 @@ var analyzer = {
         currentFingerResults = this.results.finger[currentFinger];
 
     currentFingerResults.strokes++;
+    this.results.row[keyMapKey.y]++;
 
     if (currentFinger === previousFinger) {
       currentFingerResults.consecutive++;
@@ -910,8 +905,8 @@ var analyzer = {
   modifierKeys: function(keyMapKey) {
 
     if (keyMapKey.altGr && !this.previousStroke.altGr) {
-      var rightThumbResults = this.results.finger.rightThumb;
-      rightThumbResults.strokes++
+      this.results.finger.rightThumb++;
+      this.results.row[4]++;
     }
 
     var previousHand = this.previousStroke.hand,
@@ -960,11 +955,13 @@ var analyzer = {
 
     // Conside the consecutive uses of the leftPinkie in the string "aL"
     if (sequentialFinger === shiftFinger) {
-      this.results.finger[shiftFinger].consecutive++
+      this.results.finger[shiftFinger].consecutive++;
     }
 
     if (incrementStrokes) {
-      this.results.finger[shiftFinger].strokes++
+      this.results.finger[shiftFinger].strokes++;
+      // Row 3 is shift-row (indexed from number row).
+      this.results.row[3]++;
     }
   },
 
