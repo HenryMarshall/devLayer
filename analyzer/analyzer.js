@@ -882,7 +882,7 @@ var analyzer = {
         currentFinger = keyMapKey.finger,
         currentFingerResults = this.results.finger[currentFinger];
 
-    this.results.finger[keyMapKey.finger].strokes++;
+    currentFingerResults.strokes++;
 
     if (currentFinger === previousFinger) {
       currentFingerResults.consecutive++;
@@ -899,9 +899,65 @@ var analyzer = {
       this.moveFingerBetween(keyMapKey.keycode)
     }
 
+    this.modifierKeys(keyMapKey);
+
     // Set previousStroke to reflect new stroke
     for (var attr in this.previousStroke) {
       this.previousStroke[attr] = keyMapKey[attr];
+    }
+  },
+
+  modifierKeys: function(keyMapKey) {
+
+
+    if (keyMapKey.altGr && !this.previousStroke.altGr) {
+      var rightThumbResults = this.results.finger.rightThumb;
+      rightThumbResults.strokes++
+    }
+
+    // As per best practices, this assumes that should a typist write "FJ" they
+    // change from the right to the left shift. This is important to the 
+    // moveFingerBetween calculation, but may be unrealistic.
+    if (keyMapKey.shift) {
+      var sameHand = this.previousStroke.hand === keyMapKey.hand
+
+      if (this.previousStroke.shift) {
+        if (this.previousStroke.hand !== keyMapKey.hand) {
+          // Unshift previous stroke
+          this.shiftStroke(this.previousStroke.hand, false);
+          // Shift current stroke
+          this.shiftStroke(keyMapKey.hand, true);
+        }
+      }
+      else {
+        // Shift current stroke
+        this.shiftStroke(keyMapKey.hand, true);
+      }
+    }
+    else if (this.previousStroke.shift) {
+      // Unshift previous stroke
+      this.shiftStroke(this.previousStroke.hand, false)
+    }
+  },
+
+  shiftStroke: function(oppositeHand, incrementStrokes) {
+    var leftShiftKeycode = 50,
+        rightShiftKeycode = 62,
+        shiftFinger;
+
+    // oppositeHand strikes the character key and thus the opposite strikes the 
+    // shift to complete the chord.
+    if (oppositeHand === "left") {
+      shiftFinger = "rightPinkie";
+      this.moveFingerBetween(rightShiftKeycode);
+    }
+    else {
+      shiftFinger = "leftPinkie";
+      this.moveFingerBetween(leftShiftKeycode);
+    }
+
+    if (incrementStrokes) {
+      this.results.finger[shiftFinger].strokes++
     }
   },
 
