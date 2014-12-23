@@ -124,26 +124,26 @@ var analyzer = {
     }
   },
 
-  incrementResults: function(obj1, obj2) {
+  incrementResults: function(obj1, obj2, attr) {
     if (obj2 === undefined) {
       obj2 = this.resultsBuffer;
     }
 
     var resultObj = {};
 
-    for (var key in obj1) {
-      if (obj2.hasOwnProperty(key)) {
+    for (var attr in obj1) {
+      if (obj2.hasOwnProperty(attr)) {
         // Sum values if number
-        if (typeof obj1[key] === "number" && typeof obj2[key] === "number") {
-          resultObj[key] = obj1[key] + obj2[key];
+        if (typeof obj1[attr] === "number" && typeof obj2[attr] === "number") {
+          resultObj[attr] = obj1[attr] + obj2[attr];
         }
         // Otherwise recursively call function
         else {
-          resultObj[key] = this.incrementResults(obj1[key], obj2[key]);
+          resultObj[attr] = this.incrementResults(obj1[attr], obj2[attr], attr);
         }
       }
       else {
-        console.log("Unable to merge.", obj1, obj2);
+        console.log("Unable to merge.", obj1, obj2, attr);
       }
     }
 
@@ -184,7 +184,7 @@ var analyzer = {
   modifierKeys: function(currentKey) {
 
     if (currentKey.altGr && !this.previousStroke.altGr) {
-      this.resultsBuffer.finger.rightThumb++;
+      this.resultsBuffer.finger.rightThumb.strokes++;
       this.resultsBuffer.row[4]++;
     }
 
