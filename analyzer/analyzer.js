@@ -101,14 +101,15 @@ var analyzer = {
         altGr: false
       }
 
-      for (var ii = 0; ii < corpusCharacters.length; ii++) {
-        var corpusCharacter = corpusCharacters[ii];
+      for (var ii = 0, len = corpusCharacters.length; ii < len; ii++) {
+        var corpusCharacter = corpusCharacters[ii],
+            currentKey;
 
         // If corpusCharacter can legally be entered on the given layout
         if (this.keymap[layout].hasOwnProperty(corpusCharacter)) {
           this.resultsBuffer = new score();
 
-          var currentKey = this.keymap[layout][corpusCharacter];
+          currentKey = this.keymap[layout][corpusCharacter];
           this.registerStroke(currentKey);
 
           // Recursively increment results by buffer
@@ -117,6 +118,17 @@ var analyzer = {
         else {
           console.log("Invalid character: ", corpusCharacter);
         }
+
+        // If this is the last character, return fingers to homerow.
+        if (ii === len - 1) {
+          this.resultsBuffer = new score();
+          this.moveFingerBetween(currentKey.keycode)
+          if (currentKey.shift) {
+            this.shiftStroke(currentKey.hand, null, false);            
+          }
+          this.results[layout] = this.incrementResults(this.results[layout]);
+        }
+
       }
     }
 
