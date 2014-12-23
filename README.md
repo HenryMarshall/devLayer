@@ -49,6 +49,7 @@ A list of these keycodes and the currently associated letters can be obtained by
 **FIXME**
 
 * Resolve magic number in key-width sass mixin.
+* Return fingers to home row after last key stroke.
 
 
 **TODO**

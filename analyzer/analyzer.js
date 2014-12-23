@@ -16,13 +16,7 @@ var analyzer = {
     keyboard: undefined,
     layerPriority: ["altGr", "noMod", "altGrShift", "shift"]
   },
-  previousStroke: {
-    finger: undefined,
-    hand: undefined,
-    keycode: undefined,
-    shift: false,
-    altGr: false
-  },
+  previousStroke: undefined,
   resultsBuffer: undefined,
   results: {},
   keymap: {},
@@ -99,6 +93,13 @@ var analyzer = {
 
     for (var layout in this.keymap) {
       this.results[layout] = new score();
+      this.previousStroke = {
+        finger: undefined,
+        hand: undefined,
+        keycode: undefined,
+        shift: false,
+        altGr: false
+      }
 
       for (var ii = 0; ii < corpusCharacters.length; ii++) {
         var corpusCharacter = corpusCharacters[ii];
