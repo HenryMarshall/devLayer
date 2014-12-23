@@ -414,367 +414,6 @@ var analyzer = {
         "y": 4
       }
     },
-    layouts: {
-      "qwerty": [
-        {
-            "keycode": "10",
-            "noMod": "1",
-            "shift": "!",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "11",
-            "noMod": "2",
-            "shift": "@",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "12",
-            "noMod": "3",
-            "shift": "#",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "13",
-            "noMod": "4",
-            "shift": "$",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "14",
-            "noMod": "5",
-            "shift": "%",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "15",
-            "noMod": "6",
-            "shift": "^",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "16",
-            "noMod": "7",
-            "shift": "&",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "17",
-            "noMod": "8",
-            "shift": "*",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "18",
-            "noMod": "9",
-            "shift": "(",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "19",
-            "noMod": "0",
-            "shift": ")",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "20",
-            "noMod": "-",
-            "shift": "_",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "21",
-            "noMod": "=",
-            "shift": "+",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "22",
-            "noMod": "\b",
-            "shift": "",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "23",
-            "noMod": "\t",
-            "shift": "",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "24",
-            "noMod": "q",
-            "shift": "Q",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "25",
-            "noMod": "w",
-            "shift": "W",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "26",
-            "noMod": "e",
-            "shift": "E",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "27",
-            "noMod": "r",
-            "shift": "R",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "28",
-            "noMod": "t",
-            "shift": "T",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "29",
-            "noMod": "y",
-            "shift": "Y",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "30",
-            "noMod": "u",
-            "shift": "U",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "31",
-            "noMod": "i",
-            "shift": "I",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "32",
-            "noMod": "o",
-            "shift": "O",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "33",
-            "noMod": "p",
-            "shift": "P",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "34",
-            "noMod": "[",
-            "shift": "{",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "35",
-            "noMod": "]",
-            "shift": "}",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "36",
-            "noMod": "\n",
-            "shift": "",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "38",
-            "noMod": "a",
-            "shift": "A",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "39",
-            "noMod": "s",
-            "shift": "S",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "40",
-            "noMod": "d",
-            "shift": "D",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "41",
-            "noMod": "f",
-            "shift": "F",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "42",
-            "noMod": "g",
-            "shift": "G",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "43",
-            "noMod": "h",
-            "shift": "H",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "44",
-            "noMod": "j",
-            "shift": "J",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "45",
-            "noMod": "k",
-            "shift": "K",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "46",
-            "noMod": "l",
-            "shift": "L",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "47",
-            "noMod": ";",
-            "shift": ":",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "48",
-            "noMod": "'",
-            "shift": "\"",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "49",
-            "noMod": "`",
-            "shift": "~",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "51",
-            "noMod": "\\",
-            "shift": "|",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "52",
-            "noMod": "z",
-            "shift": "Z",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "53",
-            "noMod": "x",
-            "shift": "X",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "54",
-            "noMod": "c",
-            "shift": "C",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "55",
-            "noMod": "v",
-            "shift": "V",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "56",
-            "noMod": "b",
-            "shift": "B",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "57",
-            "noMod": "n",
-            "shift": "N",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "58",
-            "noMod": "m",
-            "shift": "M",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "59",
-            "noMod": ",",
-            "shift": "<",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "60",
-            "noMod": ".",
-            "shift": ">",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "61",
-            "noMod": "/",
-            "shift": "?",
-            "altGr": "",
-            "altGrShift": ""
-        },
-        {
-            "keycode": "65",
-            "noMod": " ",
-            "shift": "",
-            "altGr": "",
-            "altGrShift": ""
-        }
-      ]
-    },
     layerPriority: ["altGr", "noMod", "altGrShift", "shift"]
   },
   previousStroke: {
@@ -789,18 +428,29 @@ var analyzer = {
   keymap: {},
 
   initialize: function() {
-    var layouts = this.config.layouts;
+    var fs = require('fs');
 
-    // We compile a keymap for every layout being tested...
-    for (var layout in layouts) {
-      // Check that layout isn't inherited from prototype
-      if (layouts.hasOwnProperty(layout)) {
-        this.keymap[layout] = this.defineKeymapForLayout(layouts[layout]);
+    fs.readFile("./layouts.json", "utf-8", function(err, data) {
+
+      if (err) throw err;
+
+      // TODO: Replace with a JSON parser
+      var layouts = eval('(' + data + ')');
+
+      // We compile a keymap for every layout being tested.
+      for (var layout in layouts) {
+        // Check that layout isn't inherited from prototype.
+        if (layouts.hasOwnProperty(layout)) {
+          analyzer.keymap[layout] = analyzer.defineKeymapForLayout(layouts[layout]);
+        }
       }
-    }
+      console.log("Intialization complete; Begin Analyzing");
+      analyzer.analyzeCorpus();
+    });
   },
   
   defineKeymapForLayout: function(layout) {
+
     var layoutKeymap = {};
 
     // Used keypress is the one with the lowest layerPriority and keycode
@@ -860,7 +510,10 @@ var analyzer = {
         }
       }
     }
-    console.log("this.results.qwerty: ", this.results.qwerty);
+
+    for (var layout in this.results) {
+      console.log("this.results." + layout + ": ", this.results[layout]);
+    }
   },
 
   incrementResults: function(obj1, obj2) {
@@ -882,7 +535,7 @@ var analyzer = {
         }
       }
       else {
-        console.log("Objects lacked symmetry. Unable to merge.");
+        console.log("Unable to merge.", obj1, obj2);
       }
     }
 
@@ -1046,4 +699,3 @@ function score() {
 }
 
 analyzer.initialize();
-analyzer.analyzeCorpus();

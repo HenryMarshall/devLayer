@@ -53,6 +53,7 @@ A list of these keycodes and the currently associated letters can be obtained by
 
 **TODO**
 
+* Replace `eval` with a JSON parser in the analyzer.
 * Include a map of DevLayer on the github page.
 
 
