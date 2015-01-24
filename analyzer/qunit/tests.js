@@ -27,7 +27,6 @@ var testData = {
 
   keymap: {
     "4": ["13"],
-    "$": ["13", "62"],
     "F4": ["13", "108"],
     "j": ["44"],
     "J": ["44", "50"],
@@ -104,4 +103,11 @@ QUnit.test("isEasierWay", function(assert) {
   assert.equal(dl.isEasierWay(testData.layout[2], "altGr"), true);
   assert.equal(dl.isEasierWay(testData.layout[2], "shift"), false);
   assert.equal(dl.isEasierWay(testData.layout[2], "noMod"), false);
+});
+
+QUnit.test("strokesForCharacter", function(assert) {
+  assert.propEqual(dl.strokesForCharacter(testData.layout[1], "noMod"), testData.keymap["j"]);
+  assert.propEqual(dl.strokesForCharacter(testData.layout[1], "shift"), testData.keymap["J"]);
+  assert.propEqual(dl.strokesForCharacter(testData.layout[1], "altGr"), testData.keymap["("]);
+  assert.propEqual(dl.strokesForCharacter(testData.layout[1], "altGrShift"), testData.keymap[")"]);
 });

@@ -34,16 +34,49 @@ var dl = {
     return conversionDirection[symbol] || symbol || "NoSymbol"
   },
 
+  buildKeymapKey: function(physicalKey, modLevel, keymap) {
+    var character = physicalKey[modLevel]
+    if (keymap.hasOwnProperty(character)) {
+      if (!isEasierWay(physicalKey, modLevel)) {
+        keymap[character] = [physicalKey.keycode]
+        keymap[character].push
+      }
+    }
+    return keymap;
+  },
+
   // Checks if there is an easier way to input the character with the key.
   // (e.g. input ";" without any mods even though altGr also works
-  isEasierWay: function(character, modLevel) {
+  isEasierWay: function(physicalKey, modLevel) {
     modLevelIdx = dl.config.easyPriority.indexOf(modLevel);
     for (var ii = 0; ii < modLevelIdx; ii++) {
-      if (character[dl.config.easyPriority[ii]] === character[modLevel]) {
+      if (physicalKey[dl.config.easyPriority[ii]] === physicalKey[modLevel]) {
         return true;
       }
     };
     return false;
+  },
+
+  strokesForCharacter: function(physicalKey, modLevel) {
+    var strokes = [physicalKey.keycode],
+        altGrKeycode = "108",
+        shiftLeftKeycode = "50",
+        shiftRightKeycode = "62";
+
+    if (modLevel === "altGr" || modLevel === "altGrShift") {
+      strokes.push(altGrKeycode)
+    }
+
+    if (modLevel === "shift" || modLevel === "altGrShift") {
+      if (dl.config.keyboard[physicalKey.keycode].hand === "left") {
+        strokes.push(shiftRightKeycode)
+      }
+      else {
+        strokes.push(shiftLeftKeycode)
+      }
+    }
+
+    return strokes;
   }
 
 };
