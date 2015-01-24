@@ -1,7 +1,8 @@
 // dl is the devLayer namespace
 dl.config = {
 
-  "xmodToSymbol": {
+  "toSymbol": {
+    // %w(Backspace Tab Home Up Down Left Right Home End) stay as is
     "NoSymbol": "",
     "Escape": "Esc",
     "exclam": "!",
@@ -18,8 +19,6 @@ dl.config = {
     "underscore": "_",
     "equal": "=",
     "plus": "+",
-    // "BackSpace": "BackSpace",
-    // "Tab": "Tab",
     "bracketleft": "[",
     "bracketright": "]",
     "braceleft": "{",
@@ -40,14 +39,12 @@ dl.config = {
     "slash": "/",
     "question": "?",
     "space": "Space",
-    "Caps_Lock": "CapsLock"
-    // "Home": "Home",
+    "Caps_Lock": "CapsLock",
     "Up": "PgUp",
     "Prior": "PgDn"
-    // "End": "End"
   },
 
-  "symbolToXmod": {
+  "toXmod": {
     "": "NoSymbol",
     "Esc": "Escape",
     "!": "exclam",
@@ -84,7 +81,7 @@ dl.config = {
     "/": "slash",
     "?": "question",
     "Space": "space",
-    "CapsLock": "Caps_Lock"
+    "CapsLock": "Caps_Lock",
     "PgUp": "Up",
     "PgDn": "Prior"
   },
