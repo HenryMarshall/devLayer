@@ -106,8 +106,15 @@ QUnit.test("isEasierWay", function(assert) {
 });
 
 QUnit.test("strokesForCharacter", function(assert) {
-  assert.propEqual(dl.strokesForCharacter(testData.layout[1], "noMod"), testData.keymap["j"]);
-  assert.propEqual(dl.strokesForCharacter(testData.layout[1], "shift"), testData.keymap["J"]);
-  assert.propEqual(dl.strokesForCharacter(testData.layout[1], "altGr"), testData.keymap["("]);
-  assert.propEqual(dl.strokesForCharacter(testData.layout[1], "altGrShift"), testData.keymap[")"]);
+  function strokes(physicalKey, mod, expectedChar) {
+    assert.propEqual(
+      dl.strokesForCharacter(testData.layout[physicalKey], mod),
+      testData.keymap[expectedChar]
+    );
+  }
+
+  strokes(1, "noMod", "j");
+  strokes(1, "shift", "J");
+  strokes(1, "altGr", "(");
+  strokes(1, "altGrShift", ")");
 });
