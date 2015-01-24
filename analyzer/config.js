@@ -91,12 +91,9 @@ dl.config = {
 
   "inputPriority": ["altGr", "altGrShift", "noMod", "shift"],
   "easyPriority": ["noMod", "altGr", "shift", "altGrShift"],
-  "modifiers": {
-    "noMod": { "altGr": false, "shift": false },
-    "shift": { "altGr": false, "shift": true },
-    "altGr": { "altGr": true, "shift": false },
-    "altGrShift": { "altGr": true, "shift": true }
-  },
+  "altGrKeycode": "108",
+  "shiftLeftKeycode": "50",
+  "shiftRightKeycode": "62",
 
   "homerow": {
     "leftPinkie": 38,

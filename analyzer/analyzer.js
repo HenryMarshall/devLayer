@@ -38,8 +38,7 @@ var dl = {
     var character = physicalKey[modLevel]
     if (keymap.hasOwnProperty(character)) {
       if (!isEasierWay(physicalKey, modLevel)) {
-        keymap[character] = [physicalKey.keycode]
-        keymap[character].push
+        keymap[character] = dl.strokesForCharacter(physicalKey, modLevel)
       }
     }
     return keymap;
@@ -57,22 +56,20 @@ var dl = {
     return false;
   },
 
+  // Records the strokes that are required to input a character.
   strokesForCharacter: function(physicalKey, modLevel) {
-    var strokes = [physicalKey.keycode],
-        altGrKeycode = "108",
-        shiftLeftKeycode = "50",
-        shiftRightKeycode = "62";
+    var strokes = [physicalKey.keycode];
 
     if (modLevel === "altGr" || modLevel === "altGrShift") {
-      strokes.push(altGrKeycode)
+      strokes.push(dl.config.altGrKeycode);
     }
 
     if (modLevel === "shift" || modLevel === "altGrShift") {
       if (dl.config.keyboard[physicalKey.keycode].hand === "left") {
-        strokes.push(shiftRightKeycode)
+        strokes.push(dl.config.shiftRightKeycode);
       }
       else {
-        strokes.push(shiftLeftKeycode)
+        strokes.push(dl.config.shiftLeftKeycode);
       }
     }
 

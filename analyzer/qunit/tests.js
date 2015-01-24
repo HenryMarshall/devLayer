@@ -1,13 +1,17 @@
 var testData = {
-  xmod: "keycode  13 = 4 dollar F4 F4\nkeycode  44 = j J parenleft parenright\nkeycode  47 = semicolon colon semicolon colon",
+  xmodLines: [
+    "keycode  24 = q Q exclam exclam",
+    "keycode  44 = j J parenleft parenright",
+    "keycode  47 = semicolon colon semicolon colon"
+  ],
   
   layout: [
     {
-      "keycode": "13",
-      "noMod": "4",
-      "shift": "$",
-      "altGr": "F4",
-      "altGrShift": "F4"
+      "keycode": "24",
+      "noMod": "q",
+      "shift": "Q",
+      "altGr": "!",
+      "altGrShift": "!"
     },
     {
       "keycode": "44",
@@ -25,9 +29,10 @@ var testData = {
     }
   ],
 
-  keymap: {
-    "4": ["13"],
-    "F4": ["13", "108"],
+  strokes: {
+    "q": ["24"],
+    "Q": ["24", "62"],
+    "!": ["24", "108"],
     "j": ["44"],
     "J": ["44", "50"],
     "(": ["44", "108"],
@@ -70,12 +75,13 @@ QUnit.test("getLayout", function(assert) {
 });
 
 QUnit.test("xmodToLayout", function(assert) {
-  assert.propEqual(dl.xmodToLayout(testData.xmod), testData.layout);
+  var xmod = testData.xmodLines.join('\n');
+  assert.propEqual(dl.xmodToLayout(xmod), testData.layout);
 });
 
 QUnit.test("new layoutKey", function(assert) {
   assert.propEqual(
-    new dl.buildLayoutKey("keycode  13 = 4 dollar F4 F4"),
+    new dl.buildLayoutKey(testData.xmodLines[0]),
     testData.layout[0]
   );
 });
@@ -89,27 +95,34 @@ QUnit.test("convertXmodName", function(assert) {
 });
 
 QUnit.test("isEasierWay", function(assert) {
-  assert.equal(dl.isEasierWay(testData.layout[0], "altGrShift"), true);
-  assert.equal(dl.isEasierWay(testData.layout[0], "altGr"), false);
-  assert.equal(dl.isEasierWay(testData.layout[0], "shift"), false);
-  assert.equal(dl.isEasierWay(testData.layout[0], "noMod"), false);
+  function easier(physicalKey, mod, isTrue) {
+    assert.equal(dl.isEasierWay(testData.layout[physicalKey], mod), isTrue);
+  }
 
-  assert.equal(dl.isEasierWay(testData.layout[1], "altGrShift"), false);
-  assert.equal(dl.isEasierWay(testData.layout[1], "altGr"), false);
-  assert.equal(dl.isEasierWay(testData.layout[1], "shift"), false);
-  assert.equal(dl.isEasierWay(testData.layout[1], "noMod"), false);
+  // q Q exclam exclam
+  easier(0, "noMod", false);
+  easier(0, "shift", false);
+  easier(0, "altGr", false);
+  easier(0, "altGrShift", true);
 
-  assert.equal(dl.isEasierWay(testData.layout[2], "altGrShift"), true);
-  assert.equal(dl.isEasierWay(testData.layout[2], "altGr"), true);
-  assert.equal(dl.isEasierWay(testData.layout[2], "shift"), false);
-  assert.equal(dl.isEasierWay(testData.layout[2], "noMod"), false);
+  // j J ( )
+  easier(1, "noMod", false);
+  easier(1, "shift", false);
+  easier(1, "altGr", false);
+  easier(1, "altGrShift", false);
+
+  // ; : ; :
+  easier(2, "noMod", false);
+  easier(2, "shift", false);
+  easier(2, "altGr", true);
+  easier(2, "altGrShift", true);
 });
 
 QUnit.test("strokesForCharacter", function(assert) {
   function strokes(physicalKey, mod, expectedChar) {
     assert.propEqual(
       dl.strokesForCharacter(testData.layout[physicalKey], mod),
-      testData.keymap[expectedChar]
+      testData.strokes[expectedChar]
     );
   }
 
