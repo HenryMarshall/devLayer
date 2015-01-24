@@ -1,0 +1,73 @@
+### ANALYZER ###
+
+  function defineCurrentStrokes(character)
+    for each stroke in keymap[character]
+      if stroke !== null
+        currentStokes << keyboard[keycode]
+
+  clone prevStrokes to homeboundStrokes
+  for each currentStroke in currentStrokes
+    fingerReused = false
+    for each prevStroke in prevStrokes
+      if currentStroke.finger === prevStroke.finger
+        move prevStroke.finger from prevStroke.location to currentStroke.location
+        remove prevStroke from homeboundStrokes
+        fingerReused = true
+
+    if !fingerReused
+      move currentStroke.finger from home[currentStroke.finger] to currentStroke.location
+
+    strike currentStroke.finger
+
+  for each stroke in homeboundStrokes
+    move stroke.finger from stroke.location to home[stroke.finger]
+
+  clone currentStrokes to prevStrokes
+
+
+
+### LAYOUT BUILDER ####
+
+  load Xmodmap file
+  lines = Xmodmap split on \n
+  for each line in lines
+    split on \s+
+
+  layout = map each line to  
+    "24": {
+      "noMod": "q",
+      "shift": "Q",
+      "altGr": "!",
+      "altGrShift": "!"
+    }
+
+  for each keycode in layout
+    if 9 > keycode && keycode > 66
+      // maybe store these somewhere?
+      remove layout[keycode]
+
+  config.keyPriority = ["altGr", "altGrShift", "noMod", "shift"]
+
+  for each modLevel in config.keyPriority
+    for each keycode in layout
+      addToKeymap(character, modLevel)
+
+  function addToKeymap(character, modLevel)
+    if character not in keymap
+      if !easierWay(character, modLevel)
+        keymap[character[modLevel]] = new keymapChar(keycode, modLevel)
+          // "Q": {
+          //   "keycode": "24",
+          //   "shift": "62",
+          //   "altGr": null
+          // }
+
+  config.easyPriority = ["noMod", "altGr", "shift", "altGrShift"]
+
+  function easierWay(character, modLevel)
+    find modLevel index in config.easyPriority
+    for each easyModLevel < modLevel
+      if character[modLevel] === character[easyModLevel]
+        return true
+      else
+        return false
