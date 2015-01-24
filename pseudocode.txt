@@ -52,7 +52,7 @@
     for each keycode in layout
       addToKeymap(character, modLevel)
 
-  function addToKeymap(character, modLevel)
+  function addToKeymap(character, modLevel, keymap)
     if character not in keymap
       if !easierWay(character, modLevel)
         keymap[character[modLevel]] = new keymapChar(keycode, modLevel)
