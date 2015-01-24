@@ -12,7 +12,6 @@ var dl = {
 
   xmodToLayout: function(xmod) {
     var lines = xmod.split(/\n/);
-    
     var layout = _.map(lines, function(line) {
       return new dl.buildLayoutKey(line);
     });
@@ -33,6 +32,18 @@ var dl = {
 
   convertXmodName: function(symbol, conversionDirection) {
     return conversionDirection[symbol] || symbol || "NoSymbol"
+  },
+
+  // Checks if there is an easier way to input the character with the key.
+  // (e.g. input ";" without any mods even though altGr also works
+  isEasierWay: function(character, modLevel) {
+    modLevelIdx = dl.config.easyPriority.indexOf(modLevel);
+    for (var ii = 0; ii < modLevelIdx; ii++) {
+      if (character[dl.config.easyPriority[ii]] === character[modLevel]) {
+        return true;
+      }
+    };
+    return false;
   }
 
 };
