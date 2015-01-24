@@ -29,7 +29,7 @@ var testData = {
     }
   ],
 
-  strokes: {
+  characters: {
     "q": ["24"],
     "Q": ["24", "62"],
     "!": ["24", "108"],
@@ -122,7 +122,7 @@ QUnit.test("strokesForCharacter", function(assert) {
   function strokes(physicalKey, mod, expectedChar) {
     assert.propEqual(
       dl.strokesForCharacter(testData.layout[physicalKey], mod),
-      testData.strokes[expectedChar]
+      testData.characters[expectedChar]
     );
   }
 
@@ -130,4 +130,26 @@ QUnit.test("strokesForCharacter", function(assert) {
   strokes(1, "shift", "J");
   strokes(1, "altGr", "(");
   strokes(1, "altGrShift", ")");
+});
+
+QUnit.test("buildCharacterStrokes", function(assert) {
+  function testBuild(physicalKeyIdx, mod, isEasier) {
+    var physicalKey = testData.layout[physicalKeyIdx],
+        expect = {};
+
+    if (!isEasier) {
+      expect[physicalKey[mod]] = testData.characters[physicalKey[mod]];
+    }
+
+    assert.propEqual(
+      dl.buildCharacterStrokes(physicalKey, mod, {}),
+      expect
+    );
+  }
+
+  testBuild(0, "noMod", false);
+  testBuild(0, "shift", false);
+  testBuild(0, "altGr", false);
+  // Should ignore as their is an easier to type method.
+  testBuild(0, "altGrShift", true);
 });

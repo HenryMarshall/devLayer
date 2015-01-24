@@ -34,14 +34,14 @@ var dl = {
     return conversionDirection[symbol] || symbol || "NoSymbol"
   },
 
-  buildKeymapKey: function(physicalKey, modLevel, keymap) {
+  buildCharacterStrokes: function(physicalKey, modLevel, characters) {
     var character = physicalKey[modLevel]
-    if (keymap.hasOwnProperty(character)) {
-      if (!isEasierWay(physicalKey, modLevel)) {
-        keymap[character] = dl.strokesForCharacter(physicalKey, modLevel)
+    if (!characters.hasOwnProperty(character)) {
+      if (!dl.isEasierWay(physicalKey, modLevel)) {
+        characters[character] = dl.strokesForCharacter(physicalKey, modLevel)
       }
     }
-    return keymap;
+    return characters;
   },
 
   // Checks if there is an easier way to input the character with the key.
