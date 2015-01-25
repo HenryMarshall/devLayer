@@ -10,6 +10,13 @@ var dl = {
     });
   },
 
+  xmodToCharacters: function(xmod) {
+    var layout = dl.xmodToLayout(xmod),
+        characters = dl.buildCharacters(layout);
+
+    return characters;
+  },
+
   xmodToLayout: function(xmod) {
     var lines = xmod.split(/\n/);
     var layout = _.map(lines, function(line) {

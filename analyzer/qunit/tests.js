@@ -74,6 +74,11 @@ QUnit.test("getLayout", function(assert) {
   )
 });
 
+QUnit.test("xmodToCharacters", function(assert) {
+  var xmod = testData.xmodLines.join('\n');
+  assert.propEqual(dl.xmodToCharacters(xmod), testData.characters);
+});
+
 QUnit.test("xmodToLayout", function(assert) {
   var xmod = testData.xmodLines.join('\n');
   assert.propEqual(dl.xmodToLayout(xmod), testData.layout);
