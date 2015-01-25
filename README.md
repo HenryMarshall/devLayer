@@ -49,12 +49,12 @@ A list of these keycodes and the currently associated letters can be obtained by
 **FIXME**
 
 * Resolve magic number in key-width sass mixin.
-
+* dl.buildCurrentStroke test relies on similar logic as test subject
 
 **TODO**
 
-* Replace `eval` with a JSON parser in the analyzer.
 * Include a map of DevLayer on the github page.
+* Why must tested functions throwing errors be nested inside anonymous functions?
 
 
 **Long-Term Objectives**
