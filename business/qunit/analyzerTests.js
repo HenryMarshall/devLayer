@@ -1,5 +1,49 @@
 dl.testData = {
   corpus: "(q)",
+  corpusStrokes: [
+    [
+      {
+        "finger": "rightIndex",
+        "hand": "right",
+        "x": 7.75,
+        "y": 2
+      },
+      {
+        "finger": "rightThumb",
+        "hand": "right",
+        "x": 10,
+        "y": 4
+      }
+    ],
+    [
+      {
+        "finger": "leftPinkie",
+        "hand": "left",
+        "x": 1.5,
+        "y": 1
+      }
+    ],
+    [
+      {
+        "finger": "rightIndex",
+        "hand": "right",
+        "x": 7.75,
+        "y": 2
+      },
+      {
+        "finger": "rightThumb",
+        "hand": "right",
+        "x": 10,
+        "y": 4
+      },
+      {
+        "finger": "leftPinkie",
+        "hand": "left",
+        "x": 1.25,
+        "y": 3
+      }
+    ]
+  ],
   characters: {
     "q": ["24"],
     "Q": ["24", "62"],
@@ -39,4 +83,11 @@ QUnit.test("dl.distanceBetween", function(assert) {
   assert.throws(function() {
     dl.distanceBetween("24", "27");
   }, /Different fingers used/);
+});
+
+QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
+  assert.propEqual(
+    dl.corpusToCorpusStrokes(dl.testData.corpus, dl.testData.characters), 
+    dl.testData.corpusStrokes
+  );
 });

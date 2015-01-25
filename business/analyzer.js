@@ -1,4 +1,11 @@
 var dl = {
+  corpusToCorpusStrokes: function(corpus, characters) {
+    var corpusCharacters = corpus.split(''),
+        corpusStrokes = _.map(corpusCharacters, function(corpusCharacter) {
+          return dl.keycodesToStrokes(corpusCharacter, characters)
+        });
+    return corpusStrokes;
+  },
 
   keycodesToStrokes: function(corpusCharacter, characters) {
     var strokeKeycodes =  characters[corpusCharacter],
