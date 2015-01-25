@@ -34,6 +34,16 @@ var dl = {
     return conversionDirection[symbol] || symbol || "NoSymbol"
   },
 
+  buildCharacters: function(layout) {
+    var characters = {};
+    _.each(dl.config.inputPriority, function(mod) {
+      _.each(layout, function(physicalKey) {
+        characters = dl.buildCharacterStrokes(physicalKey, mod, characters)
+      });
+    });
+    return characters
+  },
+
   buildCharacterStrokes: function(physicalKey, modLevel, characters) {
     var character = physicalKey[modLevel]
     if (!characters.hasOwnProperty(character)) {

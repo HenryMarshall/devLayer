@@ -153,3 +153,7 @@ QUnit.test("buildCharacterStrokes", function(assert) {
   // Should ignore as their is an easier to type method.
   testBuild(0, "altGrShift", true);
 });
+
+QUnit.test("buildCharacters", function(assert) {
+  assert.propEqual(dl.buildCharacters(testData.layout), testData.characters);
+});
