@@ -1,10 +1,11 @@
 var dl = {
-  buildCurrentStroke: function(character, characters) {
-    var strokeKeycodes =  characters[character],
-        currentStrokes =  _.map(strokeKeycodes, function(keycode) {
+
+  keycodesToStrokes: function(corpusCharacter, characters) {
+    var strokeKeycodes =  characters[corpusCharacter],
+        strokes =  _.map(strokeKeycodes, function(keycode) {
                             return xm.config.keyboard[keycode];
                           });
-    return currentStrokes;
+    return strokes;
   },
 
   distanceBetween: function(fromKeycode, toKeycode) {

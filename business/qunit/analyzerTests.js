@@ -1,4 +1,5 @@
 dl.testData = {
+  corpus: "(q)",
   characters: {
     "q": ["24"],
     "Q": ["24", "62"],
@@ -13,30 +14,29 @@ dl.testData = {
 }
 
 // FIXME: This test relies on some of the same logic as what it is testing.
-QUnit.test("dl.buildCurrentStroke", function(assert) {
-  function buildCurrentStrokeTest(character) {
-    var expect =  _.map(dl.testData.characters[character], function(keycode) {
+QUnit.test("dl.keycodesToStrokes", function(assert) {
+  function keycodesToStrokesTest(corpusCharacter) {
+    var expect =  _.map(dl.testData.characters[corpusCharacter], function(keycode) {
                     return xm.config.keyboard[keycode];
                   });
 
-    assert.propEqual(dl.buildCurrentStroke(character, dl.testData.characters), expect);
+    assert.propEqual(
+      dl.keycodesToStrokes(corpusCharacter, dl.testData.characters), 
+      expect
+    );
   }
 
-  buildCurrentStrokeTest("q");
-  buildCurrentStrokeTest("Q");
-  buildCurrentStrokeTest("(");
-  buildCurrentStrokeTest(")");
-  buildCurrentStrokeTest(":");
+  keycodesToStrokesTest("q");
+  keycodesToStrokesTest("Q");
+  keycodesToStrokesTest("(");
+  keycodesToStrokesTest(")");
+  keycodesToStrokesTest(":");
 });
 
-QUnit.test("distanceBetween", function(assert) {
+QUnit.test("dl.distanceBetween", function(assert) {
   assert.equal(dl.distanceBetween("27", "28"), 1);
   assert.equal(dl.distanceBetween("41", "28"), 1.25);
   assert.throws(function() {
     dl.distanceBetween("24", "27");
-  });
-
-  // TODO: why must dl.distanceBetween be enclosed in an anonymous function?
-  // assert.thows(dl.distanceBetween("24", "27"));
-
+  }, /Different fingers used/);
 });

@@ -54,7 +54,6 @@ A list of these keycodes and the currently associated letters can be obtained by
 **TODO**
 
 * Include a map of DevLayer on the github page.
-* Why must tested functions throwing errors be nested inside anonymous functions?
 
 
 **Long-Term Objectives**
