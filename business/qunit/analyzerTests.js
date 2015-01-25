@@ -54,7 +54,8 @@ dl.testData = {
     ")": ["44", "108", "50"],
     ";": ["47"],
     ":": ["47", "50"]
-  }
+  },
+  score: {}
 }
 
 // FIXME: This test relies on some of the same logic as what it is testing.
@@ -118,5 +119,12 @@ QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
     dl.corpusToCorpusStrokes("(q)<", dl.testData.chords),
     corpusStrokesDropped,
     "Drop invalid characters"
+  );
+});
+
+QUnit.test("dl.processCorpusStrokes", function(assert) {
+  assert.propEqual(
+    dl.processCorpusStrokes(dl.testData.corpusStrokes),
+    dl.testData.score
   );
 });

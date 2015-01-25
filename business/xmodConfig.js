@@ -49,16 +49,16 @@ xm.config = {
   "shiftRightKeycode": "62",
 
   "homerow": {
-    "leftPinkie": 38,
-    "leftRing": 39,
-    "leftMiddle": 40,
-    "leftIndex": 41,
-    "leftThumb": 65,
-    "rightThumb": 108,
-    "rightIndex": 44,
-    "rightMiddle": 45,
-    "rightRing": 46,
-    "rightPinkie": 47
+    "leftPinkie": "38",
+    "leftRing": "39",
+    "leftMiddle": "40",
+    "leftIndex": "41",
+    "leftThumb": "65",
+    "rightThumb": "108",
+    "rightIndex": "44",
+    "rightMiddle": "45",
+    "rightRing": "46",
+    "rightPinkie": "47"
   },
 
   "keyboard": {
