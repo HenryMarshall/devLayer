@@ -26,10 +26,7 @@ var dl = {
     return strokes;
   },
 
-  distanceBetween: function(fromKeycode, toKeycode) {
-    var from = xm.config.keyboard[fromKeycode],
-        to = xm.config.keyboard[toKeycode];
-
+  distanceBetween: function(from, to) {
     if (to.finger !== from.finger) {
       throw "Different fingers used; cannot calculate distance"
     }

@@ -82,10 +82,24 @@ QUnit.test("dl.keycodesToStrokes", function(assert) {
 });
 
 QUnit.test("dl.distanceBetween", function(assert) {
-  assert.equal(dl.distanceBetween("27", "28"), 1);
-  assert.equal(dl.distanceBetween("41", "28"), 1.25);
+  function testDistance(fromKeycode, toKeycode, expectedDistance) {
+    assert.equal(
+      dl.distanceBetween(
+        xm.config.keyboard[fromKeycode],
+        xm.config.keyboard[toKeycode]
+      ),
+      expectedDistance
+    );
+  }
+
+  testDistance("27", "28", 1);
+  testDistance("41", "28", 1.25);
+
   assert.throws(function() {
-    dl.distanceBetween("24", "27");
+    dl.distanceBetween(
+      xm.config.keyboard["24"],
+      xm.config.keyboard["27"]
+    );
   }, /Different fingers used/);
 });
 
