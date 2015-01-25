@@ -1,16 +1,22 @@
 var dl = {
-  corpusToCorpusStrokes: function(corpus, characters) {
-    var corpusCharacters = corpus.split(''),
-        corpusStrokes = _.map(corpusCharacters, function(corpusCharacter) {
-          return dl.keycodesToStrokes(corpusCharacter, characters)
+  corpusToCorpusStrokes: function(corpus, chars) {
+    var corpusChars = corpus.split(''),
+        corpusStrokes = _.map(corpusChars, function(corpusChar) {
+          try {
+            return dl.keycodesToStrokes(corpusChar, chars);
+          }
+          catch(err) {
+            // TODO: Add invalid char to list somewhere
+            return [];
+          }
         });
     return corpusStrokes;
   },
 
-  keycodesToStrokes: function(corpusCharacter, characters) {
-    var strokeKeycodes = characters[corpusCharacter];
+  keycodesToStrokes: function(corpusChar, chars) {
+    var strokeKeycodes = chars[corpusChar];
     if (strokeKeycodes === undefined) {
-      throw "corpusCharacter not in characters";
+      throw "corpusChar not in chars";
     }
 
     var strokes = _.map(strokeKeycodes, function(keycode) {
