@@ -75,6 +75,10 @@ QUnit.test("dl.keycodesToStrokes", function(assert) {
   keycodesToStrokesTest("(");
   keycodesToStrokesTest(")");
   keycodesToStrokesTest(":");
+
+  assert.throws(function() {
+    dl.keycodesToStrokes("i", dl.testData.characters)
+  }, /corpusCharacter not in characters/);
 });
 
 QUnit.test("dl.distanceBetween", function(assert) {
