@@ -45,6 +45,15 @@ Physical keys are internally referred to by their Xmodmap keycodes in decimal no
 
 A list of these keycodes and the currently associated letters can be obtained by running `xmodmap -pke`. [Here is an image](http://screenshots.debian.net/screenshots/x/xkeycaps/325_large.png) of the keycodes written on their respective keycaps (albeit in hex notation).
 
+A note on various language used throughout the program.
+
+* keyboard -- An object containing the physicalKeys. Keycodes in decimal notation are used as the keys. Values describe the location of each physical key and the hand and finger it is struck with.
+* .Xmodmap / xmod -- The \n delimited string of keycodes and characters. This uses names for all non alphanumeric symbols (e.g., exclam for '!'). This is the file directly used by the xmodmap software.
+* layout -- An array of objects denoting the keycode, and ascii character for each modLevel (noMod, shift, altGr, altGrShift). Generated from xmod.
+* chords -- Keys are every legal input given a layout. Values are an array of the strokes required to input this key in the _easiest_ way. Many characters can be entered multiple ways with devLayer. Generated from layout.
+* corpus -- The body of text analyzed.
+* corpusStrokes -- Array of arrays containing all physicalKeys that corresponds to the characters of the corpus. 
+
 
 **FIXME**
 
