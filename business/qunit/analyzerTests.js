@@ -28,3 +28,15 @@ QUnit.test("dl.buildCurrentStroke", function(assert) {
   buildCurrentStrokeTest(")");
   buildCurrentStrokeTest(":");
 });
+
+QUnit.test("distanceBetween", function(assert) {
+  assert.equal(dl.distanceBetween("27", "28"), 1);
+  assert.equal(dl.distanceBetween("41", "28"), 1.25);
+  assert.throws(function() {
+    dl.distanceBetween("24", "27");
+  });
+
+  // TODO: why must dl.distanceBetween be enclosed in an anonymous function?
+  // assert.thows(dl.distanceBetween("24", "27"));
+
+});
