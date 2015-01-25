@@ -1,5 +1,5 @@
-// dl is the devLayer namespace
-var dl = {
+// xm is the xmod namespace
+var xm = {
   getLayout: function(name, success, error) {
     $.ajax({
       url: "/layouts/" + name,
@@ -11,8 +11,8 @@ var dl = {
   },
 
   xmodToCharacters: function(xmod) {
-    var layout = dl.xmodToLayout(xmod),
-        characters = dl.layoutToCharacters(layout);
+    var layout = xm.xmodToLayout(xmod),
+        characters = xm.layoutToCharacters(layout);
 
     return characters;
   },
@@ -20,7 +20,7 @@ var dl = {
   xmodToLayout: function(xmod) {
     var lines = xmod.split(/\n/);
     var layout = _.map(lines, function(line) {
-      return new dl.buildLayoutKey(line);
+      return new xm.buildLayoutKey(line);
     });
 
     return layout;
@@ -30,10 +30,10 @@ var dl = {
     var elems = xmodLine.split(/\s+/);
     if (elems[1]) {
       this.keycode = elems[1],
-      this.noMod = dl.convertXmodName(elems[3], dl.config.toSymbol),
-      this.shift = dl.convertXmodName(elems[4], dl.config.toSymbol),
-      this.altGr = dl.convertXmodName(elems[5], dl.config.toSymbol),
-      this.altGrShift = dl.convertXmodName(elems[6], dl.config.toSymbol)
+      this.noMod = xm.convertXmodName(elems[3], xm.config.toSymbol),
+      this.shift = xm.convertXmodName(elems[4], xm.config.toSymbol),
+      this.altGr = xm.convertXmodName(elems[5], xm.config.toSymbol),
+      this.altGrShift = xm.convertXmodName(elems[6], xm.config.toSymbol)
     }
   },
 
@@ -43,9 +43,9 @@ var dl = {
 
   layoutToCharacters: function(layout) {
     var characters = {};
-    _.each(dl.config.inputPriority, function(mod) {
+    _.each(xm.config.inputPriority, function(mod) {
       _.each(layout, function(physicalKey) {
-        characters = dl.buildCharacterStrokes(physicalKey, mod, characters)
+        characters = xm.buildCharacterStrokes(physicalKey, mod, characters)
       });
     });
     return characters
@@ -54,8 +54,8 @@ var dl = {
   buildCharacterStrokes: function(physicalKey, modLevel, characters) {
     var character = physicalKey[modLevel]
     if (!characters.hasOwnProperty(character)) {
-      if (!dl.isEasierWay(physicalKey, modLevel)) {
-        characters[character] = dl.strokesForCharacter(physicalKey, modLevel)
+      if (!xm.isEasierWay(physicalKey, modLevel)) {
+        characters[character] = xm.strokesForCharacter(physicalKey, modLevel)
       }
     }
     return characters;
@@ -64,9 +64,9 @@ var dl = {
   // Checks if there is an easier way to input the character with the key.
   // (e.g. input ";" without any mods even though altGr also works
   isEasierWay: function(physicalKey, modLevel) {
-    modLevelIdx = dl.config.easyPriority.indexOf(modLevel);
+    modLevelIdx = xm.config.easyPriority.indexOf(modLevel);
     for (var ii = 0; ii < modLevelIdx; ii++) {
-      if (physicalKey[dl.config.easyPriority[ii]] === physicalKey[modLevel]) {
+      if (physicalKey[xm.config.easyPriority[ii]] === physicalKey[modLevel]) {
         return true;
       }
     };
@@ -78,15 +78,15 @@ var dl = {
     var strokes = [physicalKey.keycode];
 
     if (modLevel === "altGr" || modLevel === "altGrShift") {
-      strokes.push(dl.config.altGrKeycode);
+      strokes.push(xm.config.altGrKeycode);
     }
 
     if (modLevel === "shift" || modLevel === "altGrShift") {
-      if (dl.config.keyboard[physicalKey.keycode].hand === "left") {
-        strokes.push(dl.config.shiftRightKeycode);
+      if (xm.config.keyboard[physicalKey.keycode].hand === "left") {
+        strokes.push(xm.config.shiftRightKeycode);
       }
       else {
-        strokes.push(dl.config.shiftLeftKeycode);
+        strokes.push(xm.config.shiftLeftKeycode);
       }
     }
 

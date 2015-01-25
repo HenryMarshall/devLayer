@@ -1,5 +1,5 @@
 // dl is the devLayer namespace
-dl.config = {
+xm.config = {
 
   "toSymbol": {
     // %w(Backspace Tab Home Up Down Left Right Home End) stay as is
@@ -85,9 +85,6 @@ dl.config = {
     "PgUp": "Up",
     "PgDn": "Prior"
   },
-
-  "minimumKeycode": 10,
-  "maximumKeycode": 66,
 
   "inputPriority": ["altGr", "altGrShift", "noMod", "shift"],
   "easyPriority": ["noMod", "altGr", "shift", "altGrShift"],

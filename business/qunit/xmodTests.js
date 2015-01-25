@@ -49,7 +49,7 @@ QUnit.test("getLayout", function(assert) {
   var doneExisting = assert.async(),
       doneDne = assert.async();
 
-  dl.getLayout(
+  xm.getLayout(
     "qwerty.txt", 
     function(data) {
       assert.ok(data, "Found existing layout");
@@ -61,7 +61,7 @@ QUnit.test("getLayout", function(assert) {
     }
   );
 
-  dl.getLayout(
+  xm.getLayout(
     "foo.bar",
     function(data) {
       assert.ok(false, "Found non-existant layout");
@@ -76,32 +76,32 @@ QUnit.test("getLayout", function(assert) {
 
 QUnit.test("xmodToCharacters", function(assert) {
   var xmod = testData.xmodLines.join('\n');
-  assert.propEqual(dl.xmodToCharacters(xmod), testData.characters);
+  assert.propEqual(xm.xmodToCharacters(xmod), testData.characters);
 });
 
 QUnit.test("xmodToLayout", function(assert) {
   var xmod = testData.xmodLines.join('\n');
-  assert.propEqual(dl.xmodToLayout(xmod), testData.layout);
+  assert.propEqual(xm.xmodToLayout(xmod), testData.layout);
 });
 
 QUnit.test("new layoutKey", function(assert) {
   assert.propEqual(
-    new dl.buildLayoutKey(testData.xmodLines[0]),
+    new xm.buildLayoutKey(testData.xmodLines[0]),
     testData.layout[0]
   );
 });
 
 QUnit.test("convertXmodName", function(assert) {
-  assert.equal(dl.convertXmodName("4", dl.config.toSymbol), "4", "'4' toSymbol");
-  assert.equal(dl.convertXmodName("q", dl.config.toSymbol), "q", "'q' toSymbol");
-  assert.equal(dl.convertXmodName("dollar", dl.config.toSymbol), "$", "'dollar' toSymbol");
-  assert.equal(dl.convertXmodName("F4", dl.config.toSymbol), "F4", "'F4' toSymbol");
-  assert.equal(dl.convertXmodName("", dl.config.toSymbol), "NoSymbol", "'' toSymbol");
+  assert.equal(xm.convertXmodName("4", xm.config.toSymbol), "4", "'4' toSymbol");
+  assert.equal(xm.convertXmodName("q", xm.config.toSymbol), "q", "'q' toSymbol");
+  assert.equal(xm.convertXmodName("dollar", xm.config.toSymbol), "$", "'dollar' toSymbol");
+  assert.equal(xm.convertXmodName("F4", xm.config.toSymbol), "F4", "'F4' toSymbol");
+  assert.equal(xm.convertXmodName("", xm.config.toSymbol), "NoSymbol", "'' toSymbol");
 });
 
 QUnit.test("isEasierWay", function(assert) {
   function easier(physicalKey, mod, isTrue) {
-    assert.equal(dl.isEasierWay(testData.layout[physicalKey], mod), isTrue);
+    assert.equal(xm.isEasierWay(testData.layout[physicalKey], mod), isTrue);
   }
 
   // q Q exclam exclam
@@ -126,7 +126,7 @@ QUnit.test("isEasierWay", function(assert) {
 QUnit.test("strokesForCharacter", function(assert) {
   function strokes(physicalKey, mod, expectedChar) {
     assert.propEqual(
-      dl.strokesForCharacter(testData.layout[physicalKey], mod),
+      xm.strokesForCharacter(testData.layout[physicalKey], mod),
       testData.characters[expectedChar]
     );
   }
@@ -147,7 +147,7 @@ QUnit.test("buildCharacterStrokes", function(assert) {
     }
 
     assert.propEqual(
-      dl.buildCharacterStrokes(physicalKey, mod, {}),
+      xm.buildCharacterStrokes(physicalKey, mod, {}),
       expect
     );
   }
@@ -160,5 +160,5 @@ QUnit.test("buildCharacterStrokes", function(assert) {
 });
 
 QUnit.test("layoutToCharacters", function(assert) {
-  assert.propEqual(dl.layoutToCharacters(testData.layout), testData.characters);
+  assert.propEqual(xm.layoutToCharacters(testData.layout), testData.characters);
 });
