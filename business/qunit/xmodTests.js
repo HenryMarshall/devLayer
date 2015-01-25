@@ -1,4 +1,4 @@
-var testData = {
+xm.testData = {
   xmodLines: [
     "keycode  24 = q Q exclam exclam",
     "keycode  44 = j J parenleft parenright",
@@ -75,33 +75,33 @@ QUnit.test("getLayout", function(assert) {
 });
 
 QUnit.test("xmodToCharacters", function(assert) {
-  var xmod = testData.xmodLines.join('\n');
-  assert.propEqual(xm.xmodToCharacters(xmod), testData.characters);
+  var xmod = xm.testData.xmodLines.join('\n');
+  assert.propEqual(xm.xmodToCharacters(xmod), xm.testData.characters);
 });
 
 QUnit.test("xmodToLayout", function(assert) {
-  var xmod = testData.xmodLines.join('\n');
-  assert.propEqual(xm.xmodToLayout(xmod), testData.layout);
+  var xmod = xm.testData.xmodLines.join('\n');
+  assert.propEqual(xm.xmodToLayout(xmod), xm.testData.layout);
 });
 
 QUnit.test("new layoutKey", function(assert) {
   assert.propEqual(
-    new xm.buildLayoutKey(testData.xmodLines[0]),
-    testData.layout[0]
+    new xm.buildLayoutKey(xm.testData.xmodLines[0]),
+    xm.testData.layout[0]
   );
 });
 
 QUnit.test("convertXmodName", function(assert) {
-  assert.equal(xm.convertXmodName("4", xm.config.toSymbol), "4", "'4' toSymbol");
-  assert.equal(xm.convertXmodName("q", xm.config.toSymbol), "q", "'q' toSymbol");
-  assert.equal(xm.convertXmodName("dollar", xm.config.toSymbol), "$", "'dollar' toSymbol");
-  assert.equal(xm.convertXmodName("F4", xm.config.toSymbol), "F4", "'F4' toSymbol");
-  assert.equal(xm.convertXmodName("", xm.config.toSymbol), "NoSymbol", "'' toSymbol");
+  assert.equal(xm.convertXmodName("4"), "4", "'4' toSymbol");
+  assert.equal(xm.convertXmodName("q"), "q", "'q' toSymbol");
+  assert.equal(xm.convertXmodName("dollar"), "$", "'dollar' toSymbol");
+  assert.equal(xm.convertXmodName("F4"), "F4", "'F4' toSymbol");
+  assert.equal(xm.convertXmodName(""), "NoSymbol", "'' toSymbol");
 });
 
 QUnit.test("isEasierWay", function(assert) {
   function easier(physicalKey, mod, isTrue) {
-    assert.equal(xm.isEasierWay(testData.layout[physicalKey], mod), isTrue);
+    assert.equal(xm.isEasierWay(xm.testData.layout[physicalKey], mod), isTrue);
   }
 
   // q Q exclam exclam
@@ -126,8 +126,8 @@ QUnit.test("isEasierWay", function(assert) {
 QUnit.test("strokesForCharacter", function(assert) {
   function strokes(physicalKey, mod, expectedChar) {
     assert.propEqual(
-      xm.strokesForCharacter(testData.layout[physicalKey], mod),
-      testData.characters[expectedChar]
+      xm.strokesForCharacter(xm.testData.layout[physicalKey], mod),
+      xm.testData.characters[expectedChar]
     );
   }
 
@@ -139,11 +139,11 @@ QUnit.test("strokesForCharacter", function(assert) {
 
 QUnit.test("buildCharacterStrokes", function(assert) {
   function testBuild(physicalKeyIdx, mod, isEasier) {
-    var physicalKey = testData.layout[physicalKeyIdx],
+    var physicalKey = xm.testData.layout[physicalKeyIdx],
         expect = {};
 
     if (!isEasier) {
-      expect[physicalKey[mod]] = testData.characters[physicalKey[mod]];
+      expect[physicalKey[mod]] = xm.testData.characters[physicalKey[mod]];
     }
 
     assert.propEqual(
@@ -160,5 +160,5 @@ QUnit.test("buildCharacterStrokes", function(assert) {
 });
 
 QUnit.test("layoutToCharacters", function(assert) {
-  assert.propEqual(xm.layoutToCharacters(testData.layout), testData.characters);
+  assert.propEqual(xm.layoutToCharacters(xm.testData.layout), xm.testData.characters);
 });

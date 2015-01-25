@@ -30,15 +30,15 @@ var xm = {
     var elems = xmodLine.split(/\s+/);
     if (elems[1]) {
       this.keycode = elems[1],
-      this.noMod = xm.convertXmodName(elems[3], xm.config.toSymbol),
-      this.shift = xm.convertXmodName(elems[4], xm.config.toSymbol),
-      this.altGr = xm.convertXmodName(elems[5], xm.config.toSymbol),
-      this.altGrShift = xm.convertXmodName(elems[6], xm.config.toSymbol)
+      this.noMod = xm.convertXmodName(elems[3]),
+      this.shift = xm.convertXmodName(elems[4]),
+      this.altGr = xm.convertXmodName(elems[5]),
+      this.altGrShift = xm.convertXmodName(elems[6])
     }
   },
 
-  convertXmodName: function(symbol, conversionDirection) {
-    return conversionDirection[symbol] || symbol || "NoSymbol"
+  convertXmodName: function(symbol) {
+    return xm.config.toSymbol[symbol] || symbol || "NoSymbol"
   },
 
   layoutToCharacters: function(layout) {
