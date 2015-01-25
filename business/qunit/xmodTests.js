@@ -29,7 +29,7 @@ xm.testData = {
     }
   ],
 
-  characters: {
+  chords: {
     "q": ["24"],
     "Q": ["24", "62"],
     "!": ["24", "108"],
@@ -76,7 +76,7 @@ QUnit.test("getLayout", function(assert) {
 
 QUnit.test("xmodToCharacters", function(assert) {
   var xmod = xm.testData.xmodLines.join('\n');
-  assert.propEqual(xm.xmodToCharacters(xmod), xm.testData.characters);
+  assert.propEqual(xm.xmodToCharacters(xmod), xm.testData.chords);
 });
 
 QUnit.test("xmodToLayout", function(assert) {
@@ -127,7 +127,7 @@ QUnit.test("strokesForCharacter", function(assert) {
   function strokes(physicalKey, mod, expectedChar) {
     assert.propEqual(
       xm.strokesForCharacter(xm.testData.layout[physicalKey], mod),
-      xm.testData.characters[expectedChar]
+      xm.testData.chords[expectedChar]
     );
   }
 
@@ -143,7 +143,7 @@ QUnit.test("buildCharacterStrokes", function(assert) {
         expect = {};
 
     if (!isEasier) {
-      expect[physicalKey[mod]] = xm.testData.characters[physicalKey[mod]];
+      expect[physicalKey[mod]] = xm.testData.chords[physicalKey[mod]];
     }
 
     assert.propEqual(
@@ -160,5 +160,5 @@ QUnit.test("buildCharacterStrokes", function(assert) {
 });
 
 QUnit.test("layoutToCharacters", function(assert) {
-  assert.propEqual(xm.layoutToCharacters(xm.testData.layout), xm.testData.characters);
+  assert.propEqual(xm.layoutToCharacters(xm.testData.layout), xm.testData.chords);
 });

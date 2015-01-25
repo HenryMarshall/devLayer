@@ -1,9 +1,10 @@
 var dl = {
-  corpusToCorpusStrokes: function(corpus, chars) {
+
+  corpusToCorpusStrokes: function(corpus, chords) {
     var corpusChars = corpus.split(''),
         corpusStrokes = _.map(corpusChars, function(corpusChar) {
           try {
-            return dl.keycodesToStrokes(corpusChar, chars);
+            return dl.keycodesToStrokes(corpusChar, chords);
           }
           catch(err) {
             // TODO: Add invalid char to list somewhere
@@ -13,10 +14,10 @@ var dl = {
     return corpusStrokes;
   },
 
-  keycodesToStrokes: function(corpusChar, chars) {
-    var strokeKeycodes = chars[corpusChar];
+  keycodesToStrokes: function(corpusChar, chords) {
+    var strokeKeycodes = chords[corpusChar];
     if (strokeKeycodes === undefined) {
-      throw "corpusChar not in chars";
+      throw "corpusChar not in chords";
     }
 
     var strokes = _.map(strokeKeycodes, function(keycode) {

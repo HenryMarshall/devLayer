@@ -44,7 +44,7 @@ dl.testData = {
       }
     ]
   ],
-  characters: {
+  chords: {
     "q": ["24"],
     "Q": ["24", "62"],
     "!": ["24", "108"],
@@ -60,12 +60,12 @@ dl.testData = {
 // FIXME: This test relies on some of the same logic as what it is testing.
 QUnit.test("dl.keycodesToStrokes", function(assert) {
   function keycodesToStrokesTest(corpusCharacter) {
-    var expect =  _.map(dl.testData.characters[corpusCharacter], function(keycode) {
+    var expect =  _.map(dl.testData.chords[corpusCharacter], function(keycode) {
                     return xm.config.keyboard[keycode];
                   });
 
     assert.propEqual(
-      dl.keycodesToStrokes(corpusCharacter, dl.testData.characters), 
+      dl.keycodesToStrokes(corpusCharacter, dl.testData.chords), 
       expect
     );
   }
@@ -77,8 +77,8 @@ QUnit.test("dl.keycodesToStrokes", function(assert) {
   keycodesToStrokesTest(":");
 
   assert.throws(function() {
-    dl.keycodesToStrokes("i", dl.testData.characters)
-  }, /corpusChar not in chars/);
+    dl.keycodesToStrokes("i", dl.testData.chords)
+  }, /corpusChar not in chords/);
 });
 
 QUnit.test("dl.distanceBetween", function(assert) {
@@ -91,7 +91,7 @@ QUnit.test("dl.distanceBetween", function(assert) {
 
 QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
   assert.propEqual(
-    dl.corpusToCorpusStrokes(dl.testData.corpus, dl.testData.characters), 
+    dl.corpusToCorpusStrokes(dl.testData.corpus, dl.testData.chords), 
     dl.testData.corpusStrokes,
     "All valid characters"
   );
@@ -101,7 +101,7 @@ QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
   corpusStrokesDropped.push([])
 
   assert.propEqual(
-    dl.corpusToCorpusStrokes("(q)<", dl.testData.characters),
+    dl.corpusToCorpusStrokes("(q)<", dl.testData.chords),
     corpusStrokesDropped,
     "Drop invalid characters"
   );
