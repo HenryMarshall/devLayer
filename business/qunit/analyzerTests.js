@@ -78,7 +78,7 @@ QUnit.test("dl.keycodesToStrokes", function(assert) {
 
   assert.throws(function() {
     dl.keycodesToStrokes("i", dl.testData.characters)
-  }, /corpusCharacter not in characters/);
+  }, /corpusChar not in chars/);
 });
 
 QUnit.test("dl.distanceBetween", function(assert) {
@@ -92,6 +92,17 @@ QUnit.test("dl.distanceBetween", function(assert) {
 QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
   assert.propEqual(
     dl.corpusToCorpusStrokes(dl.testData.corpus, dl.testData.characters), 
-    dl.testData.corpusStrokes
+    dl.testData.corpusStrokes,
+    "All valid characters"
+  );
+
+  // FIXME: There must be a more elegant way to do this.
+  var corpusStrokesDropped = _.clone(dl.testData.corpusStrokes);
+  corpusStrokesDropped.push([])
+
+  assert.propEqual(
+    dl.corpusToCorpusStrokes("(q)<", dl.testData.characters),
+    corpusStrokesDropped,
+    "Drop invalid characters"
   );
 });
