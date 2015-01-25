@@ -8,10 +8,14 @@ var dl = {
   },
 
   keycodesToStrokes: function(corpusCharacter, characters) {
-    var strokeKeycodes =  characters[corpusCharacter],
-        strokes =  _.map(strokeKeycodes, function(keycode) {
-                            return xm.config.keyboard[keycode];
-                          });
+    var strokeKeycodes = characters[corpusCharacter];
+    if (strokeKeycodes === undefined) {
+      throw "corpusCharacter not in characters";
+    }
+
+    var strokes = _.map(strokeKeycodes, function(keycode) {
+                    return xm.config.keyboard[keycode];
+                  });
     return strokes;
   },
 
