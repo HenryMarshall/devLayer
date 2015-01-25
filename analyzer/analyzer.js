@@ -12,7 +12,7 @@ var dl = {
 
   xmodToCharacters: function(xmod) {
     var layout = dl.xmodToLayout(xmod),
-        characters = dl.buildCharacters(layout);
+        characters = dl.layoutToCharacters(layout);
 
     return characters;
   },
@@ -41,7 +41,7 @@ var dl = {
     return conversionDirection[symbol] || symbol || "NoSymbol"
   },
 
-  buildCharacters: function(layout) {
+  layoutToCharacters: function(layout) {
     var characters = {};
     _.each(dl.config.inputPriority, function(mod) {
       _.each(layout, function(physicalKey) {

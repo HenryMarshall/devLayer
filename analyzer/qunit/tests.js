@@ -159,6 +159,6 @@ QUnit.test("buildCharacterStrokes", function(assert) {
   testBuild(0, "altGrShift", true);
 });
 
-QUnit.test("buildCharacters", function(assert) {
-  assert.propEqual(dl.buildCharacters(testData.layout), testData.characters);
+QUnit.test("layoutToCharacters", function(assert) {
+  assert.propEqual(dl.layoutToCharacters(testData.layout), testData.characters);
 });
