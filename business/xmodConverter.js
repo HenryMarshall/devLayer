@@ -10,11 +10,11 @@ var xm = {
     });
   },
 
-  xmodToCharacters: function(xmod) {
+  xmodToChords: function(xmod) {
     var layout = xm.xmodToLayout(xmod),
-        characters = xm.layoutToCharacters(layout);
+        chords = xm.layoutToChords(layout);
 
-    return characters;
+    return chords;
   },
 
   xmodToLayout: function(xmod) {
@@ -41,24 +41,24 @@ var xm = {
     return xm.config.toSymbol[symbol] || symbol || "NoSymbol"
   },
 
-  layoutToCharacters: function(layout) {
-    var characters = {};
+  layoutToChords: function(layout) {
+    var chords = {};
     _.each(xm.config.inputPriority, function(mod) {
       _.each(layout, function(physicalKey) {
-        characters = xm.buildCharacterStrokes(physicalKey, mod, characters)
+        chords = xm.buildChordStrokes(physicalKey, mod, chords)
       });
     });
-    return characters
+    return chords
   },
 
-  buildCharacterStrokes: function(physicalKey, modLevel, characters) {
-    var character = physicalKey[modLevel]
-    if (!characters.hasOwnProperty(character)) {
+  buildChordStrokes: function(physicalKey, modLevel, chords) {
+    var chord = physicalKey[modLevel]
+    if (!chords.hasOwnProperty(chord)) {
       if (!xm.isEasierWay(physicalKey, modLevel)) {
-        characters[character] = xm.strokesForCharacter(physicalKey, modLevel)
+        chords[chord] = xm.strokesForCharacter(physicalKey, modLevel)
       }
     }
-    return characters;
+    return chords;
   },
 
   // Checks if there is an easier way to input the character with the key.

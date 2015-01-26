@@ -74,9 +74,9 @@ QUnit.test("getLayout", function(assert) {
   )
 });
 
-QUnit.test("xmodToCharacters", function(assert) {
+QUnit.test("xmodToChords", function(assert) {
   var xmod = xm.testData.xmodLines.join('\n');
-  assert.propEqual(xm.xmodToCharacters(xmod), xm.testData.chords);
+  assert.propEqual(xm.xmodToChords(xmod), xm.testData.chords);
 });
 
 QUnit.test("xmodToLayout", function(assert) {
@@ -137,7 +137,7 @@ QUnit.test("strokesForCharacter", function(assert) {
   strokes(1, "altGrShift", ")");
 });
 
-QUnit.test("buildCharacterStrokes", function(assert) {
+QUnit.test("buildChordStrokes", function(assert) {
   function testBuild(physicalKeyIdx, mod, isEasier) {
     var physicalKey = xm.testData.layout[physicalKeyIdx],
         expect = {};
@@ -147,7 +147,7 @@ QUnit.test("buildCharacterStrokes", function(assert) {
     }
 
     assert.propEqual(
-      xm.buildCharacterStrokes(physicalKey, mod, {}),
+      xm.buildChordStrokes(physicalKey, mod, {}),
       expect
     );
   }
@@ -159,6 +159,6 @@ QUnit.test("buildCharacterStrokes", function(assert) {
   testBuild(0, "altGrShift", true);
 });
 
-QUnit.test("layoutToCharacters", function(assert) {
-  assert.propEqual(xm.layoutToCharacters(xm.testData.layout), xm.testData.chords);
+QUnit.test("layoutToChords", function(assert) {
+  assert.propEqual(xm.layoutToChords(xm.testData.layout), xm.testData.chords);
 });
