@@ -29,6 +29,14 @@ xm.testData = {
     }
   ],
 
+  invalidLayoutKey: {
+    altGr: "Print",
+    altGrShift: "NoSymbol",
+    keycode: "218",
+    noMod: "Print",
+    shift: "NoSymbol"
+  },
+
   chords: {
     "q": ["24"],
     "Q": ["24", "62"],
@@ -137,17 +145,9 @@ QUnit.test("strokesForCharacter", function(assert) {
   strokes(1, "altGr", "(");
   strokes(1, "altGrShift", ")");
 
-  var invalidLayoutKey = {
-    altGr: "Print",
-    altGrShift: "NoSymbol",
-    keycode: "218",
-    noMod: "Print",
-    shift: "NoSymbol"
-  };
-
   assert.throws(
     function() {
-      xm.strokesForCharacter(invalidLayoutKey, "noMod");
+      xm.strokesForCharacter(xm.testData.invalidLayoutKey, "noMod");
     },
     /layoutKey not found on keyboard/,
     "Invalid layoutKey throws error."
@@ -177,5 +177,21 @@ QUnit.test("buildChordStrokes", function(assert) {
 });
 
 QUnit.test("layoutToChords", function(assert) {
-  assert.propEqual(xm.layoutToChords(xm.testData.layout), xm.testData.chords);
+  function testLayoutToChords(input, message) {
+    assert.propEqual(
+      xm.layoutToChords(input),
+      xm.testData.chords,
+      message
+    );
+  }
+
+  testLayoutToChords(xm.testData.layout, "Valid input returns chords");
+
+  var invalidLayout = _.clone(xm.testData.layout);
+  invalidLayout.push(xm.testData.invalidLayoutKey);
+
+  testLayoutToChords(
+    invalidLayout,
+    "Layout with unknown keys returns chords for known."
+  );
 });

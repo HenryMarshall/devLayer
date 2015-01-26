@@ -45,7 +45,8 @@ var xm = {
     var chords = {};
     _.each(xm.config.inputPriority, function(mod) {
       _.each(layout, function(layoutKey) {
-        chords = xm.buildChordStrokes(layoutKey, mod, chords)
+        try { chords = xm.buildChordStrokes(layoutKey, mod, chords) }
+        catch (err) {  }
       });
     });
     return chords

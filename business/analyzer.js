@@ -14,8 +14,6 @@ var dl = {
   },
 
   buildTodo: function(previousStrokes, currentStrokes) {
-    console.log("previousStrokes: ",previousStrokes);
-    console.log("currentStrokes: ",currentStrokes);
 
     var todo = {
       "previousToHome": _.clone(previousStrokes),
