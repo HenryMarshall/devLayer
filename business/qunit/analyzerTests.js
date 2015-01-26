@@ -232,6 +232,14 @@ QUnit.test("buildTodo", function(assert) {
     "previousToCurrent (r -> t)"
   );
 
+  testTodo("!", "(",
+    {
+      "homeToCurrent": [xm.config.keyboard[xm.testData.chords["j"]]],
+      "previousToCurrent": [],
+      "previousToHome": [xm.config.keyboard[xm.testData.chords["q"]]]
+    },
+    "Two unrelated keys whilst holding mod (`!` `(`)"
+  )
 });
 
 QUnit.test("dl.isMaintainingMod", function(assert) {

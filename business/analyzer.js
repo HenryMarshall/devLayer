@@ -24,7 +24,9 @@ var dl = {
     _.each(previousStrokes, function(previousStroke) {
       _.each(currentStrokes, function(currentStroke) {
         if (previousStroke.finger === currentStroke.finger) {
-          todo.previousToCurrent.push([previousStroke, currentStroke]);
+          if (!dl.isMaintainingMod(previousStroke, currentStroke)) {
+            todo.previousToCurrent.push([previousStroke, currentStroke]);
+          }
           todo.previousToHome = _.without(todo.previousToHome, previousStroke);
           todo.homeToCurrent = _.without(todo.homeToCurrent, currentStroke);
         }
@@ -34,7 +36,7 @@ var dl = {
     return todo;
   },
 
-  maintainingMod: function(previousStroke, currentStroke) {
+  isMaintainingMod: function(previousStroke, currentStroke) {
     physicalMods = [xm.config.keyboard[xm.config.altGrKeycode],
                     xm.config.keyboard[xm.config.shiftLeftKeycode],
                     xm.config.keyboard[xm.config.shiftRightKeycode]];
