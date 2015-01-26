@@ -234,14 +234,14 @@ QUnit.test("buildTodo", function(assert) {
 
 });
 
-QUnit.test("dl.maintainingMod", function(assert) {
+QUnit.test("dl.isMaintainingMod", function(assert) {
   var altGr = xm.config.keyboard[xm.config.altGrKeycode],
       shiftLeft = xm.config.keyboard[xm.config.shiftLeftKeycode],
       shiftRight = xm.config.keyboard[xm.config.shiftRightKeycode];
 
   function testMaintainMod(previousStroke, currentStroke, expect, message) {
     assert.equal(
-      dl.maintainingMod(previousStroke, currentStroke),
+      dl.isMaintainingMod(previousStroke, currentStroke),
       expect,
       message
     );
