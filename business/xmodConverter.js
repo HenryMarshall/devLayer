@@ -44,18 +44,19 @@ var xm = {
   layoutToChords: function(layout) {
     var chords = {};
     _.each(xm.config.inputPriority, function(mod) {
-      _.each(layout, function(physicalKey) {
-        chords = xm.buildChordStrokes(physicalKey, mod, chords)
+      _.each(layout, function(layoutKey) {
+        chords = xm.buildChordStrokes(layoutKey, mod, chords)
       });
     });
     return chords
   },
 
-  buildChordStrokes: function(physicalKey, modLevel, chords) {
-    var chord = physicalKey[modLevel]
+  buildChordStrokes: function(layoutKey, modLevel, chords) {
+    var chord = layoutKey[modLevel]
     if (!chords.hasOwnProperty(chord)) {
-      if (!xm.isEasierWay(physicalKey, modLevel)) {
-        chords[chord] = xm.strokesForCharacter(physicalKey, modLevel)
+      if (!xm.isEasierWay(layoutKey, modLevel)) {
+
+        chords[chord] = xm.strokesForCharacter(layoutKey, modLevel)
       }
     }
     return chords;
@@ -63,10 +64,10 @@ var xm = {
 
   // Checks if there is an easier way to input the character with the key.
   // (e.g. input ";" without any mods even though altGr also works
-  isEasierWay: function(physicalKey, modLevel) {
+  isEasierWay: function(layoutKey, modLevel) {
     modLevelIdx = xm.config.easyPriority.indexOf(modLevel);
     for (var ii = 0; ii < modLevelIdx; ii++) {
-      if (physicalKey[xm.config.easyPriority[ii]] === physicalKey[modLevel]) {
+      if (layoutKey[xm.config.easyPriority[ii]] === layoutKey[modLevel]) {
         return true;
       }
     };
@@ -74,21 +75,27 @@ var xm = {
   },
 
   // Records the strokes that are required to input a character.
-  strokesForCharacter: function(physicalKey, modLevel) {
-    var strokes = [physicalKey.keycode];
+  strokesForCharacter: function(layoutKey, modLevel) {
+    console.log("layoutKey: ",layoutKey);
+
+    // if xm.config.keyboard.hasOwnProperty()
+
+    var strokes = [layoutKey.keycode];
 
     if (modLevel === "altGr" || modLevel === "altGrShift") {
       strokes.push(xm.config.altGrKeycode);
     }
 
     if (modLevel === "shift" || modLevel === "altGrShift") {
-      if (xm.config.keyboard[physicalKey.keycode].hand === "left") {
+      if (xm.config.keyboard[layoutKey.keycode].hand === "left") {
         strokes.push(xm.config.shiftRightKeycode);
       }
       else {
         strokes.push(xm.config.shiftLeftKeycode);
       }
     }
+
+    console.log("strokes: ",strokes);
 
     return strokes;
   }
