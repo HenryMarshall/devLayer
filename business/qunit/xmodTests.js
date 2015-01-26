@@ -100,8 +100,8 @@ QUnit.test("convertXmodName", function(assert) {
 });
 
 QUnit.test("isEasierWay", function(assert) {
-  function easier(physicalKey, mod, isTrue) {
-    assert.equal(xm.isEasierWay(xm.testData.layout[physicalKey], mod), isTrue);
+  function easier(layoutKey, mod, isTrue) {
+    assert.equal(xm.isEasierWay(xm.testData.layout[layoutKey], mod), isTrue);
   }
 
   // q Q exclam exclam
@@ -124,9 +124,9 @@ QUnit.test("isEasierWay", function(assert) {
 });
 
 QUnit.test("strokesForCharacter", function(assert) {
-  function strokes(physicalKey, mod, expectedChar) {
+  function strokes(layoutKey, mod, expectedChar) {
     assert.propEqual(
-      xm.strokesForCharacter(xm.testData.layout[physicalKey], mod),
+      xm.strokesForCharacter(xm.testData.layout[layoutKey], mod),
       xm.testData.chords[expectedChar]
     );
   }
@@ -138,16 +138,16 @@ QUnit.test("strokesForCharacter", function(assert) {
 });
 
 QUnit.test("buildChordStrokes", function(assert) {
-  function testBuild(physicalKeyIdx, mod, isEasier) {
-    var physicalKey = xm.testData.layout[physicalKeyIdx],
+  function testBuild(layoutKeyIdx, mod, isEasier) {
+    var layoutKey = xm.testData.layout[layoutKeyIdx],
         expect = {};
 
     if (!isEasier) {
-      expect[physicalKey[mod]] = xm.testData.chords[physicalKey[mod]];
+      expect[layoutKey[mod]] = xm.testData.chords[layoutKey[mod]];
     }
 
     assert.propEqual(
-      xm.buildChordStrokes(physicalKey, mod, {}),
+      xm.buildChordStrokes(layoutKey, mod, {}),
       expect
     );
   }
