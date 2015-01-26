@@ -34,6 +34,15 @@ var dl = {
     return todo;
   },
 
+  maintainingMod: function(previousStroke, currentStroke) {
+    physicalMods = [xm.config.keyboard[xm.config.altGrKeycode],
+                    xm.config.keyboard[xm.config.shiftLeftKeycode],
+                    xm.config.keyboard[xm.config.shiftRightKeycode]];
+
+    return  previousStroke === currentStroke && 
+            _.contains(physicalMods, currentStroke)
+  },
+
   incrementScore: function(todo, score) {
     _.each(todo.previousToCurrent, function(physicalKeys) {
       // TODO: if holding a modifier, should not increment
