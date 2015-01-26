@@ -1,4 +1,4 @@
-// dl is the devLayer namespace
+// xm is the xmod namespace
 xm.config = {
 
   "toSymbol": {
@@ -47,20 +47,6 @@ xm.config = {
   "altGrKeycode": "108",
   "shiftLeftKeycode": "50",
   "shiftRightKeycode": "62",
-
-  "homerow": {
-    "leftPinkie": "38",
-    "leftRing": "39",
-    "leftMiddle": "40",
-    "leftIndex": "41",
-    "leftThumb": "65",
-    "rightThumb": "108",
-    "rightIndex": "44",
-    "rightMiddle": "45",
-    "rightRing": "46",
-    "rightPinkie": "47"
-  },
-
   "keyboard": {
     // qwerty: 1
     "10": { 
@@ -462,4 +448,17 @@ xm.config = {
       "y": 4
     }
   }
-}
+};
+
+xm.config.homerow = {
+  "leftPinkie": xm.config.keyboard["38"],
+  "leftRing": xm.config.keyboard["39"],
+  "leftMiddle": xm.config.keyboard["40"],
+  "leftIndex": xm.config.keyboard["41"],
+  "leftThumb": xm.config.keyboard["65"],
+  "rightThumb": xm.config.keyboard["108"],
+  "rightIndex": xm.config.keyboard["44"],
+  "rightMiddle": xm.config.keyboard["45"],
+  "rightRing": xm.config.keyboard["46"],
+  "rightPinkie": xm.config.keyboard["47"]
+};
