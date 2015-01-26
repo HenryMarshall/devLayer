@@ -55,7 +55,67 @@ dl.testData = {
     ";": ["47"],
     ":": ["47", "50"]
   },
-  score: {}
+  newScore: {
+    "fingers": {
+      "leftIndex": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      },
+      "leftMiddle": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      },
+      "leftPinkie": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      },
+      "leftRing": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      },
+      "leftThumb": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      },
+      "rightIndex": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      },
+      "rightMiddle": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      },
+      "rightPinkie": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      },
+      "rightRing": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      },
+      "rightThumb": {
+        "consecutive": 0,
+        "distance": 0,
+        "strokes": 0
+      }
+    },
+    "rows": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  }
 }
 
 // FIXME: This test relies on some of the same logic as what it is testing.
@@ -123,9 +183,54 @@ QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
   );
 });
 
-QUnit.test("dl.processCorpus", function(assert) {
-  assert.propEqual(
-    dl.processCorpus(dl.testData.corpus, dl.testData.chords),
-    dl.testData.score
-  );
+QUnit.test("new Score", function(assert) {
+  assert.propEqual(new dl.Score(), dl.testData.newScore);
 });
+
+QUnit.test("buildTodo", function(assert) {
+  function testTodo(previousCharacter, currentCharacter, expect) {
+    assert.propEqual(
+      dl.buildTodo(
+        dl.keycodesToStrokes(previousCharacter, dl.testData.chords),
+        dl.keycodesToStrokes(currentCharacter, dl.testData.chords)
+      ),
+      expect
+    );
+  }
+
+  testTodo(
+    "q",
+    "j",
+    {
+      "homeToCurrent": [
+        {
+          "finger": "rightIndex",
+          "hand": "right",
+          "x": 7.75,
+          "y": 2
+        }
+      ],
+      "previousToCurrent": [],
+      "previousToHome": [
+        {
+          "finger": "leftPinkie",
+          "hand": "left",
+          "x": 1.5,
+          "y": 1
+        }
+      ]
+    }
+  )
+
+  // assert.propEqual(
+  //   dl.buildTodo([xm.config.keyboard[chords"q"]], [xm.config.keyboard["j"]]),
+  //   {}
+  // );
+});
+
+// QUnit.test("dl.processCorpus", function(assert) {
+//   assert.propEqual(
+//     dl.processCorpus(dl.testData.corpus, dl.testData.chords),
+//     dl.testData.newScore
+//   );
+// });
