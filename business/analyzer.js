@@ -90,6 +90,9 @@ var dl = {
   },
 
   distanceBetween: function(from, to) {
+    // If no `to` is given, return finger to homerow
+    to = to || xm.config.keyboard[xm.config.homerow[from.finger]];
+
     if (to.finger !== from.finger) {
       throw "Different fingers used; cannot calculate distance"
     }

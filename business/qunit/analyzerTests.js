@@ -95,6 +95,7 @@ QUnit.test("dl.distanceBetween", function(assert) {
 
   testDistance("27", "28", 1);
   testDistance("41", "28", 1.25);
+  testDistance("28", undefined, 1.25);
 
   assert.throws(function() {
     dl.distanceBetween(
