@@ -76,9 +76,10 @@ var xm = {
 
   // Records the strokes that are required to input a character.
   strokesForCharacter: function(layoutKey, modLevel) {
-    console.log("layoutKey: ",layoutKey);
 
-    // if xm.config.keyboard.hasOwnProperty()
+    if (!xm.config.keyboard.hasOwnProperty(layoutKey.keycode)) {
+      throw "layoutKey not found on keyboard."
+    }
 
     var strokes = [layoutKey.keycode];
 
@@ -94,8 +95,6 @@ var xm = {
         strokes.push(xm.config.shiftLeftKeycode);
       }
     }
-
-    console.log("strokes: ",strokes);
 
     return strokes;
   }
