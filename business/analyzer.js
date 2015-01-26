@@ -25,8 +25,8 @@ var dl = {
       _.each(currentStrokes, function(currentStroke) {
         if (previousStroke.finger === currentStroke.finger) {
           todo.previousToCurrent.push([previousStroke, currentStroke]);
-          _.without(todo.previousToHome, previousStroke);
-          _.without(todo.homeToCurrent, currentStroke);
+          todo.previousToHome = _.without(todo.previousToHome, previousStroke);
+          todo.homeToCurrent = _.without(todo.homeToCurrent, currentStroke);
         }
       });
     });
