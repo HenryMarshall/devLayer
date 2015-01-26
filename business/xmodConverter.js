@@ -1,6 +1,6 @@
 // xm is the xmod namespace
 var xm = {
-  getLayout: function(name, success, error) {
+  getXmod: function(name, success, error) {
     $.ajax({
       url: "/layouts/" + name,
       type: "GET",

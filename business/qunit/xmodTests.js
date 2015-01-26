@@ -59,14 +59,14 @@ xm.testData = {
 };
 
 
-QUnit.test("getLayout", function(assert) {
+QUnit.test("getXmod", function(assert) {
 
   assert.expect(2);
 
   var doneExisting = assert.async(),
       doneDne = assert.async();
 
-  xm.getLayout(
+  xm.getXmod(
     "qwerty.txt", 
     function(data) {
       assert.ok(data, "Found existing layout");
@@ -79,7 +79,7 @@ QUnit.test("getLayout", function(assert) {
     }
   );
 
-  xm.getLayout(
+  xm.getXmod(
     "foo.bar",
     function(data) {
       assert.ok(false, "Found non-existant layout");
