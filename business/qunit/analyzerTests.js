@@ -188,44 +188,49 @@ QUnit.test("new Score", function(assert) {
 });
 
 QUnit.test("buildTodo", function(assert) {
-  function testTodo(previousCharacter, currentCharacter, expect) {
+
+  var expandedChords = _.clone(dl.testData.chords),
+      additionalXmodLines = [
+        "keycode 27 = r R r R",
+        "keycode 28 = t T t T"
+      ],
+      additionalXmod = additionalXmodLines.join('\n');
+
+  _.extend(expandedChords, xm.xmodToChords(additionalXmod));
+
+  console.log("expandedChords: ",expandedChords);
+
+  function testTodo(previousCharacter, currentCharacter, expect, message) {
+
     assert.propEqual(
       dl.buildTodo(
-        dl.keycodesToStrokes(previousCharacter, dl.testData.chords),
-        dl.keycodesToStrokes(currentCharacter, dl.testData.chords)
+        // buildTodo takes strokes not characters
+        dl.keycodesToStrokes(previousCharacter, expandedChords),
+        dl.keycodesToStrokes(currentCharacter, expandedChords)
       ),
-      expect
+      expect,
+      message
     );
   }
 
-  testTodo(
-    "q",
-    "j",
+  testTodo("q", "j",
     {
-      "homeToCurrent": [
-        {
-          "finger": "rightIndex",
-          "hand": "right",
-          "x": 7.75,
-          "y": 2
-        }
-      ],
+      "homeToCurrent": [xm.config.keyboard[xm.testData.chords["j"]]],
       "previousToCurrent": [],
-      "previousToHome": [
-        {
-          "finger": "leftPinkie",
-          "hand": "left",
-          "x": 1.5,
-          "y": 1
-        }
-      ]
-    }
-  )
+      "previousToHome": [xm.config.keyboard[xm.testData.chords["q"]]]
+    },
+    "Two unrelated keys (q & j)"
+  );
 
-  // assert.propEqual(
-  //   dl.buildTodo([xm.config.keyboard[chords"q"]], [xm.config.keyboard["j"]]),
-  //   {}
-  // );
+  testTodo("r", "t",
+    {
+      "homeToCurrent": [],
+      "previousToCurrent": [xm.config.keyboard[expandedChords["r"]], 
+                            xm.config.keyboard[expandedChords["t"]]],
+      "previousToHome": []
+    },
+    "previousToCurrent (r -> t)"
+  );
 });
 
 // QUnit.test("dl.processCorpus", function(assert) {
