@@ -225,8 +225,8 @@ QUnit.test("buildTodo", function(assert) {
   testTodo("r", "t",
     {
       "homeToCurrent": [],
-      "previousToCurrent": [xm.config.keyboard[expandedChords["r"]], 
-                            xm.config.keyboard[expandedChords["t"]]],
+      "previousToCurrent": [[xm.config.keyboard[expandedChords["r"]], 
+                            xm.config.keyboard[expandedChords["t"]]]],
       "previousToHome": []
     },
     "previousToCurrent (r -> t)"
