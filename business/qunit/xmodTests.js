@@ -4,7 +4,7 @@ xm.testData = {
     "keycode  44 = j J parenleft parenright",
     "keycode  47 = semicolon colon semicolon colon"
   ],
-  
+
   layout: [
     {
       "keycode": "24",
@@ -30,11 +30,19 @@ xm.testData = {
   ],
 
   invalidLayoutKey: {
-    altGr: "Print",
-    altGrShift: "NoSymbol",
-    keycode: "218",
-    noMod: "Print",
-    shift: "NoSymbol"
+    "altGr": "Print",
+    "altGrShift": "NoSymbol",
+    "keycode": "218",
+    "noMod": "Print",
+    "shift": "NoSymbol"
+  },
+
+  vanillaExclamLayoutKey: {
+    "altGr": "1",
+    "altGrShift": "!",
+    "keycode": "10",
+    "noMod": "1",
+    "shift": "!"
   },
 
   chords: {
@@ -50,6 +58,7 @@ xm.testData = {
   }
 };
 
+
 QUnit.test("getLayout", function(assert) {
 
   assert.expect(2);
@@ -61,6 +70,7 @@ QUnit.test("getLayout", function(assert) {
     "qwerty.txt", 
     function(data) {
       assert.ok(data, "Found existing layout");
+      xm.testData.qwertyXmod = data;
       doneExisting();
     },
     function() {
@@ -177,21 +187,43 @@ QUnit.test("buildChordStrokes", function(assert) {
 });
 
 QUnit.test("layoutToChords", function(assert) {
-  function testLayoutToChords(input, message) {
+  function testLayoutToChords(layout, expect, message) {
     assert.propEqual(
-      xm.layoutToChords(input),
-      xm.testData.chords,
+      xm.layoutToChords(layout),
+      expect,
       message
     );
   }
 
-  testLayoutToChords(xm.testData.layout, "Valid input returns chords");
+  testLayoutToChords(
+    xm.testData.layout,
+    xm.testData.chords,
+    "Valid input returns chords"
+  );
 
   var invalidLayout = _.clone(xm.testData.layout);
   invalidLayout.push(xm.testData.invalidLayoutKey);
 
   testLayoutToChords(
     invalidLayout,
+    xm.testData.chords,
     "Layout with unknown keys returns chords for known."
   );
+
+
+  var exclamLayout = [xm.testData.layout[0], xm.testData.vanillaExclamLayoutKey],
+      exclamExpect = {
+        "q": ["24"],
+        "Q": ["24", "62"],
+        "!": ["24", "108"],
+        "1": ["10"]
+      };
+
+  testLayoutToChords(
+    exclamLayout,
+    exclamExpect,
+    "Return easiest chords amongst options"
+  );
+
+
 });
