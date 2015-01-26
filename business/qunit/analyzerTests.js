@@ -231,6 +231,27 @@ QUnit.test("buildTodo", function(assert) {
     },
     "previousToCurrent (r -> t)"
   );
+
+});
+
+QUnit.test("dl.maintainingMod", function(assert) {
+  var altGr = xm.config.keyboard[xm.config.altGrKeycode],
+      shiftLeft = xm.config.keyboard[xm.config.shiftLeftKeycode],
+      shiftRight = xm.config.keyboard[xm.config.shiftRightKeycode];
+
+  function testMaintainMod(previousStroke, currentStroke, expect, message) {
+    assert.equal(
+      dl.maintainingMod(previousStroke, currentStroke),
+      expect,
+      message
+    );
+  }
+
+  testMaintainMod(altGr, altGr, true, "Maintain altGr");
+  testMaintainMod(shiftLeft, shiftLeft, true, "Maintain shiftLeft");
+  testMaintainMod(shiftRight, shiftRight, true, "Maintain shiftRight");
+  testMaintainMod(shiftLeft, shiftRight, false, "leftShift to shiftRight");
+  testMaintainMod(altGr, shiftRight, false, "altGr to shiftRight");
 });
 
 // QUnit.test("dl.processCorpus", function(assert) {
