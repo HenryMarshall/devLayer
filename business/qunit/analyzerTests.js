@@ -123,9 +123,9 @@ QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
   );
 });
 
-QUnit.test("dl.processCorpusStrokes", function(assert) {
+QUnit.test("dl.processCorpus", function(assert) {
   assert.propEqual(
-    dl.processCorpusStrokes(dl.testData.corpusStrokes),
+    dl.processCorpus(dl.testData.corpus, dl.testData.chords),
     dl.testData.score
   );
 });

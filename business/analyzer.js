@@ -1,40 +1,58 @@
 var dl = {
-  processCorpusStrokes: function(corpusStrokes) {
-    var score = new dl.Score();
+
+  processCorpus: function(corpus, chords) {
+    var score = new dl.Score(),
+        corpusStrokes = dl.corpusToCorpusStrokes(corpus, chords);
 
     _.each(corpusStrokes, function(currentStrokes, ii) {
-      var previousStrokes = corpusStrokes[ii-1] || [],
-          homeboundStrokes = _.clone(previousStrokes);
+      var previousStrokes = corpusStrokes[ii - 1] || [],
+          todo = dl.buildTodo(previousStrokes, currentStrokes);
+      score = dl.incrementScore(todo, score);
+    });
 
+    return score;
+  },
+
+  buildTodo: function(previousStrokes, currentStrokes) {
+    var todo = {
+      "previousToHome": _.clone(previousStrokes),
+      "previousToCurrent": [],
+      "homeToCurrent": _.clone(currentStrokes)
+    };
+
+    _.each(previousStrokes, function(previousStroke) {
       _.each(currentStrokes, function(currentStroke) {
-        var fingerReused = false,
-            currentFingerScore = score.fingers[currentStroke.finger];
-
-        _.each(previousStrokes, function(previousStroke) {
-          if (currentStroke.finger === previousStroke.finger) {
-            currentFingerScore.distance += 
-              dl.distanceBetween(previousStroke, currentStroke)
-            ++currentFingerScore.consecutive
-            // TODO: remove previousStroke from homeboundStrokes
-            fingerReused = true;
-          }
-        });
-
-        _.each(homeboundStrokes, function(homeboundStroke) {
-          var homeboundHome = xm.config.keyboard[xm.config.homerow[homeboundStroke.finger]];
-
-          score.fingers[homeboundStroke.finger].distance +=
-            dl.distanceBetween(homeboundStroke, homeboundHome)
-        });
-
-        if (!fingerReused) {
-          var home = xm.config.keyboard[xm.config.homerow[currentStroke.finger]];
-          currentFingerScore.distance +=
-            dl.distanceBetween(home, currentStroke)
+        if (previousStroke.finger === currentStroke.finger) {
+          todo.previousToCurrent.push([previousStroke, currentStroke]);
+          _.without(todo.previousToHome, previousStroke);
+          _.without(todo.homeToCurrent, currentStroke);
         }
-
-        ++score.fingers[currentStroke.finger].strokes
       });
+    });
+
+    return todo;
+  },
+
+  incrementScore: function(todo, score) {
+    _.each(todo.previousToCurrent, function(physicalKeys) {
+      // TODO: if holding a modifier, should not increment
+      var fingerScore = score.fingers[physicalKeys[1].finger];
+      fingerScore.distance += dl.distanceBetween(physicalKeys[0], physicalKeys[1]);
+      ++fingerScore.strokes;
+      ++score.rows[physicalKeys[1].y];
+      ++fingerScore.consecutive;
+    });
+
+    _.each(todo.homeToCurrent, function(physicalKey) {
+      var fingerScore = score.fingers[physicalKey.finger];
+      fingerScore.distance += dl.distanceBetween(physicalKey);
+      ++fingerScore.strokes;
+      ++score.rows[physicalKey.y];
+    });
+
+    _.each(todo.previousToHome, function(physicalKey) {
+      var fingerScore = score.fingers[physicalKey.finger];
+      fingerScore.distance += dl.distanceBetween(physicalKey);
     });
 
     return score;
@@ -54,7 +72,7 @@ var dl = {
       rightThumb: new dl.Finger()
     },
     // Rows are respectively: Number, Top, Home, Bottom, Space 
-    this.row = [0,0,0,0,0]
+    this.rows = [0,0,0,0,0]
   },
 
   Finger: function(strokes, distance, consecutive) {
