@@ -127,7 +127,8 @@ QUnit.test("strokesForCharacter", function(assert) {
   function strokes(layoutKey, mod, expectedChar) {
     assert.propEqual(
       xm.strokesForCharacter(xm.testData.layout[layoutKey], mod),
-      xm.testData.chords[expectedChar]
+      xm.testData.chords[expectedChar],
+      "Valid layoutKey returns strokes."
     );
   }
 
@@ -135,6 +136,22 @@ QUnit.test("strokesForCharacter", function(assert) {
   strokes(1, "shift", "J");
   strokes(1, "altGr", "(");
   strokes(1, "altGrShift", ")");
+
+  var invalidLayoutKey = {
+    altGr: "Print",
+    altGrShift: "NoSymbol",
+    keycode: "218",
+    noMod: "Print",
+    shift: "NoSymbol"
+  };
+
+  assert.throws(
+    function() {
+      xm.strokesForCharacter(invalidLayoutKey, "noMod");
+    },
+    /layoutKey not found on keyboard/,
+    "Invalid layoutKey throws error."
+  );
 });
 
 QUnit.test("buildChordStrokes", function(assert) {
@@ -155,7 +172,7 @@ QUnit.test("buildChordStrokes", function(assert) {
   testBuild(0, "noMod", false);
   testBuild(0, "shift", false);
   testBuild(0, "altGr", false);
-  // Should ignore as their is an easier to type method.
+  // Should ignore as there is an easier to type method.
   testBuild(0, "altGrShift", true);
 });
 
