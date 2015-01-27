@@ -276,15 +276,58 @@ QUnit.test("dl.incrementScore", function(assert) {
   );
 
   var rtScore = new dl.Score();
-  ++rtScore.fingers.leftIndex.strokes
-  ++rtScore.fingers.leftIndex.consecutive
-  ++rtScore.fingers.leftIndex.distance
-  ++rtScore.rows[1]
-
+  ++rtScore.fingers.leftIndex.strokes;
+  ++rtScore.fingers.leftIndex.consecutive;
+  ++rtScore.fingers.leftIndex.distance;
+  ++rtScore.rows[1];
   assert.propEqual(
     dl.incrementScore(dl.testData.todos.rt, new dl.Score()),
     rtScore,
-    "Increment leftIndex distance and strokes by 1"
+    "previousToCurrent (rt)"
+  );
+
+  // This doesn't exactly make sense as `t` must be the first character in the 
+  // second letter pain. This however serves well as a test.
+  var rtrtScore = $.extend(true, {}, rtScore);
+  ++rtrtScore.fingers.leftIndex.strokes;
+  ++rtrtScore.fingers.leftIndex.consecutive;
+  ++rtrtScore.fingers.leftIndex.distance;
+  ++rtrtScore.rows[1];
+  assert.propEqual(
+    dl.incrementScore(dl.testData.todos.rt, rtScore),
+    rtrtScore,
+    "previousToCurrent on existing score (rt; rt)"
+  );
+
+  var qjScore = new dl.Score();
+  qjScore.fingers.leftPinkie.distance = 1.0307764064044151;
+  ++qjScore.fingers.rightIndex.strokes;
+  ++qjScore.rows[2]
+  assert.propEqual(
+    dl.incrementScore(dl.testData.todos.qj, new dl.Score()),
+    qjScore,
+    "unrelated keys (qj)"
+  );
+
+  var QjScore = $.extend(true, {}, qjScore);
+  QjScore.fingers.rightPinkie.distance = 1.8027756377319946;
+  assert.propEqual(
+    dl.incrementScore(dl.testData.todos.Qj, new dl.Score()),
+    QjScore,
+    "unrelated keys w/ unshift (Qj)"
+  );
+
+  var qJScore = new dl.Score();
+  qJScore.fingers.leftPinkie.distance = 2.0155644370746373;
+  ++qJScore.fingers.leftPinkie.strokes;
+  ++qJScore.fingers.leftPinkie.consecutive;
+  ++qJScore.fingers.rightIndex.strokes;
+  ++qJScore.rows[2];
+  ++qJScore.rows[3];
+  assert.propEqual(
+    dl.incrementScore(dl.testData.todos.qJ, new dl.Score()),
+    qJScore,
+    "unrelated keys w/ unshift (qJ)"
   );
 });
 
