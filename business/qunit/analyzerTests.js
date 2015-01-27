@@ -121,6 +121,10 @@ dl.testData = {
       0,
       0
     ]
+  },
+
+  asciiToPhysical: function(character) {
+    return xm.config.keyboard[dl.testData.chords[character]]
   }
 }
 
@@ -205,24 +209,20 @@ QUnit.test("dl.buildTodo", function(assert) {
     );
   }
 
-  function asciiToPhysical(character) {
-    return xm.config.keyboard[dl.testData.chords[character]]
-  }
-
   testTodo("q", "j",
     {
-      "homeToCurrent": [xm.config.keyboard[xm.testData.chords["j"]]],
+      "homeToCurrent": [dl.testData.asciiToPhysical("j")],
       "previousToCurrent": [],
-      "previousToHome": [xm.config.keyboard[xm.testData.chords["q"]]]
+      "previousToHome": [dl.testData.asciiToPhysical("q")]
     },
     "Two unrelated keys (q & j)"
   );
 
   testTodo("Q", "j", 
     {
-      "homeToCurrent": [xm.config.keyboard[xm.testData.chords["j"]]],
+      "homeToCurrent": [dl.testData.asciiToPhysical("j")],
       "previousToCurrent": [],
-      "previousToHome": [xm.config.keyboard[xm.testData.chords["q"]], 
+      "previousToHome": [dl.testData.asciiToPhysical("q"), 
                         xm.config.keyboard[xm.config.shiftRightKeycode]]
     },
     "Two unrelated keys with an unshift (`Q` `j`)"
@@ -230,8 +230,8 @@ QUnit.test("dl.buildTodo", function(assert) {
 
   testTodo("q", "J", 
     {
-      "homeToCurrent": [asciiToPhysical("j")],
-      "previousToCurrent": [[asciiToPhysical("q"),
+      "homeToCurrent": [dl.testData.asciiToPhysical("j")],
+      "previousToCurrent": [[dl.testData.asciiToPhysical("q"),
                             xm.config.keyboard[xm.config.shiftLeftKeycode]]],
       "previousToHome": []
     },
@@ -241,7 +241,8 @@ QUnit.test("dl.buildTodo", function(assert) {
   testTodo("r", "t",
     {
       "homeToCurrent": [],
-      "previousToCurrent": [[asciiToPhysical("r"), asciiToPhysical("t")]],
+      "previousToCurrent": [[dl.testData.asciiToPhysical("r"),
+                            dl.testData.asciiToPhysical("t")]],
       "previousToHome": []
     },
     "previousToCurrent (r -> t)"
@@ -249,9 +250,9 @@ QUnit.test("dl.buildTodo", function(assert) {
 
   testTodo("!", "(",
     {
-      "homeToCurrent": [xm.config.keyboard[xm.testData.chords["j"]]],
+      "homeToCurrent": [dl.testData.asciiToPhysical("j")],
       "previousToCurrent": [],
-      "previousToHome": [xm.config.keyboard[xm.testData.chords["q"]]]
+      "previousToHome": [dl.testData.asciiToPhysical("q")]
     },
     "Two unrelated keys whilst holding mod (`!` `(`)"
   );
