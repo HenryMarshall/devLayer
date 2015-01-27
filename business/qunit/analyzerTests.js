@@ -265,6 +265,29 @@ QUnit.test("dl.Score", function(assert) {
   assert.propEqual(new dl.Score(), dl.testData.newScore);
 });
 
+QUnit.test("dl.incrementScore", function(assert) {
+  assert.propEqual(
+    dl.incrementScore(
+      new dl.Todo([], []),
+      new dl.Score()
+    ),
+    new dl.Score(),
+    "Increments nothing if nothing todo."
+  );
+
+  var rtScore = new dl.Score();
+  ++rtScore.fingers.leftIndex.strokes
+  ++rtScore.fingers.leftIndex.consecutive
+  ++rtScore.fingers.leftIndex.distance
+  ++rtScore.rows[1]
+
+  assert.propEqual(
+    dl.incrementScore(dl.testData.todos.rt, new dl.Score()),
+    rtScore,
+    "Increment leftIndex distance and strokes by 1"
+  );
+});
+
 QUnit.test("dl.isMaintainingMod", function(assert) {
   var altGr = xm.config.keyboard[xm.config.altGrKeycode],
       shiftLeft = xm.config.keyboard[xm.config.shiftLeftKeycode],
