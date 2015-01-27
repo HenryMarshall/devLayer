@@ -45,15 +45,21 @@ dl.testData = {
     ]
   ],
   chords: {
-    "q": ["24"],
-    "Q": ["24", "62"],
-    "!": ["24", "108"],
-    "j": ["44"],
-    "J": ["44", "50"],
-    "(": ["44", "108"],
-    ")": ["44", "108", "50"],
-    ";": ["47"],
-    ":": ["47", "50"]
+    "q":["24"],
+    "Q":["24","62"],
+    "!":["24","108"],
+    "j":["44"],
+    "J":["44","50"],
+    "(":["44","108"],
+    ")":["44","108","50"],
+    ";":["47"],
+    ":":["47","50"],
+    "r":["27"],
+    "R":["27","62"],
+    "$":["27","108"],
+    "t":["28"],
+    "T":["28","62"],
+    "%":["28","108"]
   },
   newScore: {
     "fingers": {
@@ -183,28 +189,16 @@ QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
   );
 });
 
-QUnit.test("new Score", function(assert) {
-  assert.propEqual(new dl.Score(), dl.testData.newScore);
-});
 
-QUnit.test("buildTodo", function(assert) {
-
-  var expandedChords = _.clone(dl.testData.chords),
-      additionalXmodLines = [
-        "keycode 27 = r R dollar dollar",
-        "keycode 28 = t T percent percent"
-      ],
-      additionalXmod = additionalXmodLines.join('\n');
-
-  _.extend(expandedChords, xm.xmodToChords(additionalXmod));
+QUnit.test("dl.buildTodo", function(assert) {
 
   function testTodo(previousCharacter, currentCharacter, expect, message) {
 
     assert.propEqual(
       dl.buildTodo(
         // buildTodo takes strokes not characters
-        dl.charactersToStrokes(previousCharacter, expandedChords),
-        dl.charactersToStrokes(currentCharacter, expandedChords)
+        dl.charactersToStrokes(previousCharacter, dl.testData.chords),
+        dl.charactersToStrokes(currentCharacter, dl.testData.chords)
       ),
       expect,
       message
@@ -212,7 +206,7 @@ QUnit.test("buildTodo", function(assert) {
   }
 
   function asciiToPhysical(character) {
-    return xm.config.keyboard[expandedChords[character]]
+    return xm.config.keyboard[dl.testData.chords[character]]
   }
 
   testTodo("q", "j",
@@ -247,8 +241,7 @@ QUnit.test("buildTodo", function(assert) {
   testTodo("r", "t",
     {
       "homeToCurrent": [],
-      "previousToCurrent": [[xm.config.keyboard[expandedChords["r"]], 
-                            xm.config.keyboard[expandedChords["t"]]]],
+      "previousToCurrent": [[asciiToPhysical("r"), asciiToPhysical("t")]],
       "previousToHome": []
     },
     "previousToCurrent (r -> t)"
@@ -276,6 +269,10 @@ QUnit.test("dl.Todo", function(assert) {
       "homeToCurrent": currentStrokes
     }
   );
+});
+
+QUnit.test("dl.Score", function(assert) {
+  assert.propEqual(new dl.Score(), dl.testData.newScore);
 });
 
 QUnit.test("dl.isMaintainingMod", function(assert) {
