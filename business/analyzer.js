@@ -96,7 +96,7 @@ var dl = {
     var corpusChars = corpus.split(''),
         corpusStrokes = _.map(corpusChars, function(corpusChar) {
           try {
-            return dl.keycodesToStrokes(corpusChar, chords);
+            return dl.charactersToStrokes(corpusChar, chords);
           }
           catch(err) {
             // TODO: Add invalid char to list somewhere
@@ -106,7 +106,7 @@ var dl = {
     return corpusStrokes;
   },
 
-  keycodesToStrokes: function(corpusChar, chords) {
+  charactersToStrokes: function(corpusChar, chords) {
     var strokeKeycodes = chords[corpusChar];
     if (strokeKeycodes === undefined) {
       throw "corpusChar not in chords";

@@ -119,26 +119,26 @@ dl.testData = {
 }
 
 // FIXME: This test relies on some of the same logic as what it is testing.
-QUnit.test("dl.keycodesToStrokes", function(assert) {
-  function keycodesToStrokesTest(corpusCharacter) {
+QUnit.test("dl.charactersToStrokes", function(assert) {
+  function charactersToStrokesTest(corpusCharacter) {
     var expect =  _.map(dl.testData.chords[corpusCharacter], function(keycode) {
                     return xm.config.keyboard[keycode];
                   });
 
     assert.propEqual(
-      dl.keycodesToStrokes(corpusCharacter, dl.testData.chords), 
+      dl.charactersToStrokes(corpusCharacter, dl.testData.chords), 
       expect
     );
   }
 
-  keycodesToStrokesTest("q");
-  keycodesToStrokesTest("Q");
-  keycodesToStrokesTest("(");
-  keycodesToStrokesTest(")");
-  keycodesToStrokesTest(":");
+  charactersToStrokesTest("q");
+  charactersToStrokesTest("Q");
+  charactersToStrokesTest("(");
+  charactersToStrokesTest(")");
+  charactersToStrokesTest(":");
 
   assert.throws(function() {
-    dl.keycodesToStrokes("i", dl.testData.chords)
+    dl.charactersToStrokes("i", dl.testData.chords)
   }, /corpusChar not in chords/);
 });
 
@@ -203,8 +203,8 @@ QUnit.test("buildTodo", function(assert) {
     assert.propEqual(
       dl.buildTodo(
         // buildTodo takes strokes not characters
-        dl.keycodesToStrokes(previousCharacter, expandedChords),
-        dl.keycodesToStrokes(currentCharacter, expandedChords)
+        dl.charactersToStrokes(previousCharacter, expandedChords),
+        dl.charactersToStrokes(currentCharacter, expandedChords)
       ),
       expect,
       message
@@ -265,8 +265,8 @@ QUnit.test("buildTodo", function(assert) {
 });
 
 QUnit.test("dl.Todo", function(assert) {
-  var previousStrokes = dl.keycodesToStrokes("q", dl.testData.chords),
-      currentStrokes = dl.keycodesToStrokes("j", dl.testData.chords)
+  var previousStrokes = dl.charactersToStrokes("q", dl.testData.chords),
+      currentStrokes = dl.charactersToStrokes("j", dl.testData.chords)
 
   assert.propEqual(
     new dl.Todo(previousStrokes, currentStrokes),
