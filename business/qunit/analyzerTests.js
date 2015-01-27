@@ -1,6 +1,9 @@
 dl.testData = {
-  corpus: "(q)",
-  corpusStrokes: [
+  "asciiToPhysical": function(character) {
+    return xm.config.keyboard[dl.testData.chords[character]]
+  },
+  "corpus": "(q)",
+  "corpusStrokes": [
     [
       {
         "finger": "rightIndex",
@@ -44,7 +47,7 @@ dl.testData = {
       }
     ]
   ],
-  chords: {
+  "chords": {
     "q":["24"],
     "Q":["24","62"],
     "!":["24","108"],
@@ -61,7 +64,7 @@ dl.testData = {
     "T":["28","62"],
     "%":["28","108"]
   },
-  newScore: {
+  "newScore": {
     "fingers": {
       "leftIndex": {
         "consecutive": 0,
@@ -121,10 +124,37 @@ dl.testData = {
       0,
       0
     ]
-  },
+  }
+}
 
-  asciiToPhysical: function(character) {
-    return xm.config.keyboard[dl.testData.chords[character]]
+dl.testData.todos = {
+  "qj": {
+      "homeToCurrent": [dl.testData.asciiToPhysical("j")],
+      "previousToCurrent": [],
+      "previousToHome": [dl.testData.asciiToPhysical("q")]
+  },
+  "Qj": {
+    "homeToCurrent": [dl.testData.asciiToPhysical("j")],
+    "previousToCurrent": [],
+    "previousToHome": [dl.testData.asciiToPhysical("q"), 
+                      xm.config.keyboard[xm.config.shiftRightKeycode]]
+  },
+  "qJ": {
+    "homeToCurrent": [dl.testData.asciiToPhysical("j")],
+    "previousToCurrent": [[dl.testData.asciiToPhysical("q"),
+                          xm.config.keyboard[xm.config.shiftLeftKeycode]]],
+    "previousToHome": []
+  },
+  "rt": {
+    "homeToCurrent": [],
+    "previousToCurrent": [[dl.testData.asciiToPhysical("r"),
+                          dl.testData.asciiToPhysical("t")]],
+    "previousToHome": []
+  },
+  "exclamLeftParen": {
+    "homeToCurrent": [dl.testData.asciiToPhysical("j")],
+    "previousToCurrent": [],
+    "previousToHome": [dl.testData.asciiToPhysical("q")]
   }
 }
 
@@ -209,53 +239,12 @@ QUnit.test("dl.buildTodo", function(assert) {
     );
   }
 
-  testTodo("q", "j",
-    {
-      "homeToCurrent": [dl.testData.asciiToPhysical("j")],
-      "previousToCurrent": [],
-      "previousToHome": [dl.testData.asciiToPhysical("q")]
-    },
-    "Two unrelated keys (q & j)"
-  );
-
-  testTodo("Q", "j", 
-    {
-      "homeToCurrent": [dl.testData.asciiToPhysical("j")],
-      "previousToCurrent": [],
-      "previousToHome": [dl.testData.asciiToPhysical("q"), 
-                        xm.config.keyboard[xm.config.shiftRightKeycode]]
-    },
-    "Two unrelated keys with an unshift (`Q` `j`)"
-  );
-
-  testTodo("q", "J", 
-    {
-      "homeToCurrent": [dl.testData.asciiToPhysical("j")],
-      "previousToCurrent": [[dl.testData.asciiToPhysical("q"),
-                            xm.config.keyboard[xm.config.shiftLeftKeycode]]],
-      "previousToHome": []
-    },
-    "Two unrelated keys with an upshift (`q` `J`)"
-  );
-
-  testTodo("r", "t",
-    {
-      "homeToCurrent": [],
-      "previousToCurrent": [[dl.testData.asciiToPhysical("r"),
-                            dl.testData.asciiToPhysical("t")]],
-      "previousToHome": []
-    },
-    "previousToCurrent (r -> t)"
-  );
-
-  testTodo("!", "(",
-    {
-      "homeToCurrent": [dl.testData.asciiToPhysical("j")],
-      "previousToCurrent": [],
-      "previousToHome": [dl.testData.asciiToPhysical("q")]
-    },
-    "Two unrelated keys whilst holding mod (`!` `(`)"
-  );
+  testTodo("q", "j", dl.testData.todos.qj, "unrelated keys (qj)");
+  testTodo("Q", "j", dl.testData.todos.Qj, "unrelated keys w/ unshift (Qj)");
+  testTodo("q", "J", dl.testData.todos.qJ, "unrelated keys w/ upshift (qJ)");
+  testTodo("r", "t", dl.testData.todos.rt, "previousToCurrent (rt)");
+  testTodo("!", "(", dl.testData.todos.exclamLeftParen, 
+          "unrelated keys w/ mod (!()");
 });
 
 QUnit.test("dl.Todo", function(assert) {
