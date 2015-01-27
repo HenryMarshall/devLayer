@@ -13,6 +13,32 @@ var dl = {
     return score;
   },
 
+  corpusToCorpusStrokes: function(corpus, chords) {
+    var corpusChars = corpus.split(''),
+        corpusStrokes = _.map(corpusChars, function(corpusChar) {
+          try {
+            return dl.charactersToStrokes(corpusChar, chords);
+          }
+          catch(err) {
+            // TODO: Add invalid char to list somewhere
+            return [];
+          }
+        });
+    return corpusStrokes;
+  },
+
+  charactersToStrokes: function(corpusChar, chords) {
+    var strokeKeycodes = chords[corpusChar];
+    if (strokeKeycodes === undefined) {
+      throw "corpusChar not in chords";
+    }
+
+    var strokes = _.map(strokeKeycodes, function(keycode) {
+                    return xm.config.keyboard[keycode];
+                  });
+    return strokes;
+  },
+
   buildTodo: function(previousStrokes, currentStrokes) {
     var todo = new dl.Todo(previousStrokes, currentStrokes);
     _.each(previousStrokes, function(previousStroke) {
@@ -27,12 +53,6 @@ var dl = {
       });
     });
     return todo;
-  },
-
-  Todo: function(previousStrokes, currentStrokes) {
-    this.previousToHome = _.clone(previousStrokes);
-    this.previousToCurrent = [];
-    this.homeToCurrent = _.clone(currentStrokes);
   },
 
   isMaintainingMod: function(previousStroke, currentStroke) {
@@ -69,6 +89,18 @@ var dl = {
     return score;
   },
 
+  distanceBetween: function(from, to) {
+    // If no `to` is given, return finger to homerow
+    to = to || xm.config.homerow[from.finger];
+
+    if (to.finger !== from.finger) {
+      throw "Different fingers used; cannot calculate distance"
+    }
+    else {
+      return Math.sqrt(Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2));
+    }
+  },
+
   Score: function() {
     this.fingers = {
       leftPinkie: new dl.Finger(),
@@ -92,41 +124,11 @@ var dl = {
     this.consecutive = consecutive || 0
   },
 
-  corpusToCorpusStrokes: function(corpus, chords) {
-    var corpusChars = corpus.split(''),
-        corpusStrokes = _.map(corpusChars, function(corpusChar) {
-          try {
-            return dl.charactersToStrokes(corpusChar, chords);
-          }
-          catch(err) {
-            // TODO: Add invalid char to list somewhere
-            return [];
-          }
-        });
-    return corpusStrokes;
-  },
-
-  charactersToStrokes: function(corpusChar, chords) {
-    var strokeKeycodes = chords[corpusChar];
-    if (strokeKeycodes === undefined) {
-      throw "corpusChar not in chords";
-    }
-
-    var strokes = _.map(strokeKeycodes, function(keycode) {
-                    return xm.config.keyboard[keycode];
-                  });
-    return strokes;
-  },
-
-  distanceBetween: function(from, to) {
-    // If no `to` is given, return finger to homerow
-    to = to || xm.config.homerow[from.finger];
-
-    if (to.finger !== from.finger) {
-      throw "Different fingers used; cannot calculate distance"
-    }
-    else {
-      return Math.sqrt(Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2));
-    }
+  Todo: function(previousStrokes, currentStrokes) {
+    this.previousToHome = _.clone(previousStrokes);
+    this.previousToCurrent = [];
+    this.homeToCurrent = _.clone(currentStrokes);
   }
+
 };
+

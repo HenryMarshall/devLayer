@@ -158,6 +158,33 @@ dl.testData.todos = {
   }
 }
 
+// ### TESTS ###
+
+// QUnit.test("dl.processCorpus", function(assert) {
+//   assert.propEqual(
+//     dl.processCorpus(dl.testData.corpus, dl.testData.chords),
+//     dl.testData.newScore
+//   );
+// });
+
+QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
+  assert.propEqual(
+    dl.corpusToCorpusStrokes(dl.testData.corpus, dl.testData.chords), 
+    dl.testData.corpusStrokes,
+    "All valid characters"
+  );
+
+  // FIXME: There must be a more elegant way to do this.
+  var corpusStrokesDropped = _.clone(dl.testData.corpusStrokes);
+  corpusStrokesDropped.push([])
+
+  assert.propEqual(
+    dl.corpusToCorpusStrokes("(q)<", dl.testData.chords),
+    corpusStrokesDropped,
+    "Drop invalid characters"
+  );
+});
+
 // FIXME: This test relies on some of the same logic as what it is testing.
 QUnit.test("dl.charactersToStrokes", function(assert) {
   function charactersToStrokesTest(corpusCharacter) {
@@ -182,48 +209,6 @@ QUnit.test("dl.charactersToStrokes", function(assert) {
   }, /corpusChar not in chords/);
 });
 
-QUnit.test("dl.distanceBetween", function(assert) {
-  function testDistance(fromKeycode, toKeycode, expectedDistance) {
-    assert.equal(
-      dl.distanceBetween(
-        xm.config.keyboard[fromKeycode],
-        xm.config.keyboard[toKeycode]
-      ),
-      expectedDistance
-    );
-  }
-
-  testDistance("27", "28", 1);
-  testDistance("41", "28", 1.25);
-  testDistance("28", undefined, 1.25);
-
-  assert.throws(function() {
-    dl.distanceBetween(
-      xm.config.keyboard["24"],
-      xm.config.keyboard["27"]
-    );
-  }, /Different fingers used/);
-});
-
-QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
-  assert.propEqual(
-    dl.corpusToCorpusStrokes(dl.testData.corpus, dl.testData.chords), 
-    dl.testData.corpusStrokes,
-    "All valid characters"
-  );
-
-  // FIXME: There must be a more elegant way to do this.
-  var corpusStrokesDropped = _.clone(dl.testData.corpusStrokes);
-  corpusStrokesDropped.push([])
-
-  assert.propEqual(
-    dl.corpusToCorpusStrokes("(q)<", dl.testData.chords),
-    corpusStrokesDropped,
-    "Drop invalid characters"
-  );
-});
-
-
 QUnit.test("dl.buildTodo", function(assert) {
 
   function testTodo(previousCharacter, currentCharacter, expect, message) {
@@ -247,22 +232,24 @@ QUnit.test("dl.buildTodo", function(assert) {
           "unrelated keys w/ mod (!()");
 });
 
-QUnit.test("dl.Todo", function(assert) {
-  var previousStrokes = dl.charactersToStrokes("q", dl.testData.chords),
-      currentStrokes = dl.charactersToStrokes("j", dl.testData.chords)
+QUnit.test("dl.isMaintainingMod", function(assert) {
+  var altGr = xm.config.keyboard[xm.config.altGrKeycode],
+      shiftLeft = xm.config.keyboard[xm.config.shiftLeftKeycode],
+      shiftRight = xm.config.keyboard[xm.config.shiftRightKeycode];
 
-  assert.propEqual(
-    new dl.Todo(previousStrokes, currentStrokes),
-    {
-      "previousToHome": previousStrokes,
-      "previousToCurrent": [],
-      "homeToCurrent": currentStrokes
-    }
-  );
-});
+  function testMaintainMod(previousStroke, currentStroke, expect, message) {
+    assert.equal(
+      dl.isMaintainingMod(previousStroke, currentStroke),
+      expect,
+      message
+    );
+  }
 
-QUnit.test("dl.Score", function(assert) {
-  assert.propEqual(new dl.Score(), dl.testData.newScore);
+  testMaintainMod(altGr, altGr, true, "Maintain altGr");
+  testMaintainMod(shiftLeft, shiftLeft, true, "Maintain shiftLeft");
+  testMaintainMod(shiftRight, shiftRight, true, "Maintain shiftRight");
+  testMaintainMod(shiftLeft, shiftRight, false, "leftShift to shiftRight");
+  testMaintainMod(altGr, shiftRight, false, "altGr to shiftRight");
 });
 
 QUnit.test("dl.incrementScore", function(assert) {
@@ -331,29 +318,43 @@ QUnit.test("dl.incrementScore", function(assert) {
   );
 });
 
-QUnit.test("dl.isMaintainingMod", function(assert) {
-  var altGr = xm.config.keyboard[xm.config.altGrKeycode],
-      shiftLeft = xm.config.keyboard[xm.config.shiftLeftKeycode],
-      shiftRight = xm.config.keyboard[xm.config.shiftRightKeycode];
-
-  function testMaintainMod(previousStroke, currentStroke, expect, message) {
+QUnit.test("dl.distanceBetween", function(assert) {
+  function testDistance(fromKeycode, toKeycode, expectedDistance) {
     assert.equal(
-      dl.isMaintainingMod(previousStroke, currentStroke),
-      expect,
-      message
+      dl.distanceBetween(
+        xm.config.keyboard[fromKeycode],
+        xm.config.keyboard[toKeycode]
+      ),
+      expectedDistance
     );
   }
 
-  testMaintainMod(altGr, altGr, true, "Maintain altGr");
-  testMaintainMod(shiftLeft, shiftLeft, true, "Maintain shiftLeft");
-  testMaintainMod(shiftRight, shiftRight, true, "Maintain shiftRight");
-  testMaintainMod(shiftLeft, shiftRight, false, "leftShift to shiftRight");
-  testMaintainMod(altGr, shiftRight, false, "altGr to shiftRight");
+  testDistance("27", "28", 1);
+  testDistance("41", "28", 1.25);
+  testDistance("28", undefined, 1.25);
+
+  assert.throws(function() {
+    dl.distanceBetween(
+      xm.config.keyboard["24"],
+      xm.config.keyboard["27"]
+    );
+  }, /Different fingers used/);
 });
 
-// QUnit.test("dl.processCorpus", function(assert) {
-//   assert.propEqual(
-//     dl.processCorpus(dl.testData.corpus, dl.testData.chords),
-//     dl.testData.newScore
-//   );
-// });
+QUnit.test("dl.Score", function(assert) {
+  assert.propEqual(new dl.Score(), dl.testData.newScore);
+});
+
+QUnit.test("dl.Todo", function(assert) {
+  var previousStrokes = dl.charactersToStrokes("q", dl.testData.chords),
+      currentStrokes = dl.charactersToStrokes("j", dl.testData.chords)
+
+  assert.propEqual(
+    new dl.Todo(previousStrokes, currentStrokes),
+    {
+      "previousToHome": previousStrokes,
+      "previousToCurrent": [],
+      "homeToCurrent": currentStrokes
+    }
+  );
+});
