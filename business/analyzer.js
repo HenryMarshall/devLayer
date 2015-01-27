@@ -14,13 +14,7 @@ var dl = {
   },
 
   buildTodo: function(previousStrokes, currentStrokes) {
-
-    var todo = {
-      "previousToHome": _.clone(previousStrokes),
-      "previousToCurrent": [],
-      "homeToCurrent": _.clone(currentStrokes)
-    };
-
+    var todo = new dl.Todo(previousStrokes, currentStrokes);
     _.each(previousStrokes, function(previousStroke) {
       _.each(currentStrokes, function(currentStroke) {
         if (previousStroke.finger === currentStroke.finger) {
@@ -32,8 +26,13 @@ var dl = {
         }
       });
     });
-
     return todo;
+  },
+
+  Todo: function(previousStrokes, currentStrokes) {
+    this.previousToHome = _.clone(previousStrokes);
+    this.previousToCurrent = [];
+    this.homeToCurrent = _.clone(currentStrokes);
   },
 
   isMaintainingMod: function(previousStroke, currentStroke) {

@@ -264,6 +264,20 @@ QUnit.test("buildTodo", function(assert) {
   );
 });
 
+QUnit.test("dl.Todo", function(assert) {
+  var previousStrokes = dl.keycodesToStrokes("q", dl.testData.chords),
+      currentStrokes = dl.keycodesToStrokes("j", dl.testData.chords)
+
+  assert.propEqual(
+    new dl.Todo(previousStrokes, currentStrokes),
+    {
+      "previousToHome": previousStrokes,
+      "previousToCurrent": [],
+      "homeToCurrent": currentStrokes
+    }
+  );
+});
+
 QUnit.test("dl.isMaintainingMod", function(assert) {
   var altGr = xm.config.keyboard[xm.config.altGrKeycode],
       shiftLeft = xm.config.keyboard[xm.config.shiftLeftKeycode],
