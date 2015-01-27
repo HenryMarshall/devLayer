@@ -191,14 +191,12 @@ QUnit.test("buildTodo", function(assert) {
 
   var expandedChords = _.clone(dl.testData.chords),
       additionalXmodLines = [
-        "keycode 27 = r R r R",
-        "keycode 28 = t T t T"
+        "keycode 27 = r R dollar dollar",
+        "keycode 28 = t T percent percent"
       ],
       additionalXmod = additionalXmodLines.join('\n');
 
   _.extend(expandedChords, xm.xmodToChords(additionalXmod));
-
-  console.log("expandedChords: ",expandedChords);
 
   function testTodo(previousCharacter, currentCharacter, expect, message) {
 
@@ -213,6 +211,10 @@ QUnit.test("buildTodo", function(assert) {
     );
   }
 
+  function asciiToPhysical(character) {
+    return xm.config.keyboard[expandedChords[character]]
+  }
+
   testTodo("q", "j",
     {
       "homeToCurrent": [xm.config.keyboard[xm.testData.chords["j"]]],
@@ -220,6 +222,26 @@ QUnit.test("buildTodo", function(assert) {
       "previousToHome": [xm.config.keyboard[xm.testData.chords["q"]]]
     },
     "Two unrelated keys (q & j)"
+  );
+
+  testTodo("Q", "j", 
+    {
+      "homeToCurrent": [xm.config.keyboard[xm.testData.chords["j"]]],
+      "previousToCurrent": [],
+      "previousToHome": [xm.config.keyboard[xm.testData.chords["q"]], 
+                        xm.config.keyboard[xm.config.shiftRightKeycode]]
+    },
+    "Two unrelated keys with an unshift (`Q` `j`)"
+  );
+
+  testTodo("q", "J", 
+    {
+      "homeToCurrent": [asciiToPhysical("j")],
+      "previousToCurrent": [[asciiToPhysical("q"),
+                            xm.config.keyboard[xm.config.shiftLeftKeycode]]],
+      "previousToHome": []
+    },
+    "Two unrelated keys with an upshift (`q` `J`)"
   );
 
   testTodo("r", "t",
@@ -239,7 +261,7 @@ QUnit.test("buildTodo", function(assert) {
       "previousToHome": [xm.config.keyboard[xm.testData.chords["q"]]]
     },
     "Two unrelated keys whilst holding mod (`!` `(`)"
-  )
+  );
 });
 
 QUnit.test("dl.isMaintainingMod", function(assert) {
