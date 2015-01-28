@@ -116,7 +116,7 @@ QUnit.test("new layoutKey", function(assert) {
 QUnit.test("convertXmodName", function(assert) {
   function testConvertXmodName(character, toSymbol, expect, message) {
     assert.equal(
-      xm.convertXmodName(character, xm.config.toSymbol),
+      xm.convertXmodName(character, toSymbol),
       expect,
       message
     );
@@ -127,6 +127,8 @@ QUnit.test("convertXmodName", function(assert) {
   testConvertXmodName("dollar", xm.config.toSymbol, "$", "'dollar' toSymbol");
   testConvertXmodName("F4", xm.config.toSymbol, "F4", "'F4' toSymbol");
   testConvertXmodName("", xm.config.toSymbol, "NoSymbol", "'' toSymbol");
+  testConvertXmodName("ISO_Left_Tab", xm.config.toPresentation,
+                      "Tab", "'ISO_Left_Tab' toPresentation")
 });
 
 QUnit.test("isEasierWay", function(assert) {
