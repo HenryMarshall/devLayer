@@ -10,35 +10,35 @@ var xm = {
     });
   },
 
-  xmodToChords: function(xmod) {
-    var layout = xm.xmodToLayout(xmod),
+  xmodToChords: function(xmod, toSymbol) {
+    var layout = xm.xmodToLayout(xmod, toSymbol),
         chords = xm.layoutToChords(layout);
 
     return chords;
   },
 
-  xmodToLayout: function(xmod) {
+  xmodToLayout: function(xmod, toSymbol) {
     var lines = xmod.split(/\n/);
     var layout = _.map(lines, function(line) {
-      return new xm.buildLayoutKey(line);
+      return new xm.buildLayoutKey(line, toSymbol);
     });
 
     return layout;
   },
 
-  buildLayoutKey: function(xmodLine) {
+  buildLayoutKey: function(xmodLine, toSymbol) {
     var elems = xmodLine.split(/\s+/);
     if (elems[1]) {
       this.keycode = elems[1],
-      this.noMod = xm.convertXmodName(elems[3]),
-      this.shift = xm.convertXmodName(elems[4]),
-      this.altGr = xm.convertXmodName(elems[5]),
-      this.altGrShift = xm.convertXmodName(elems[6])
+      this.noMod = xm.convertXmodName(elems[3], toSymbol),
+      this.shift = xm.convertXmodName(elems[4], toSymbol),
+      this.altGr = xm.convertXmodName(elems[5], toSymbol),
+      this.altGrShift = xm.convertXmodName(elems[6], toSymbol)
     }
   },
 
-  convertXmodName: function(symbol) {
-    return xm.config.toSymbol[symbol] || symbol || "NoSymbol"
+  convertXmodName: function(symbol, toSymbol) {
+    return toSymbol[symbol] || symbol || "NoSymbol"
   },
 
   layoutToChords: function(layout) {

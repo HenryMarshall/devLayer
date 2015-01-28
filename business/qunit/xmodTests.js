@@ -94,27 +94,39 @@ QUnit.test("getXmod", function(assert) {
 
 QUnit.test("xmodToChords", function(assert) {
   var xmod = xm.testData.xmodLines.join('\n');
-  assert.propEqual(xm.xmodToChords(xmod), xm.testData.chords);
+  assert.propEqual(
+    xm.xmodToChords(xmod, xm.config.toSymbol),
+    xm.testData.chords, xm.config.toSymbol);
 });
 
 QUnit.test("xmodToLayout", function(assert) {
   var xmod = xm.testData.xmodLines.join('\n');
-  assert.propEqual(xm.xmodToLayout(xmod), xm.testData.layout);
+  assert.propEqual(
+    xm.xmodToLayout(xmod, xm.config.toSymbol),
+    xm.testData.layout);
 });
 
 QUnit.test("new layoutKey", function(assert) {
   assert.propEqual(
-    new xm.buildLayoutKey(xm.testData.xmodLines[0]),
+    new xm.buildLayoutKey(xm.testData.xmodLines[0], xm.config.toSymbol),
     xm.testData.layout[0]
   );
 });
 
 QUnit.test("convertXmodName", function(assert) {
-  assert.equal(xm.convertXmodName("4"), "4", "'4' toSymbol");
-  assert.equal(xm.convertXmodName("q"), "q", "'q' toSymbol");
-  assert.equal(xm.convertXmodName("dollar"), "$", "'dollar' toSymbol");
-  assert.equal(xm.convertXmodName("F4"), "F4", "'F4' toSymbol");
-  assert.equal(xm.convertXmodName(""), "NoSymbol", "'' toSymbol");
+  function testConvertXmodName(character, toSymbol, expect, message) {
+    assert.equal(
+      xm.convertXmodName(character, xm.config.toSymbol),
+      expect,
+      message
+    );
+  };
+
+  testConvertXmodName("4", xm.config.toSymbol, "4", "'4' toSymbol");
+  testConvertXmodName("q", xm.config.toSymbol, "q", "'q' toSymbol");
+  testConvertXmodName("dollar", xm.config.toSymbol, "$", "'dollar' toSymbol");
+  testConvertXmodName("F4", xm.config.toSymbol, "F4", "'F4' toSymbol");
+  testConvertXmodName("", xm.config.toSymbol, "NoSymbol", "'' toSymbol");
 });
 
 QUnit.test("isEasierWay", function(assert) {
