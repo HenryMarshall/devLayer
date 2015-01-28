@@ -2,7 +2,7 @@
 var xm = {
   getXmod: function(name, success, error) {
     $.ajax({
-      url: "/layouts/" + name,
+      url: name,
       type: "GET",
       dataType: "text",
       success: success,

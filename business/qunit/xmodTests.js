@@ -67,7 +67,7 @@ QUnit.test("getXmod", function(assert) {
       doneDne = assert.async();
 
   xm.getXmod(
-    "qwerty.txt", 
+    "/business/layouts/qwerty.txt", 
     function(data) {
       assert.ok(data, "Found existing layout");
       xm.testData.qwertyXmod = data;
