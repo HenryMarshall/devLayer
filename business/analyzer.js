@@ -1,4 +1,14 @@
 var dl = {
+  scoresForXmods: function(corpus, xmods) {
+    var masterScore = {};
+    _.each(xmods, function(xmodName) {
+      xm.getXmod(xmodName, function(data) {
+        var chords = xm.xmodToChords(data);
+        masterScore[xmodName] = dl.processCorpus(corpus, chords);
+      });
+    });
+    return masterScore;
+  },
 
   processCorpus: function(corpus, chords) {
     var score = new dl.Score(),
