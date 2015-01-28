@@ -5,41 +5,52 @@
 .selected {
   font-weight: bold; }
 
+.key-row {
+  font-size: 0;
+  margin-bottom: 5px; }
+
 .key {
   height: 60px;
-  background-color: orange;
+  background-color: black;
+  border-radius: 5px;
   display: inline-block;
   position: relative;
-  margin-right: 0.25%; }
+  margin-right: 0.5%; }
   .key:last-of-type {
     margin-right: 0; }
   .key span {
     margin: 4px 8px; }
-  .key .lower, .key .upper, .key .devLayer {
+  .key .noMod, .key .shift, .key .altGr, .key .altGrShift {
     position: absolute; }
-  .key .lower {
+  .key .noMod {
     bottom: 0;
     right: 0; }
-  .key .upper {
+  .key .shift {
     top: 0;
     right: 0; }
-  .key .devLayer {
+  .key .altGr {
+    bottom: 0;
+    left: 0;
+    color: red; }
+  .key .altGrShift {
     top: 0;
     left: 0;
-    color: green; }
+    color: red; }
   .key.x1 {
-    width: 5.41667%; }
-  .key.x125 {
-    width: 7.08333%; }
+    width: 6.16667%; }
   .key.x15 {
-    width: 8.75%; }
+    width: 9.5%; }
   .key.x175 {
-    width: 10.41667%; }
+    width: 11.16667%; }
   .key.x2 {
-    width: 12.08333%; }
+    width: 12.83333%; }
   .key.x225 {
-    width: 13.75%; }
+    width: 14.5%; }
+  .key.x275 {
+    width: 17.83333%; }
+  .key.x45 {
+    width: 29.5%; }
   .key.x625 {
-    width: 40.41667%; }
+    width: 41.16667%; }
 
 /*# sourceMappingURL=style.css.map */

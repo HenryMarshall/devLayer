@@ -1,5 +1,8 @@
 npm-debug.log
 
+.sass-cache/
+*.css.map
+
 *.sublime-project
 *.sublime-workspace
 

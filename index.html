@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>DevLayer: A better way to program</title>
+  <title>altGr: A better way to program</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="style/style.css">
 </head>
@@ -10,308 +10,94 @@
 
   <script type="text/x-handlebars" data-template-name="application">
     <div class="container">
-      <div class="col-xs-3 config">
-
-      </div>
-      <div class="col-xs-9">
+      <div class="col-xs-12">
         {{#link-to "preview" activeClass="selected"}}Preview{{/link-to}}
         {{#link-to "test" activeClass="selected"}}Test{{/link-to}}
         
         {{outlet}}
+      </div>
+
+      <div class="col-xs-3 config">
 
       </div>
     </div>
-
-
   </script>
 
   <script type="text/x-handlebars" data-template-name="preview">
     <div class="key-row">
-      <div class="key x1">
-        <span class="lower">`</span>
-        <span class="upper">~</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">1</span>
-        <span class="upper">!</span>
-        <span class="devLayer">F1</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">2</span>
-        <span class="upper">@</span>
-        <span class="devLayer">F2</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">3</span>
-        <span class="upper">#</span>
-        <span class="devLayer">F3</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">4</span>
-        <span class="upper">$</span>
-        <span class="devLayer">F4</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">5</span>
-        <span class="upper">%</span>
-        <span class="devLayer">F5</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">6</span>
-        <span class="upper">^</span>
-        <span class="devLayer">F6</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">7</span>
-        <span class="upper">&amp;</span>
-        <span class="devLayer">F7</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">8</span>
-        <span class="upper">*</span>
-        <span class="devLayer">F8</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">9</span>
-        <span class="upper">(</span>
-        <span class="devLayer">F9</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">0</span>
-        <span class="upper">)</span>
-        <span class="devLayer">F10</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">-</span>
-        <span class="upper">_</span>
-        <span class="devLayer">F11</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">=</span>
-        <span class="upper">+</span>
-        <span class="devLayer">F12</span>
-      </div>
-      <div class="key x225">
-        <span class="lower">Bksp</span>
-        <span class="devLayer">Del</span>
-      </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x2"> </div>
     </div>
 
     <div class="key-row">
-      <div class="key x15">
-        <span class="lower">Tab</span>
-        <span class="upper"></span>
-        <span class="devLayer"></span>
-      </div>
-      <div class="key x1">
-        <span class="lower">q</span>
-        <span class="upper"></span>
-        <span class="devLayer">!</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">w</span>
-        <span class="upper"></span>
-        <span class="devLayer">@</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">e</span>
-        <span class="upper"></span>
-        <span class="devLayer">#</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">r</span>
-        <span class="upper"></span>
-        <span class="devLayer">$</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">t</span>
-        <span class="upper"></span>
-        <span class="devLayer">%</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">y</span>
-        <span class="upper"></span>
-        <span class="devLayer">^</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">u</span>
-        <span class="upper"></span>
-        <span class="devLayer">&amp;</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">i</span>
-        <span class="upper"></span>
-        <span class="devLayer">*</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">o</span>
-        <span class="upper"></span>
-        <span class="devLayer">~</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">p</span>
-        <span class="upper"></span>
-        <span class="devLayer">:</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">[</span>
-        <span class="upper">{</span>
-        <span class="devLayer"></span>
-      </div>
-      <div class="key x1">
-        <span class="lower">]</span>
-        <span class="upper">}</span>
-        <span class="devLayer"></span>
-      </div>
-      <div class="key x15">
-        <span class="lower">\</span>
-        <span class="upper">|</span>
-        <span class="devLayer"></span>
-      </div>
+      <div class="key x15"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x15"> </div>
     </div>
 
     <div class="key-row">
-      <div class="key x175">
-        <span class="lower">Caps</span>
-        <span class="devLayer">Bksp</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">a</span>
-        <span class="devLayer">&lt;</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">s</span>
-        <span class="devLayer">[</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">d</span>
-        <span class="devLayer">{</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">f</span>
-        <span class="devLayer">(</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">g</span>
-        <span class="devLayer">"</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">h</span>
-        <span class="devLayer">+</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">j</span>
-        <span class="devLayer">-</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">k</span>
-        <span class="devLayer">_</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">l</span>
-        <span class="devLayer">=</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">;</span>
-        <span class="devLayer">;</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">'</span>
-        <span class="upper">"</span>
-      </div>
-      <div class="key x225">
-        <span class="lower">Enter</span>
-      </div>
+      <div class="key x175"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x225"> </div>
     </div>
 
     <div class="key-row">
-      <div class="key x225">
-        <span class="lower">Shift</span>
-        <span class="upper"></span>
-        <span class="devLayer"></span>
-      </div>
-      <div class="key x1">
-        <span class="lower">z</span>
-        <span class="upper"></span>
-        <span class="devLayer">></span>
-      </div>
-      <div class="key x1">
-        <span class="lower">x</span>
-        <span class="upper"></span>
-        <span class="devLayer">]</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">c</span>
-        <span class="upper"></span>
-        <span class="devLayer">}</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">v</span>
-        <span class="upper"></span>
-        <span class="devLayer">)</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">b</span>
-        <span class="upper"></span>
-        <span class="devLayer">'</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">n</span>
-        <span class="upper"></span>
-        <span class="devLayer">`</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">m</span>
-        <span class="upper"></span>
-        <span class="devLayer">|</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">,</span>
-        <span class="upper">&lt;</span>
-        <span class="devLayer">\</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">.</span>
-        <span class="upper">&gt;</span>
-        <span class="devLayer">/</span>
-      </div>
-      <div class="key x1">
-        <span class="lower">/</span>
-        <span class="upper">?</span>
-        <span class="devLayer">?</span>
-      </div>
-      <div class="key x225">
-        <span class="lower">Shift</span>
-        <span class="upper"></span>
-        <span class="devLayer"></span>
-      </div>
+      <div class="key x225"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x1"> </div>
+      <div class="key x275"> </div>
     </div>
 
     <div class="key-row">
-      <div class="key x125">
-        <span class="lower">Ctrl</span>
-      </div>
-      <div class="key x125">
-        <span class="lower">Win</span>
-      </div>
-      <div class="key x125">
-        <span class="lower">Alt</span>
-      </div>
-      <div class="key x625">
-        <span class="lower">Space</span>
-      </div>
-      <div class="key x125">
-        <span class="lower">Alt</span>
-      </div>
-      <div class="key x125">
-        <span class="lower">Win</span>
-      </div>
-      <div class="key x125">
-        <span class="lower">Context</span>
-      </div>
-      <div class="key x125">
-        <span class="lower">Ctrl</span>
-      </div>
+      <div class="key x15"> </div>
+      <div class="key x15"> </div>
+      <div class="key x15"> </div>
+      <div class="key x45"> </div>
+      <div class="key x15"> </div>
+      <div class="key x15"> </div>
+      <div class="key x15"> </div>
+      <div class="key x15"> </div>
     </div>
   </script>
 

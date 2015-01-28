@@ -1,8 +1,8 @@
-$key-margin: .25%
+$key-margin: .5%
 
 @mixin key-width($width)
   // Why is the magic number necessary?
-  width: (100% / 15) * $width - $key-margin - 1%
+  width: (100% / 15) * $width - $key-margin
 
 .config
   background-color: green
@@ -11,12 +11,18 @@ $key-margin: .25%
 .selected
   font-weight: bold
 
+.key-row
+  // This eliminates the gap caused by the whitespace between keys.
+  font-size: 0
+  margin-bottom: 5px
+
 .key
   height: 60px
-  background-color: orange
+  background-color: black
+  border-radius: 5px
+
   display: inline-block
   position: relative
-
   margin-right: $key-margin
 
   &:last-of-type
@@ -25,28 +31,29 @@ $key-margin: .25%
   span
     margin: 4px 8px
 
-  .lower, .upper, .devLayer
+  .noMod, .shift, .altGr, .altGrShift
     position: absolute
 
-  .lower
+  .noMod
     bottom: 0
     right: 0
 
-  .upper
+  .shift
     top: 0
     right: 0
 
-  .devLayer
+  .altGr
+    bottom: 0
+    left: 0
+    color: red
+
+  .altGrShift
     top: 0
     left: 0
-    color: green
-
+    color: red
 
   &.x1
     @include key-width(1)
-
-  &.x125
-    @include key-width(1.25)
 
   &.x15
     @include key-width(1.5)
@@ -59,6 +66,12 @@ $key-margin: .25%
 
   &.x225
     @include key-width(2.25)
+
+  &.x275
+    @include key-width(2.75)
+
+  &.x45
+    @include key-width(4.5)
 
   &.x625
     @include key-width(6.25)
