@@ -124,7 +124,8 @@ dl.testData = {
       0,
       0
     ]
-  }
+  },
+  "scores": {}
 }
 
 dl.testData.todos = {
@@ -158,14 +159,45 @@ dl.testData.todos = {
   }
 }
 
-// ### TESTS ###
+// Set various score values.
+function setTestScores() {
+  var scores = dl.testData.scores;
 
-// QUnit.test("dl.processCorpus", function(assert) {
-//   assert.propEqual(
-//     dl.processCorpus(dl.testData.corpus, dl.testData.chords),
-//     dl.testData.newScore
-//   );
-// });
+  scores.rt = new dl.Score();
+  scores.rt.fingers.leftIndex.strokes = 1;
+  scores.rt.fingers.leftIndex.consecutive = 1;
+  scores.rt.fingers.leftIndex.distance = 1;
+  scores.rt.rows[1] = 1;
+
+  scores.rtr = new dl.Score();
+  scores.rtr.fingers.leftIndex.strokes = 2;
+  scores.rtr.fingers.leftIndex.consecutive = 2;
+  scores.rtr.fingers.leftIndex.distance = 2;
+  scores.rtr.rows[1] = 2;
+
+  scores.littleLittle = new dl.Score();
+  scores.littleLittle.fingers.leftPinkie.distance = 1.0307764064044151;
+  scores.littleLittle.fingers.rightIndex.strokes = 1;
+  scores.littleLittle.rows[2] = 1;
+
+  scores.bigLittle = new dl.Score();
+  scores.bigLittle.fingers.leftPinkie.distance = 1.0307764064044151;
+  scores.bigLittle.fingers.rightPinkie.distance = 1.8027756377319946;
+  scores.bigLittle.fingers.rightIndex.strokes = 1;
+  scores.bigLittle.rows[2] = 1;
+
+  scores.littleBig = new dl.Score();
+  scores.littleBig.fingers.leftPinkie.distance = 2.0155644370746373;
+  scores.littleBig.fingers.leftPinkie.strokes = 1;
+  scores.littleBig.fingers.leftPinkie.consecutive = 1;
+  scores.littleBig.fingers.rightIndex.strokes = 1;
+  scores.littleBig.rows[2] = 1;
+  scores.littleBig.rows[3] = 1;
+}
+
+setTestScores();
+
+// ### TESTS ###
 
 QUnit.test("dl.corpusToCorpusStrokes", function(assert) {
   assert.propEqual(
@@ -262,58 +294,33 @@ QUnit.test("dl.incrementScore", function(assert) {
     "Increments nothing if nothing todo."
   );
 
-  var rtScore = new dl.Score();
-  ++rtScore.fingers.leftIndex.strokes;
-  ++rtScore.fingers.leftIndex.consecutive;
-  ++rtScore.fingers.leftIndex.distance;
-  ++rtScore.rows[1];
   assert.propEqual(
     dl.incrementScore(dl.testData.todos.rt, new dl.Score()),
-    rtScore,
+    dl.testData.scores.rt,
     "previousToCurrent (rt)"
   );
 
-  // This doesn't exactly make sense as `t` must be the first character in the 
-  // second letter pain. This however serves well as a test.
-  var rtrtScore = $.extend(true, {}, rtScore);
-  ++rtrtScore.fingers.leftIndex.strokes;
-  ++rtrtScore.fingers.leftIndex.consecutive;
-  ++rtrtScore.fingers.leftIndex.distance;
-  ++rtrtScore.rows[1];
   assert.propEqual(
-    dl.incrementScore(dl.testData.todos.rt, rtScore),
-    rtrtScore,
-    "previousToCurrent on existing score (rt; rt)"
+    dl.incrementScore(dl.testData.todos.rt, dl.testData.scores.rt),
+    dl.testData.scores.rtr,
+    "previousToCurrent on existing score (rt; tr)"
   );
 
-  var qjScore = new dl.Score();
-  qjScore.fingers.leftPinkie.distance = 1.0307764064044151;
-  ++qjScore.fingers.rightIndex.strokes;
-  ++qjScore.rows[2]
   assert.propEqual(
     dl.incrementScore(dl.testData.todos.qj, new dl.Score()),
-    qjScore,
+    dl.testData.scores.littleLittle,
     "unrelated keys (qj)"
   );
 
-  var QjScore = $.extend(true, {}, qjScore);
-  QjScore.fingers.rightPinkie.distance = 1.8027756377319946;
   assert.propEqual(
     dl.incrementScore(dl.testData.todos.Qj, new dl.Score()),
-    QjScore,
+    dl.testData.scores.bigLittle,
     "unrelated keys w/ unshift (Qj)"
   );
 
-  var qJScore = new dl.Score();
-  qJScore.fingers.leftPinkie.distance = 2.0155644370746373;
-  ++qJScore.fingers.leftPinkie.strokes;
-  ++qJScore.fingers.leftPinkie.consecutive;
-  ++qJScore.fingers.rightIndex.strokes;
-  ++qJScore.rows[2];
-  ++qJScore.rows[3];
   assert.propEqual(
     dl.incrementScore(dl.testData.todos.qJ, new dl.Score()),
-    qJScore,
+    dl.testData.scores.littleBig,
     "unrelated keys w/ unshift (qJ)"
   );
 });
