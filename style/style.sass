@@ -1,8 +1,8 @@
 $key-margin: .5%
 
 @mixin key-width($width)
-  // Why is the magic number necessary?
-  width: (100% / 15) * $width - $key-margin
+  // Last key doens't have a margin-right set hence `$key-margin / 15`
+  width: (100% / 15) * $width - $key-margin + ($key-margin / 15)
 
 .config
   background-color: green
@@ -20,6 +20,8 @@ $key-margin: .5%
   height: 60px
   background-color: black
   border-radius: 5px
+
+  color: white
 
   display: inline-block
   position: relative
@@ -75,3 +77,20 @@ $key-margin: .5%
 
   &.x625
     @include key-width(6.25)
+
+.about
+  text-align: right
+
+#sample-code
+  margin-top: 20px
+  width: 100%
+  font-family: "Courier New", Courier, monospace
+
+#options
+  .key
+    width: 100%
+    margin-top: 5px
+    display: block
+
+  .buttons
+    padding-left: 0

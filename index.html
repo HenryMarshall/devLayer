@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>altGr: A better way to program</title>
+  <title>DevLayer: A better way to program</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="style/style.css">
 </head>
@@ -11,19 +11,40 @@
   <script type="text/x-handlebars" data-template-name="application">
     <div class="container">
       <div class="col-xs-12">
-        {{#link-to "preview" activeClass="selected"}}Preview{{/link-to}}
-        {{#link-to "test" activeClass="selected"}}Test{{/link-to}}
-        
+        <h1>DevLayer</h1>
+        {{!-- {{#link-to "test" activeClass="selected"}}Test{{/link-to}} --}}
+        {{partial "keyboard"}}
+      </div>
+      <div class="col-xs-4 about">
+        <h2>About</h2>
+        <p>DevLayer is an alternative keyboard layout that puts frequently used programming keys closer to the homerow. Better yet, it is fully compatable with the layout you already know and use (be it QWERTY, <a href="http://www.colemak.com/">Colemak</a>, <a href="http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard">Dvorak</a>, or <a href="https://viralintrospection.wordpress.com/2010/09/06/a-different-philosophy-in-designing-keyboard-layouts/">Workman</a>). Instead, you enter programming keys with the right alt (alt graphic) key as a modifier.</p>
+        <p>DevLayer is designed to be easy to learn. Many characters struck with the same finger you're used to and others are intuitively clustered. Vim users will immediately feel at home with the convenient arrangement of arrow keys on the homerow.</p>
+        <p>Virtually no effort has been spent optimizing keyboards for programming languages. On nearly every traditional layout <code>/?;:'"[]{}\|-_+=0)</code>, backspace, and enter, are pressed by a single finger.</p>
+        <p>Find out much wear and tear your fingers could save by testing out DevLayer yourself!</p>
+      </div>
+
+      <div class="col-xs-8">
         {{outlet}}
+        <textarea rows="15" id="sample-code"></textarea>
+        <section id="options">
+          <div class="col-xs-4 buttons">
+            <div class="key">Test it!</div>
+            <div class="key">Download</div>
+          </div>
+
+          <div class="col-xs-8">
+
+          </div>
+        </section>
       </div>
 
-      <div class="col-xs-3 config">
+{{!--       <div class="col-xs-3 config">
 
-      </div>
+      </div> --}}
     </div>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="preview">
+  <script type="text/x-handlebars" data-template-name="_keyboard">
     <div class="key-row">
       <div class="key x1"> </div>
       <div class="key x1"> </div>
