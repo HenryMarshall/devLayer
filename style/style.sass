@@ -111,5 +111,34 @@ $key-margin: .5%
     &#download
       color: red
 
+#options
+  // margin-top: 5px
+  height: 130px
+
+  label
+    font-size: 18px
+
+  input[type=radio]
+    display: none
+
+    & + span
+      display: inline-block
+      background-color: black
+      width: 16px
+      height: 16px
+      border-radius: 8px
+      position: relative
+
+    &:checked + span:after
+      content: " "
+      display: inline-block
+      background-color: red
+      width: 6px
+      height: 6px
+      border-radius: 3px
+      position: absolute
+      top: 5px
+      left: 5px
+
 h1, h2
   font-family: 'Source Code Pro', "Courier New", Courier, monospace

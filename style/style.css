@@ -82,6 +82,30 @@
     #callToAction .key#download {
       color: red; }
 
+#options {
+  height: 130px; }
+  #options label {
+    font-size: 18px; }
+  #options input[type=radio] {
+    display: none; }
+    #options input[type=radio] + span {
+      display: inline-block;
+      background-color: black;
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      position: relative; }
+    #options input[type=radio]:checked + span:after {
+      content: " ";
+      display: inline-block;
+      background-color: red;
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      position: absolute;
+      top: 5px;
+      left: 5px; }
+
 h1, h2 {
   font-family: "Source Code Pro", "Courier New", Courier, monospace; }
 
