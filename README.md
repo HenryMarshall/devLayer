@@ -63,7 +63,8 @@ A note on various language used throughout the program.
 **TODO**
 
 * Include a map of DevLayer on the github page.
-* Tests for scoresForXmods and processCorpus
+* Tests for scoresForXmods and processCorpus.
+* Restore async nature of layout ajax calls.
 
 
 **Long-Term Objectives**

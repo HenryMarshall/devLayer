@@ -2,10 +2,9 @@ var dl = {
   scoresForXmods: function(corpus, xmods) {
     var masterScore = {};
     _.each(xmods, function(xmodName) {
-      xm.getXmod(xmodName, function(data) {
-        var chords = xm.xmodToChords(data);
-        masterScore[xmodName] = dl.processCorpus(corpus, chords);
-      });
+      var xmod = xm.getXmod(xmodName),
+          chords = xm.xmodToChords(xmod, xm.config.toSymbol);
+      masterScore[xmodName] = dl.processCorpus(corpus, chords);
     });
     return masterScore;
   },

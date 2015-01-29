@@ -67,7 +67,7 @@ QUnit.test("getXmod", function(assert) {
       doneDne = assert.async();
 
   xm.getXmod(
-    "/business/layouts/qwerty.txt", 
+    "qwertyDevLayer", 
     function(data) {
       assert.ok(data, "Found existing layout");
       xm.testData.qwertyXmod = data;
@@ -80,7 +80,7 @@ QUnit.test("getXmod", function(assert) {
   );
 
   xm.getXmod(
-    "foo.bar",
+    "fooDevLayer",
     function(data) {
       assert.ok(false, "Found non-existant layout");
       doneDne();

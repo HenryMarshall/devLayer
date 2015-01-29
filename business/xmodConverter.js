@@ -1,13 +1,14 @@
 // xm is the xmod namespace
 var xm = {
   getXmod: function(name, success, error) {
-    $.ajax({
-      url: name,
+    return $.ajax({
+      url: "/business/layouts/" + name,
       type: "GET",
       dataType: "text",
       success: success,
-      error: error
-    });
+      error: error,
+      async: false
+    }).responseText;
   },
 
   xmodToChords: function(xmod, toSymbol) {
