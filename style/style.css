@@ -62,12 +62,12 @@
     color: black; }
 
 .about {
-  text-align: right; }
+  text-align: right;
+  font-family: "Raleway", Arial, Helvetica, sans-serif; }
 
 #corpus {
-  margin-top: 20px;
-  width: 100%;
-  font-family: "Source Code Pro", "Courier New", Courier, monospace; }
+  margin-top: 10px;
+  width: 100%; }
 
 #callToAction {
   margin-top: 5px;
@@ -82,20 +82,27 @@
     #callToAction .key#download {
       color: red; }
 
-#options {
-  height: 130px; }
-  #options label {
-    font-size: 18px; }
-  #options input[type=radio] {
+#layouts {
+  margin-top: 25px; }
+  #layouts label, #layouts span:first-child {
+    font-weight: bold;
+    font-size: 20px; }
+  #layouts .radio-inline {
+    margin: 0; }
+    #layouts .radio-inline * {
+      cursor: pointer; }
+  #layouts input[type=radio] {
     display: none; }
-    #options input[type=radio] + span {
+    #layouts input[type=radio] + span {
       display: inline-block;
       background-color: black;
       width: 16px;
       height: 16px;
       border-radius: 8px;
-      position: relative; }
-    #options input[type=radio]:checked + span:after {
+      position: relative;
+      left: 3px;
+      top: 2px; }
+    #layouts input[type=radio]:checked + span:after {
       content: " ";
       display: inline-block;
       background-color: red;
@@ -106,7 +113,10 @@
       top: 5px;
       left: 5px; }
 
-h1, h2 {
+body {
   font-family: "Source Code Pro", "Courier New", Courier, monospace; }
+
+h1, h2 {
+  font-weight: bold; }
 
 /*# sourceMappingURL=style.css.map */

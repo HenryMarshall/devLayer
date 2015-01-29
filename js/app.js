@@ -8,7 +8,7 @@ $(document).ready(function() {
     console.log("scores: ",scores);
   });
 
-  $('#options').change(event, function() {
+  $('#layouts').change(event, function() {
     pr.config.layout = $(this).find("input:checked").val();
     pr.initialize();
   });

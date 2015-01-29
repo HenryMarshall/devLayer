@@ -89,11 +89,11 @@ $key-margin: .5%
 
 .about
   text-align: right
+  font-family: "Raleway", Arial, Helvetica, sans-serif
 
 #corpus
-  margin-top: 20px
+  margin-top: 10px
   width: 100%
-  font-family: 'Source Code Pro', "Courier New", Courier, monospace
 
 #callToAction
   margin-top: 5px
@@ -111,12 +111,19 @@ $key-margin: .5%
     &#download
       color: red
 
-#options
-  // margin-top: 5px
-  height: 130px
+#layouts
+  margin-top: 25px
 
-  label
-    font-size: 18px
+
+  label, span:first-child
+    font-weight: bold
+    font-size: 20px
+
+  .radio-inline
+    margin: 0
+
+    *
+      cursor: pointer
 
   input[type=radio]
     display: none
@@ -128,6 +135,8 @@ $key-margin: .5%
       height: 16px
       border-radius: 8px
       position: relative
+      left: 3px
+      top: 2px
 
     &:checked + span:after
       content: " "
@@ -140,5 +149,8 @@ $key-margin: .5%
       top: 5px
       left: 5px
 
-h1, h2
+body
   font-family: 'Source Code Pro', "Courier New", Courier, monospace
+
+h1, h2
+  font-weight: bold

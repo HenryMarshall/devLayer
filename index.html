@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>DevLayer: A better way to program</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700|Raleway' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="style/style.css">
 
 </head>
@@ -22,8 +22,38 @@
       </div>
 
       <div class="col-xs-8">
-        {{outlet}}
-        {{!-- Text area should be in outlet --}}
+        <form id="layouts">
+          <span>Base Layouts:</span>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" name="layout" value="qwerty" checked>
+              <span></span>
+              QWERTY
+            </label>
+          </div>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" name="layout" value="colemak">
+              <span></span>
+              Colemak
+            </label>
+          </div>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" name="layout" value="dvorak">
+              <span></span>
+              Dvorak
+            </label>
+          </div>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" name="layout" value="workman">
+              <span></span>
+              Workman
+            </label>
+          </div>
+        </form>
+
         <textarea rows="15" id="corpus">
           {{partial "corpus"}}
         </textarea>
@@ -36,42 +66,11 @@
           </div>
 
           <div id="options">
-            <form id="options">
-              <div class="col-xs-4">
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="layout" value="qwerty" checked>
-                    <span></span>
-                    QWERTY
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="layout" value="colemak">
-                    <span></span>
-                    Colemak
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="layout" value="dvorak">
-                    <span></span>
-                    Dvorak
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="layout" value="workman">
-                    <span></span>
-                    Workman
-                  </label>
-                </div>
-              </div>
+
 
               <div class="col-xs-4">
 
               </div>
-            </form>
           </div>
         </section>
       </div>
@@ -191,7 +190,7 @@
   <script type="text/x-handlebars" data-template-name="_about">
     <h2>About</h2>
     <p>DevLayer is an alternative keyboard layout that puts frequently used programming keys closer to the homerow. Better yet, it is fully compatable with the layout you already know and use (be it QWERTY, <a href="http://www.colemak.com/">Colemak</a>, <a href="http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard">Dvorak</a>, or <a href="https://viralintrospection.wordpress.com/2010/09/06/a-different-philosophy-in-designing-keyboard-layouts/">Workman</a>). Instead, you enter programming keys with the right alt modifier.</p>
-    <p>DevLayer is designed to be easy to learn. Many characters are struck with the same finger you're used to, while others are intuitively clustered. Vim users will immediately feel at home with the convenient arrangement of arrow keys on the homerow.</p>
+    <p>Whether you want to learn all the improved placements or just a few, DevLayer is designed to be easy to learn. Many characters are struck with the same finger you're used to, while others are intuitively clustered. Vim users will immediately feel at home with the convenient arrangement of arrow keys on the homerow.</p>
     <p>With your current layout, you probably type <code>/?;:'"[]{}\|-_+=0)</code>, backspace, and enter, with a single finger. Test out DevLayer and find out just how much you can improve the multi-threaded performance of your hands!</p>
   </script>
 
