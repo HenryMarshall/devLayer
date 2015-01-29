@@ -11,7 +11,7 @@
 <body>
 
   <script type="text/x-handlebars" data-template-name="application">
-    <div class="container">
+    <div class="container-fluid">
       <div class="col-xs-12">
         <h1>DevLayer</h1>
         {{!-- {{#link-to "test" activeClass="selected"}}Test{{/link-to}} --}}
@@ -28,7 +28,7 @@
       <div class="col-xs-8">
         {{outlet}}
         {{!-- Text area should be in outlet --}}
-        <textarea rows="15" id="sample-code">
+        <textarea rows="15" id="corpus">
 var App = Ember.Application.create();
 
 $(document).ready(function() {
@@ -62,13 +62,13 @@ $(document).ready(function() {
 
         <section>
           <div id="callToAction" class="col-md-4">
-            <div class="key">Test it!</div>
-            <div class="key download">Download</div>
+            <div id="test-it" class="key">Test it!</div>
+            <div id="download" class="key">Download</div>
           </div>
 
           <div id="options" class="col-md-8">
             <div class="col-xs-4">
-              <form>
+              <form id="layout">
                 <div class="radio">
                   <label>
                     <input type="radio" name="layout" value="qwerty" checked>
