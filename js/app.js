@@ -22,8 +22,10 @@ var pr = {
     "excludeAlphaNum": false
   },
 
-  initialize: function() {
-    xm.getXmod(pr.config.layout + "DevLayer", function(data) {
+  initialize: function(config) {
+    // Lets you pass in an optional config for testing purposes.
+    config = config || pr.config
+    xm.getXmod(config.layout + "DevLayer", function(data) {
       var layout = xm.xmodToLayout(data, xm.config.toPresentation);
       pr.labelKeyboard(layout);
     });
