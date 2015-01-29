@@ -7,14 +7,23 @@ $(document).ready(function() {
     var scores = pr.testIt();
     console.log("scores: ",scores);
   });
+
+  $('#options').change(event, function() {
+    pr.config.layout = $(this).find("input:checked").val();
+    pr.initialize();
+  });
 });
 
 // Presentation namespace
 var pr = {
+  "config": {
+    "layout": "qwerty",
+    "excludeClosing": false,
+    "excludeAlphaNum": false
+  },
 
-  initialize: function(layoutName) {
-    layoutName = layoutName ? layoutName + "DevLayer" : "qwertyDevLayer";
-    xm.getXmod(layoutName, function(data) {
+  initialize: function() {
+    xm.getXmod(pr.config.layout + "DevLayer", function(data) {
       var layout = xm.xmodToLayout(data, xm.config.toPresentation);
       pr.labelKeyboard(layout);
     });
@@ -41,7 +50,7 @@ var pr = {
       }
     });
     // Append legends all at once for performance gain.
-    $(that).append(legends);
+    $(that).empty().append(legends);
   },
 
   // This lets you reference each layoutKey by its keycode.
@@ -69,9 +78,7 @@ var pr = {
 
   testIt: function() {
     var corpus = $("#corpus").val(),
-        vanilla = $("#layout").find("input[name='layout']").val(),
-        devLayer = vanilla + "DevLayer",
-        layouts = [vanilla, devLayer],
+        layouts = [pr.config.layout, pr.config.layout + "DevLayer"],
         scores = dl.scoresForXmods(corpus, layouts);
     return scores
   }
