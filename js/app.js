@@ -22,22 +22,26 @@ var pr = {
 
   labelKeyboard: function(layout) {
     var layoutObj = pr.layoutToLayoutObj(layout),
-        $keyboard = $("#keyboard");
-
-    $($keyboard).find(".key").each(function() {
+        $keyboard = $("#keyboard"),
+        $parent = $keyboard.parent();
+    // Detach and reattach keyboard to limit manipulating the DOM.
+    $keyboard.detach()
+    $keyboard.find(".key").each(function() {
       var keycode = $(this).attr("data-keycode");
       pr.labelKey(layoutObj, keycode, this);
     });
-    return $keyboard;
+    $parent.append($keyboard);
   },
 
   labelKey: function(layoutObj, keycode, that) {
+    var legends = "";
     _.each(layoutObj[keycode], function(character, modLevel) {
       if (pr.isCharacterPrinted(modLevel, character, layoutObj, keycode)) {
-        $("<span />").addClass(modLevel).html(character).appendTo(that);
+        legends += "<span class='" + modLevel + "'>" + character + "</span>"
       }
     });
-    return that;
+    // Append legends all at once for performance gain.
+    $(that).append(legends);
   },
 
   // This lets you reference each layoutKey by its keycode.
