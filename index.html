@@ -18,46 +18,16 @@
         {{partial "keyboard"}}
       </div>
       <div class="col-xs-4 about">
-        <h2>About</h2>
-        <p>DevLayer is an alternative keyboard layout that puts frequently used programming keys closer to the homerow. Better yet, it is fully compatable with the layout you already know and use (be it QWERTY, <a href="http://www.colemak.com/">Colemak</a>, <a href="http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard">Dvorak</a>, or <a href="https://viralintrospection.wordpress.com/2010/09/06/a-different-philosophy-in-designing-keyboard-layouts/">Workman</a>). Instead, you enter programming keys with the right alt modifier.</p>
-        <p>DevLayer is designed to be easy to learn. Many characters are struck with the same finger you're used to, while others are intuitively clustered. Vim users will immediately feel at home with the convenient arrangement of arrow keys on the homerow.</p>
-        <p>With your current layout, you probably type <code>/?;:'"[]{}\|-_+=0)</code>, backspace, and enter, with a single finger. Test out DevLayer and find out just how much you can improve the multi-threaded performance of your hands!</p>
+        {{partial "about"}}
       </div>
 
       <div class="col-xs-8">
         {{outlet}}
         {{!-- Text area should be in outlet --}}
         <textarea rows="15" id="corpus">
-var App = Ember.Application.create();
-
-$(document).ready(function() {
-  var $keyboard = $("#keyboard");
-  console.log("$keyboard: ",$keyboard);
-
-  xm.getXmod("/business/layouts/qwertyDevLayerAbridged.txt", function(data) {
-    var layout = xm.xmodToLayout(data, xm.config.toPresentation),
-        layoutObj = pr.layoutToLayoutObj(layout);
-    
-    $($keyboard).find(".key").each(function(row) {
-      var keycode = $(this).attr("data-keycode"),
-          that = this;
-
-      _.each(layoutObj[keycode], function(value, key) {
-        if ((key !== "altGrShift" || value !== layoutObj[keycode].altGr &&
-                                     value !== layoutObj[keycode].shift) &&
-            (key !== "noMod" || value !== layoutObj[keycode].shift &&
-                                value.toUpperCase() !== layoutObj[keycode].shift) &&
-            (key !== "altGr" || value !== layoutObj[keycode].noMod) &&
-            (value !== "NoSymbol")
-            ) {
-
-          $("<span />").addClass(key).html(value).appendTo(that);
-        }
-      });
-    })
-  });
-});
+          {{partial "corpus"}}
         </textarea>
+
 
         <section>
           <div id="callToAction" class="col-xs-4">
@@ -191,6 +161,38 @@ $(document).ready(function() {
         <div data-keycode="105" class="key x15"></div>
       </div>
     </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="_corpus">
+    var App = Ember.Application.create();
+
+    $(document).ready(function() {
+      var $keyboard = $("#keyboard");
+      console.log("$keyboard: ",$keyboard);
+
+      xm.getXmod("/business/layouts/qwertyDevLayerAbridged.txt", function(data) {
+        var layout = xm.xmodToLayout(data, xm.config.toPresentation),
+            layoutObj = pr.layoutToLayoutObj(layout);
+        
+        $($keyboard).find(".key").each(function(row) {
+          var keycode = $(this).attr("data-keycode"),
+              that = this;
+
+          _.each(layoutObj[keycode], function(value, key) {
+            if (true) {
+              $("<span />").addClass(key).html(value).appendTo(that);
+            }
+          });
+        })
+      });
+    });
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="_about">
+    <h2>About</h2>
+    <p>DevLayer is an alternative keyboard layout that puts frequently used programming keys closer to the homerow. Better yet, it is fully compatable with the layout you already know and use (be it QWERTY, <a href="http://www.colemak.com/">Colemak</a>, <a href="http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard">Dvorak</a>, or <a href="https://viralintrospection.wordpress.com/2010/09/06/a-different-philosophy-in-designing-keyboard-layouts/">Workman</a>). Instead, you enter programming keys with the right alt modifier.</p>
+    <p>DevLayer is designed to be easy to learn. Many characters are struck with the same finger you're used to, while others are intuitively clustered. Vim users will immediately feel at home with the convenient arrangement of arrow keys on the homerow.</p>
+    <p>With your current layout, you probably type <code>/?;:'"[]{}\|-_+=0)</code>, backspace, and enter, with a single finger. Test out DevLayer and find out just how much you can improve the multi-threaded performance of your hands!</p>
   </script>
 
   <script type="text/x-handlebars" data-template-name="test">
