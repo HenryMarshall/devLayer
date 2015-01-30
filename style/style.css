@@ -89,6 +89,17 @@ textarea {
   margin-top: 10px;
   height: 306px;
   background-color: gray; }
+  #results #distance {
+    font-size: 16px;
+    padding: 20px; }
+  #results .large {
+    font-size: 32px; }
+  #results .huge {
+    font-size: 64px; }
+  #results .inline-block {
+    display: inline-block; }
+  #results .sans {
+    font-family: "Raleway", Arial, Helvetica, sans-serif; }
 
 #layouts {
   margin-top: 25px; }
