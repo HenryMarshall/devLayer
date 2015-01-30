@@ -10,11 +10,10 @@
 </head>
 <body>
 
-  <script type="text/x-handlebars" data-template-name="application">
+  <script type="text/x-handlebars">
     <div class="container-fluid">
       <div class="col-xs-12">
         <h1>DevLayer</h1>
-        {{!-- {{#link-to "test" activeClass="selected"}}Test{{/link-to}} --}}
         {{partial "keyboard"}}
       </div>
       <div class="col-xs-4 about">
@@ -22,46 +21,17 @@
       </div>
 
       <div class="col-xs-8">
-        <form id="layouts">
-          <span>Base Layouts:</span>
-          <div class="radio-inline">
-            <label>
-              <input type="radio" name="layout" value="qwerty" checked>
-              <span></span>
-              QWERTY
-            </label>
-          </div>
-          <div class="radio-inline">
-            <label>
-              <input type="radio" name="layout" value="colemak">
-              <span></span>
-              Colemak
-            </label>
-          </div>
-          <div class="radio-inline">
-            <label>
-              <input type="radio" name="layout" value="dvorak">
-              <span></span>
-              Dvorak
-            </label>
-          </div>
-          <div class="radio-inline">
-            <label>
-              <input type="radio" name="layout" value="workman">
-              <span></span>
-              Workman
-            </label>
-          </div>
-        </form>
+        {{partial "layouts"}}
+        
+        {{outlet}}
 
-        <textarea rows="15" id="corpus">
-          {{partial "corpus"}}
-        </textarea>
 
 
         <section>
           <div id="callToAction" class="col-xs-4">
-            <div id="test-it" class="key">Test it!</div>
+            {{#link-to 'results'}}
+              <div id="test-it" class="key">Test it!</div>
+            {{/link-to}}
             <div id="download" class="key">Download</div>
           </div>
 
@@ -74,6 +44,40 @@
           </div>
         </section>
       </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="corpus">
+    <textarea id="corpus">
+      var App = Ember.Application.create();
+
+      $(document).ready(function() {
+        var $keyboard = $("#keyboard");
+        console.log("$keyboard: ",$keyboard);
+
+        xm.getXmod("/business/layouts/qwertyDevLayerAbridged.txt", function(data) {
+          var layout = xm.xmodToLayout(data, xm.config.toPresentation),
+              layoutObj = pr.layoutToLayoutObj(layout);
+          
+          $($keyboard).find(".key").each(function(row) {
+            var keycode = $(this).attr("data-keycode"),
+                that = this;
+
+            _.each(layoutObj[keycode], function(value, key) {
+              if (true) {
+                $("<span />").addClass(key).html(value).appendTo(that);
+              }
+            });
+          })
+        });
+      });
+    </textarea>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="results">
+    <div id="results">
+      {{#link-to 'corpus'}}Back to Editor{{/link-to}}
+      <h2>Results</h1>
     </div>
   </script>
 
@@ -162,29 +166,38 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="_corpus">
-    var App = Ember.Application.create();
-
-    $(document).ready(function() {
-      var $keyboard = $("#keyboard");
-      console.log("$keyboard: ",$keyboard);
-
-      xm.getXmod("/business/layouts/qwertyDevLayerAbridged.txt", function(data) {
-        var layout = xm.xmodToLayout(data, xm.config.toPresentation),
-            layoutObj = pr.layoutToLayoutObj(layout);
-        
-        $($keyboard).find(".key").each(function(row) {
-          var keycode = $(this).attr("data-keycode"),
-              that = this;
-
-          _.each(layoutObj[keycode], function(value, key) {
-            if (true) {
-              $("<span />").addClass(key).html(value).appendTo(that);
-            }
-          });
-        })
-      });
-    });
+  <script type="text/x-handlebars" data-template-name="_layouts">
+    <form id="layouts">
+      <span>Base Layouts:</span>
+      <div class="radio-inline">
+        <label>
+          <input type="radio" name="layout" value="qwerty" checked>
+          <span></span>
+          QWERTY
+        </label>
+      </div>
+      <div class="radio-inline">
+        <label>
+          <input type="radio" name="layout" value="colemak">
+          <span></span>
+          Colemak
+        </label>
+      </div>
+      <div class="radio-inline">
+        <label>
+          <input type="radio" name="layout" value="dvorak">
+          <span></span>
+          Dvorak
+        </label>
+      </div>
+      <div class="radio-inline">
+        <label>
+          <input type="radio" name="layout" value="workman">
+          <span></span>
+          Workman
+        </label>
+      </div>
+    </form>
   </script>
 
   <script type="text/x-handlebars" data-template-name="_about">
@@ -192,10 +205,6 @@
     <p>DevLayer is an alternative keyboard layout that puts frequently used programming keys closer to the homerow. Better yet, it is fully compatable with the layout you already know and use (be it QWERTY, <a href="http://www.colemak.com/">Colemak</a>, <a href="http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard">Dvorak</a>, or <a href="https://viralintrospection.wordpress.com/2010/09/06/a-different-philosophy-in-designing-keyboard-layouts/">Workman</a>). Instead, you enter programming keys with the right alt modifier.</p>
     <p>Whether you want to learn all the improved placements or just a few, DevLayer is designed to be easy to learn. Many characters are struck with the same finger you're used to, while others are intuitively clustered. Vim users will immediately feel at home with the convenient arrangement of arrow keys on the homerow.</p>
     <p>With your current layout, you probably type <code>/?;:'"[]{}\|-_+=0)</code>, backspace, and enter, with a single finger. Test out DevLayer and find out just how much you can improve the multi-threaded performance of your hands!</p>
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="test">
-    <h1>Test</h1>
   </script>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>

@@ -82,15 +82,23 @@
     #callToAction .key#download {
       color: red; }
 
+textarea {
+  height: 300px; }
+
+#results {
+  margin-top: 10px;
+  height: 306px;
+  background-color: gray; }
+
 #layouts {
   margin-top: 25px; }
-  #layouts label, #layouts span:first-child {
-    font-weight: bold;
-    font-size: 20px; }
   #layouts .radio-inline {
     margin: 0; }
     #layouts .radio-inline * {
       cursor: pointer; }
+  #layouts label, #layouts span:first-child {
+    font-weight: bold;
+    font-size: 20px; }
   #layouts input[type=radio] {
     display: none; }
     #layouts input[type=radio] + span {

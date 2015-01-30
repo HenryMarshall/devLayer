@@ -1,4 +1,4 @@
 App.Router.map(function() {
-  this.resource('application', { path: '/' });
-  this.resource('test');
+  this.resource('corpus', {path: '/'})
+  this.resource('results');
 });
