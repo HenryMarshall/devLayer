@@ -88,18 +88,27 @@ textarea {
 #results {
   margin-top: 10px;
   height: 306px;
-  background-color: gray; }
-  #results #distance {
-    font-size: 16px;
-    padding: 20px; }
+  background-color: gray;
+  position: relative; }
+  #results .sans {
+    font-family: "Raleway", Arial, Helvetica, sans-serif; }
+  #results .inline-block {
+    display: inline-block; }
   #results .large {
     font-size: 32px; }
   #results .huge {
     font-size: 64px; }
-  #results .inline-block {
-    display: inline-block; }
-  #results .sans {
-    font-family: "Raleway", Arial, Helvetica, sans-serif; }
+  #results #distance {
+    font-size: 16px;
+    width: 250px;
+    padding: 20px; }
+  #results #pinkieUse {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 360px; }
+    #results #pinkieUse .desc {
+      width: 250px; }
 
 #layouts {
   margin-top: 25px; }
