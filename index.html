@@ -75,9 +75,9 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="results">
-    <div id="results">
+    <div id="results" class="row">
 
-      <div id="distance">
+      <div id="distance" class="col-xs-5">
         <div>
           <div class="sans inline-block right-aligned">
             <div>When</div>
@@ -93,16 +93,27 @@
         <div class="large">DevLayer</div>
       </div>
 
-      <div id="pinkieUse">
-        <span class="large inline-block">31%</span>
-        <span class="desc inline-block">of the characters below are typed with your right pinkie</span>
-        <pre><code>for (var i = foo.length - 1; i >= 0; i--) {
+      <div class="col-xs-8">
+
+        <div id="pinkieUse">
+          <span class="large inline-block">31%</span>
+          <span class="desc inline-block">of the characters below are typed with your right pinkie</span>
+          <pre><code>for (var i = foo.length - 1; i >= 0; i--) {
   if (foo[i] === "foo") { 
     bar++;
   }
 }</code></pre>
+        </div>
+
+        <div id="graph">
+
+        </div>
+
+        {{#link-to 'corpus'}}<div class="key">Try again</div>{{/link-to}}
+        <div class="key">Full Data</div>
       </div>
-      {{#link-to 'corpus'}}Back to Editor{{/link-to}}
+
+
     
     </div>
   </script>
