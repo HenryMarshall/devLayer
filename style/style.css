@@ -85,6 +85,9 @@
 textarea {
   height: 300px; }
 
+#foo {
+  background-color: orange; }
+
 #results {
   margin-top: 10px;
   height: 306px;
@@ -95,13 +98,22 @@ textarea {
   #results .inline-block {
     display: inline-block; }
   #results .large {
-    font-size: 32px; }
-  #results .huge {
-    font-size: 64px; }
+    font-size: 34px; }
+  #results .emphasis {
+    font-weight: bold; }
+  #results .percentage {
+    font-size: 72px;
+    line-height: 0.8em;
+    text-align: center; }
+  #results .farther {
+    font-size: 45px; }
+  #results .devLayer, #results .vanilla {
+    line-height: 0.9em;
+    text-align: justify; }
   #results #distance {
     font-size: 16px;
-    width: 250px;
-    padding: 20px; }
+    padding: 20px;
+    background-color: green; }
   #results #graph {
     height: 240px;
     width: 100%;

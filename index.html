@@ -75,46 +75,38 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="results">
-    <div id="results" class="row">
+    <div id="results" class="col-xs-12">
 
-      <div id="distance" class="col-xs-5">
-        <div>
-          <div class="sans inline-block right-aligned">
-            <div>When</div>
-            <div>using</div>
-          </div>
-          <div class="inline-block large">QWERTY</div>
+        <div id="distance" class="col-xs-4">
+          
+          <div class="sans inline-block right-aligned">Typing that snippet using</div>
+          <div class="vanilla emphasis large">QWERTY</div>
+          <div class="sans">your fingers travel</div>
+          <div class="percentage emphasis ">17%</div>
+          <div class="farther emphasis large">FARTHER</div>
+          {{!-- <div class="than large inline-block">than</div> --}}
+          <div class="if-using inline-block sans">than if using</div>
+          <div class="devLayer emphasis large">DevLayer</div>
         </div>
-        <div class="sans">your fingers travel</div>
-        <div class="centered huge">17%</div>
-        <div class="justified large">FARTHER</div>
-        <div class="inline-block">than</div>
-        <div class="inline-block sans">if you were using</div>
-        <div class="large">DevLayer</div>
-      </div>
 
-      <div class="col-xs-8">
-
-        <div id="pinkieUse">
-          <span class="large inline-block">31%</span>
-          <span class="desc inline-block">of the characters below are typed with your right pinkie</span>
-          <pre><code>for (var i = foo.length - 1; i >= 0; i--) {
+        <div id="foo" class="col-xs-8">
+          <div id="pinkieUse">
+            <span class="large inline-block">31%</span>
+            <span class="desc inline-block">of the characters below are typed with your right pinkie</span>
+            <pre><code>for (var i = foo.length - 1; i >= 0; i--) {
   if (foo[i] === "foo") { 
     bar++;
   }
 }</code></pre>
+          </div>
+
+          <div id="graph">
+
+          </div>
+
+          {{#link-to 'corpus'}}<div class="key">Try again</div>{{/link-to}}
+          <div class="key">Full Data</div>
         </div>
-
-        <div id="graph">
-
-        </div>
-
-        {{#link-to 'corpus'}}<div class="key">Try again</div>{{/link-to}}
-        <div class="key">Full Data</div>
-      </div>
-
-
-    
     </div>
   </script>
 
@@ -204,7 +196,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="_layouts">
-    <form id="layouts">
+    <form id="layouts" class="col-xs-12">
       <span>Base Layouts:</span>
       <div class="radio-inline">
         <label>
