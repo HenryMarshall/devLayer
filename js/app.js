@@ -5,7 +5,10 @@ $(document).ready(function() {
 
   $('#test-it').click(function() {
     var scores = pr.testIt();
-    console.log("scores: ",scores);
+    var farther = pr.calcFarther(scores);
+    
+    console.log("farther: ",farther);
+    // console.log("scores: ",scores);
   });
 
   $('#layouts').change(event, function() {
@@ -51,7 +54,7 @@ var pr = {
         legends += "<span class='" + modLevel + "'>" + character + "</span>"
       }
     });
-    // Append legends all at once for performance gain.
+    // Append all legends for a key at once for performance gain.
     $(that).empty().append(legends);
   },
 
@@ -83,5 +86,15 @@ var pr = {
         layouts = [pr.config.layout, pr.config.layout + "DevLayer"],
         scores = dl.scoresForXmods(corpus, layouts);
     return scores
+  },
+
+  calcFarther: function(scores) {
+    var farther = {};
+    _.each(scores, function(score, layout) {
+      farther[layout] = _.reduce(score.fingers, function(memo, finger) {
+                          return memo + finger.distance
+                        }, 0)
+    });
+    return farther;
   }
 }
