@@ -5,9 +5,9 @@ $(document).ready(function() {
 
   $('#test-it').click(function() {
     var scores = pr.testIt();
-    var farther = pr.calcFarther(scores);
-    
-    console.log("farther: ",farther);
+    var percentFarther = pr.calcFarther(scores, pr.config);
+
+    console.log("farther: ",percentFarther);
     // console.log("scores: ",scores);
   });
 
@@ -88,13 +88,16 @@ var pr = {
     return scores
   },
 
-  calcFarther: function(scores) {
+  calcFarther: function(scores, config) {
     var farther = {};
     _.each(scores, function(score, layout) {
       farther[layout] = _.reduce(score.fingers, function(memo, finger) {
-                          return memo + finger.distance
+                          return memo + finger.distance;
                         }, 0)
     });
-    return farther;
+    var devLayerFullName = config.layout + "DevLayer";
+    var percentFarther = (farther[config.layout] - farther[devLayerFullName])
+                         / farther[devLayerFullName] * 100;
+    return percentFarther;
   }
 }
