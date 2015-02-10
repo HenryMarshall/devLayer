@@ -25,7 +25,6 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
         scale = this.findScale(maxNum, this.incrementCount);
 
     this.labelY(scale, this.incrementCount);
-
     this.drawBars(this.results, pr.config.layout, 'consecutive', this.incrementCount * scale);
   },
 
@@ -94,10 +93,9 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
                   "leftThumb", "rightThumb", "rightIndex", "rightMiddle", 
                   "rightRing", "rightPinkie"],
         usableWidth = this.width - 90,
+        heightOfBar = 7,
         pixelsPerUnit = usableWidth / maxScale
         c = this.get('c');
-
-    console.log("maxScale: ",maxScale);
 
     _.each(fingers, function(finger, ii) {
       _.each(layouts, function(layout, jj) {
@@ -105,9 +103,9 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
         c.fillStyle = layouts[0] === layout ? 'black' : 'red'
         c.fillRect(
           61,
-          (ii * 20) + (jj * 7)+ 12,
+          (ii * 20) + (jj * heightOfBar)+ 12,
           results[layout].fingers[finger][criteria] * pixelsPerUnit,
-          7
+          heightOfBar
         );
       });
     });
