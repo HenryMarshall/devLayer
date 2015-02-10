@@ -10,6 +10,7 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
   tagName: 'canvas',
   width: 480,
   height: 240,
+  incrementCount: 5,
   results: {"qwerty":{"fingers":{"leftPinkie":{"strokes":96,"distance":120.57315562029788,"consecutive":4},"leftRing":{"strokes":19,"distance":17.539513490616397,"consecutive":2},"leftMiddle":{"strokes":73,"distance":109.96736998346465,"consecutive":7},"leftIndex":{"strokes":96,"distance":226.92552481855807,"consecutive":7},"leftThumb":{"strokes":4,"distance":0,"consecutive":3},"rightPinkie":{"strokes":99,"distance":261.8117054949552,"consecutive":45},"rightRing":{"strokes":95,"distance":214.9700453635905,"consecutive":10},"rightMiddle":{"strokes":33,"distance":46.7502831993219,"consecutive":1},"rightIndex":{"strokes":75,"distance":177.07273855336229,"consecutive":5},"rightThumb":{"strokes":0,"distance":0,"consecutive":0}},"rows":[64,207,146,169,4]},"qwertyDevLayer":{"fingers":{"leftPinkie":{"strokes":64,"distance":44.546844385304794,"consecutive":3},"leftRing":{"strokes":29,"distance":17.539513490616397,"consecutive":3},"leftMiddle":{"strokes":120,"distance":109.99298890111451,"consecutive":19},"leftIndex":{"strokes":99,"distance":211.25474179858338,"consecutive":7},"leftThumb":{"strokes":4,"distance":0,"consecutive":3},"rightPinkie":{"strokes":69,"distance":160.20578309933003,"consecutive":23},"rightRing":{"strokes":77,"distance":128.8959945457759,"consecutive":6},"rightMiddle":{"strokes":32,"distance":44.51421522182211,"consecutive":1},"rightIndex":{"strokes":75,"distance":177.07273855336229,"consecutive":5},"rightThumb":{"strokes":56,"distance":0,"consecutive":0}},"rows":[0,211,206,148,60]}},
   attributeBindings: ['width', 'height'],
 
@@ -20,10 +21,12 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     this.drawAxis();
     this.labelX();
 
-    var criteriaValues = this.maxForCriteria(this.results, 'consecutive');
-    this.labelY(criteriaValues);
+    var maxNum = this.maxForCriteria(this.results, 'consecutive'),
+        scale = this.findScale(maxNum, this.incrementCount);
 
-    this.drawBars(this.results, pr.config.layout, 'consecutive');
+    this.labelY(scale, this.incrementCount);
+
+    this.drawBars(this.results, pr.config.layout, 'consecutive', this.incrementCount * scale);
   },
 
   empty: function() {
@@ -54,18 +57,22 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     });
   },
 
-  labelY: function(num) {
-    // Determine round increment number for scale
-    var increments = 5,
-        scale = Math.pow(10, num.toString().length - 2),
-        increment = Math.ceil(num / increments / scale) * scale,
-        
-        usableWidth = this.width - 90,
-        widthPerIncrement = usableWidth / increments,
+  // Find a scale for the x-axis with round numbers
+  findScale: function(num, incrementCount) {
+    var magnitude = Math.pow(10, Math.floor(num).toString().length - 2),
+        scale = Math.ceil(num / incrementCount / magnitude) * magnitude;
+
+    return scale;
+  },
+
+  labelY: function(scale, incrementCount) {
+    // margin-left: 60; margin-right: 30
+    var usableWidth = this.width - 90,
+        widthPerIncrement = usableWidth / incrementCount,
         c = this.get('c');
 
-    for (var ii = 0; ii < increments + 1; ii++) {
-      c.fillText(increment * ii, 65 + ii*widthPerIncrement, this.height - 10);
+    for (var ii = 0; ii < incrementCount + 1; ii++) {
+      c.fillText(scale * ii, 65 + ii*widthPerIncrement, this.height - 10);
     };
   },
 
@@ -79,12 +86,18 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     return _.max(criteriaValues)
   },
 
-  drawBars: function(results, layout, criteria) {
+  drawBars: function(results, layout, criteria, maxScale) {
+    // Done here with arrays instead of iterating through object to ensure
+    // bars are in the proper order.
     var layouts = [layout, layout+"DevLayer"],
         fingers = ["leftPinkie", "leftRing", "leftMiddle", "leftIndex",
                   "leftThumb", "rightThumb", "rightIndex", "rightMiddle", 
                   "rightRing", "rightPinkie"],
+        usableWidth = this.width - 90,
+        pixelsPerUnit = usableWidth / maxScale
         c = this.get('c');
+
+    console.log("maxScale: ",maxScale);
 
     _.each(fingers, function(finger, ii) {
       _.each(layouts, function(layout, jj) {
@@ -92,9 +105,9 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
         c.fillStyle = layouts[0] === layout ? 'black' : 'red'
         c.fillRect(
           61,
-          (ii * 20) + (jj * 10)+ 15,
-          results[layout].fingers[finger][criteria],
-          5
+          (ii * 20) + (jj * 7)+ 12,
+          results[layout].fingers[finger][criteria] * pixelsPerUnit,
+          7
         );
       });
     });
