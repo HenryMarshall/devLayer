@@ -18,6 +18,7 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     this.set('c', this.get('element').getContext('2d'));
     this.empty();
     this.drawAxis();
+    this.labelX();
 
   },
 
@@ -36,7 +37,19 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     c.lineTo(60, this.height - 30);
     c.lineTo(this.width - 30, this.height - 30);
     c.stroke();
-  }
+  },
+
+  labelX: function() {
+    var c = this.get('c');
+    var fingers = ["L. Pinkie", "L. Ring", "L. Middle", "L. Index", "L. Thumb",
+                  "R. Thumb", "R. Index", "R. Middle", "R. Ring", "R. Pinkie"];
+
+    c.textAlign = "end"
+    _.each(fingers, function(finger, idx) {
+      c.fillText(finger, 55, idx * 20 + 22);
+    });
+  },
+
 });
 
 $(document).ready(function() {
