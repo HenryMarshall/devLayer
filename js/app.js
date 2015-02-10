@@ -20,6 +20,7 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     this.drawAxis();
     this.labelX();
 
+    var max = this.maxOfCriteriaForFingers(this.results, 'consecutive');
   },
 
   empty: function() {
@@ -50,6 +51,15 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     });
   },
 
+  maxOfCriteriaForFingers: function(results, criteria) {
+    criteriaValues = [];
+    _.each(results, function(layout) {
+      _.each(layout.fingers, function(value, key) {
+        criteriaValues.push(value[criteria]);
+      })
+    });
+    return _.max(criteriaValues)
+  }
 });
 
 $(document).ready(function() {
