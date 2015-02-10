@@ -17,12 +17,25 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     // Must set c here instead of in init in case elem not yet in DOM in init.
     this.set('c', this.get('element').getContext('2d'));
     this.empty();
+    this.drawAxis();
+
   },
 
   empty: function() {
     var c = this.get('c');
     c.fillStyle = 'white'
     c.fillRect(0,0, this.get('width'), this.get('height'));
+  },
+
+  drawAxis: function() {
+    var c = this.get('c');
+    c.fillStyle = "black";
+    c.lineWidth = 2.0;
+    c.beginPath();
+    c.moveTo(60, 10);
+    c.lineTo(60, this.height - 30);
+    c.lineTo(this.width - 30, this.height - 30);
+    c.stroke();
   }
 });
 
