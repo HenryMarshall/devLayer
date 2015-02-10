@@ -20,8 +20,10 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     this.drawAxis();
     this.labelX();
 
-    var max = this.maxOfCriteriaForFingers(this.results, 'consecutive');
-    this.labelY(max);
+    var criteriaValues = this.maxForCriteria(this.results, 'consecutive');
+    this.labelY(criteriaValues);
+
+    this.drawBars(this.results, pr.config.layout, 'consecutive');
   },
 
   empty: function() {
@@ -67,7 +69,7 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     };
   },
 
-  maxOfCriteriaForFingers: function(results, criteria) {
+  maxForCriteria: function(results, criteria) {
     criteriaValues = [];
     _.each(results, function(layout) {
       _.each(layout.fingers, function(value, key) {
@@ -75,6 +77,27 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
       })
     });
     return _.max(criteriaValues)
+  },
+
+  drawBars: function(results, layout, criteria) {
+    var layouts = [layout, layout+"DevLayer"],
+        fingers = ["leftPinkie", "leftRing", "leftMiddle", "leftIndex",
+                  "leftThumb", "rightThumb", "rightIndex", "rightMiddle", 
+                  "rightRing", "rightPinkie"],
+        c = this.get('c');
+
+    _.each(fingers, function(finger, ii) {
+      _.each(layouts, function(layout, jj) {
+        // Vanilla columns are black, DevLayer's are red
+        c.fillStyle = layouts[0] === layout ? 'black' : 'red'
+        c.fillRect(
+          61,
+          (ii * 20) + (jj * 10)+ 15,
+          results[layout].fingers[finger][criteria],
+          5
+        );
+      });
+    });
   }
 });
 
