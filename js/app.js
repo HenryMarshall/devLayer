@@ -21,6 +21,7 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     this.labelX();
 
     var max = this.maxOfCriteriaForFingers(this.results, 'consecutive');
+    this.labelY(max);
   },
 
   empty: function() {
@@ -49,6 +50,21 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     _.each(fingers, function(finger, idx) {
       c.fillText(finger, 55, idx * 20 + 22);
     });
+  },
+
+  labelY: function(num) {
+    // Determine round increment number for scale
+    var increments = 5,
+        scale = Math.pow(10, num.toString().length - 2),
+        increment = Math.ceil(num / increments / scale) * scale,
+        
+        usableWidth = this.width - 90,
+        widthPerIncrement = usableWidth / increments,
+        c = this.get('c');
+
+    for (var ii = 0; ii < increments + 1; ii++) {
+      c.fillText(increment * ii, 65 + ii*widthPerIncrement, this.height - 10);
+    };
   },
 
   maxOfCriteriaForFingers: function(results, criteria) {
