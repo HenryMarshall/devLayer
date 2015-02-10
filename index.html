@@ -49,28 +49,7 @@
 
   <script type="text/x-handlebars" data-template-name="corpus">
     <textarea id="corpus">
-      var App = Ember.Application.create();
-
-      $(document).ready(function() {
-        var $keyboard = $("#keyboard");
-        console.log("$keyboard: ",$keyboard);
-
-        xm.getXmod("/business/layouts/qwertyDevLayerAbridged.txt", function(data) {
-          var layout = xm.xmodToLayout(data, xm.config.toPresentation),
-              layoutObj = pr.layoutToLayoutObj(layout);
-          
-          $($keyboard).find(".key").each(function(row) {
-            var keycode = $(this).attr("data-keycode"),
-                that = this;
-
-            _.each(layoutObj[keycode], function(value, key) {
-              if (true) {
-                $("<span />").addClass(key).html(value).appendTo(that);
-              }
-            });
-          })
-        });
-      });
+varApp=Ember.Application.create();$(document).ready(function(){var$keyboard=$("#keyboard");console.log("$keyboard:",$keyboard);xm.getXmod("/business/layouts/qwertyDevLayerAbridged.txt",function(data){varlayout=xm.xmodToLayout(data,xm.config.toPresentation),layoutObj=pr.layoutToLayoutObj(layout);$($keyboard).find(".key").each(function(row){varkeycode=$(this).attr("data-keycode"),that=this;_.each(layoutObj[keycode],function(value,key){if(true){$("<span/>").addClass(key).html(value).appendTo(that);}});})});});
     </textarea>
   </script>
 
@@ -89,7 +68,7 @@
           <div class="devLayer emphasis large">DevLayer</div>
         </div>
 
-        <div id="foo" class="col-xs-8">
+        <div class="col-xs-8">
           <div id="pinkieUse">
             <span class="large inline-block">31%</span>
             <span class="desc inline-block">of the characters below are typed with your right pinkie</span>
@@ -100,14 +79,16 @@
 }</code></pre>
           </div>
 
-          <div id="graph">
-
-          </div>
+          {{canvas-consecutive data="results"}}
 
           {{#link-to 'corpus'}}<div class="key">Try again</div>{{/link-to}}
           <div class="key">Full Data</div>
         </div>
     </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="components/canvas-consecutive">
+    Your browser seems not to support canvas :(
   </script>
 
   <script type="text/x-handlebars" data-template-name="_keyboard">

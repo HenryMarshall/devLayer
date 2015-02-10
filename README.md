@@ -62,6 +62,7 @@ A note on various language used throughout the program.
 
 **TODO**
 
+* Handle consecutive spaces.
 * Include a map of DevLayer on the github page.
 * Tests for scoresForXmods and processCorpus.
 * Restore async nature of layout ajax calls.
