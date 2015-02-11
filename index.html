@@ -69,25 +69,15 @@ varApp=Ember.Application.create();$(document).ready(function(){var$keyboard=$("#
         </div>
 
         <div class="col-xs-8">
-          <div id="pinkieUse">
-            <span class="large inline-block">31%</span>
-            <span class="desc inline-block">of the characters below are typed with your right pinkie</span>
-            <pre><code>for (var i = foo.length - 1; i >= 0; i--) {
-  if (foo[i] === "foo") { 
-    bar++;
-  }
-}</code></pre>
-          </div>
 
-          {{canvas-consecutive data="results"}}
+          {{canvas-graph}}
 
           {{#link-to 'corpus'}}<div class="key">Try again</div>{{/link-to}}
-          <div class="key">Full Data</div>
         </div>
     </div>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="components/canvas-consecutive">
+  <script type="text/x-handlebars" data-template-name="components/canvas-graph">
     Your browser seems not to support canvas :(
   </script>
 

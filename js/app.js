@@ -1,16 +1,11 @@
 var App = Ember.Application.create();
 
-App.ApplicationController = Ember.ObjectController.extend({
-  init: function() {
-    this.set('results', {});
-  }
-});
-
-App.CanvasConsecutiveComponent = Ember.Component.extend({
+App.CanvasGraphComponent = Ember.Component.extend({
   tagName: 'canvas',
   width: 480,
   height: 240,
   incrementCount: 5,
+  criteria: 'distance',
   results: {"qwerty":{"fingers":{"leftPinkie":{"strokes":96,"distance":120.57315562029788,"consecutive":4},"leftRing":{"strokes":19,"distance":17.539513490616397,"consecutive":2},"leftMiddle":{"strokes":73,"distance":109.96736998346465,"consecutive":7},"leftIndex":{"strokes":96,"distance":226.92552481855807,"consecutive":7},"leftThumb":{"strokes":4,"distance":0,"consecutive":3},"rightPinkie":{"strokes":99,"distance":261.8117054949552,"consecutive":45},"rightRing":{"strokes":95,"distance":214.9700453635905,"consecutive":10},"rightMiddle":{"strokes":33,"distance":46.7502831993219,"consecutive":1},"rightIndex":{"strokes":75,"distance":177.07273855336229,"consecutive":5},"rightThumb":{"strokes":0,"distance":0,"consecutive":0}},"rows":[64,207,146,169,4]},"qwertyDevLayer":{"fingers":{"leftPinkie":{"strokes":64,"distance":44.546844385304794,"consecutive":3},"leftRing":{"strokes":29,"distance":17.539513490616397,"consecutive":3},"leftMiddle":{"strokes":120,"distance":109.99298890111451,"consecutive":19},"leftIndex":{"strokes":99,"distance":211.25474179858338,"consecutive":7},"leftThumb":{"strokes":4,"distance":0,"consecutive":3},"rightPinkie":{"strokes":69,"distance":160.20578309933003,"consecutive":23},"rightRing":{"strokes":77,"distance":128.8959945457759,"consecutive":6},"rightMiddle":{"strokes":32,"distance":44.51421522182211,"consecutive":1},"rightIndex":{"strokes":75,"distance":177.07273855336229,"consecutive":5},"rightThumb":{"strokes":56,"distance":0,"consecutive":0}},"rows":[0,211,206,148,60]}},
   attributeBindings: ['width', 'height'],
 
@@ -21,11 +16,11 @@ App.CanvasConsecutiveComponent = Ember.Component.extend({
     this.drawAxis();
     this.labelX();
 
-    var maxNum = this.maxForCriteria(this.results, 'consecutive'),
+    var maxNum = this.maxForCriteria(this.results, this.criteria),
         scale = this.findScale(maxNum, this.incrementCount);
 
     this.labelY(scale, this.incrementCount);
-    this.drawBars(this.results, pr.config.layout, 'consecutive', this.incrementCount * scale);
+    this.drawBars(this.results, pr.config.layout, this.criteria, this.incrementCount * scale);
   },
 
   empty: function() {
